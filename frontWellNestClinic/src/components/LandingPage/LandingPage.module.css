@@ -1,0 +1,75 @@
+.container {
+  background: url("https://gacetamedica.com/wp-content/uploads/2021/10/GettyImages-1201500582.jpg");
+  background-size: cover;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  text-align: center;
+}
+
+.containerSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border-radius: 20px;
+  width: 65%;
+  margin: 0 auto;
+  color: darkblue;
+  background: rgba(255, 255, 255, 0.895);
+  padding: 20px;
+}
+
+.heading {
+  font-size: 30px;
+}
+
+.description {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+.buttoncontainer {
+  
+  margin-top: 20px;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #02098c;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.button:hover {
+  background-color: #f2f7f6;
+  color: #02098c;
+  transition: background-color 0.3s;
+}
+
+.checkInputs{
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+#CheckInptTex{
+  height: 40px;
+  width: 150px;
+}
+#CheckInptTexBtn{
+  height: 40px;
+  width: 150px;
+}

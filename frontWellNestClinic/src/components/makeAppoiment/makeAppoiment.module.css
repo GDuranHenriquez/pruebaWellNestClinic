@@ -1,0 +1,73 @@
+.containerConfirmShit {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  min-width: 100%;
+  height: 800px;
+  background-color: #02098c;
+}
+
+
+
+
+.containerSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  width: 80%;
+  height: 500px;
+  background-color: white;
+}
+
+.containerTitle {
+  display: flex;
+  justify-content: flex-start;
+  width: 90%;
+}
+
+.containerData {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  width: 70%;
+  height: 380px;
+  background-color: lightgrey;
+}
+
+.containerData select {
+  width: 250px;
+  height: 40px;
+}
+
+.containerSelectButtons{
+  display: flex;
+  justify-content: space-around;
+  width: 230px;
+}
+
+.buttonFirstBack {
+  cursor: not-allowed;
+  width: 80px;
+  height: 30px;
+  background-color: lightgray;
+}
+
+.buttonBackNext {
+  width: 80px;
+  height: 30px;
+}
+
+.containerFooter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  width: 80%;
+  height: 100px;
+  background-color: white;
+}

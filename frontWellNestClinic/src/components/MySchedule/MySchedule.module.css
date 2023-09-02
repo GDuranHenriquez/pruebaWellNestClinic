@@ -1,0 +1,111 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.containerSection {
+  border-radius: 20px;
+  width: 80%;
+  margin: 0 auto;
+  color: darkblue;
+  background: rgba(255, 255, 255, 0.895);
+  padding: 20px;
+}
+
+.header {
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.scheduleList {
+  list-style: none;
+  padding: 0;
+}
+
+.appointment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eee;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.date {
+  font-size: 20px;
+  margin-right: 20px;
+  padding: 15px;
+}
+
+.doctor {
+  font-size: 18px;
+  color: #555;
+  margin-left: 20px;
+  padding: 15px;
+}
+
+.specialty {
+  font-size: 18px;
+  color: #555;
+  margin-left: 20px;
+  padding: 15px;
+}
+
+.cancel-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: 10px;
+}
+
+.cancel-button:hover {
+  background-color: #d32f2f;
+}
+
+.noAppointments {
+  font-size: 18px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.newScheduleButton {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  padding: 10px 20px;
+  background-color: #02098c;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius: 5px;
+  height: 40px;
+  width: 100px;
+}
+
+.newScheduleButton:hover {
+  background-color: #f2f7f6;
+  color: #02098c;
+  transition: background-color 0.3s;
+}
+
+.buttons{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0 10px 0;
+  gap: 20px;
+}
+

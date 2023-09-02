@@ -1,10 +1,11 @@
 import axios from 'axios';
 
-export const SET_USER = 'SET_USER';
-export const UPDATE_PROFILE_PICTURE = 'UPDATE_PROFILE_PICTURE';
-export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';
-export const PAY_MEMBERSHIP = 'PAY_MEMBERSHIP';
-export const CANCEL_MEMBERSHIP = 'CANCEL_MEMBERSHIP';
+import { SET_USER,
+  UPDATE_PROFILE_PICTURE,
+  UPDATE_PASSWORD,
+  PAY_MEMBERSHIP,
+  CANCEL_MEMBERSHIP } from './type.js';
+
 
 export const setUser = (user) => ({
   type: SET_USER,

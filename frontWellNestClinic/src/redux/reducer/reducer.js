@@ -1,4 +1,4 @@
-import { SET_USER, UPDATE_PROFILE_PICTURE, UPDATE_PASSWORD, PAY_MEMBERSHIP, CANCEL_MEMBERSHIP } from './actions'; 
+import { SET_USER, UPDATE_PROFILE_PICTURE, UPDATE_PASSWORD, PAY_MEMBERSHIP, CANCEL_MEMBERSHIP } from '../action/type'; 
 
 const initialState = {
   user: null,
