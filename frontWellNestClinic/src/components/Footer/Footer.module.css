@@ -1,0 +1,35 @@
+.footer{
+    width: 100%;
+    height: 120px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-around;
+    vertical-align: top;
+    background-color: white;
+    border-top: solid 1px yellow;
+    }
+
+    .texto{
+        color: blue;
+        cursor: pointer;
+    }
+
+    .iconWhatsapp{
+        color: rgb(25, 164, 25);
+        cursor: pointer;
+    }
+
+    .iconInstagram{
+        color: red;
+        cursor: pointer;
+    }
+
+    .iconTelegram{
+        color: rgb(71, 238, 247);
+        cursor: pointer;
+    }

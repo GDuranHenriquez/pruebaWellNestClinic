@@ -1,0 +1,44 @@
+.logo{
+    height: 80px;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;        
+}
+
+.menu{
+  height: 6%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border-bottom: solid 2px yellow;
+  color: blue; 
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  vertical-align: top;
+  align-items: center;
+}
+
+
+.menuItem{
+    background-color: white;
+}
+
+.iconLogout{
+    color:darkblue;
+    cursor: pointer;
+}
+
+.iconLogout:hover{
+color: red;
+}
+
+.iconUserDown{
+    color: darkblue;
+    cursor: pointer;
+}
