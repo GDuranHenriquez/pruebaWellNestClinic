@@ -1,0 +1,41 @@
+.containerPerfil{
+  width: 100%;
+  padding-top: calc(100vh * (1 - 0.85));
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.dataPerfil{
+  width: 45%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.accionsUsers{
+  width: 45%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgba(0, 0, 0, 0.8); 
+}
+
+#nombrePerfil{
+  margin: 0 0 10px 0;
+  font-size: 20px;
+
+}
+
+#imgProfile{
+  min-width: 120px;
+  min-height: 120px;
+  max-width: 120px;
+  max-height: 120px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+}
+p{
+  font-size: 12px;
+  margin-bottom: 5px;
+}

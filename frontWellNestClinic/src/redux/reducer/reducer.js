@@ -1,6 +1,6 @@
 import { SET_USER, UPDATE_PROFILE_PICTURE, UPDATE_PASSWORD, 
   PAY_MEMBERSHIP, CANCEL_MEMBERSHIP, GENERIC_ERROR,
-  LOGIN_USERMEMBER,  VERIFY_USERNAME,  VERIFY_ISMEMBER, RESET_GENERIC_ERROR } from '../action/type'; 
+  LOGIN_USERMEMBER,  VERIFY_USERNAME,  VERIFY_ISMEMBER, RESET_GENERIC_ERROR, RESET_IS_MEMBER,GET_USER_ID } from '../action/type'; 
 
 const initialState = {
   //useClient
@@ -21,19 +21,22 @@ const userReducer = (state = initialState, action) => {
     //userClient
     case VERIFY_ISMEMBER:
       return {...state, verifyIsMember: action.payload }
-
+    case GET_USER_ID:
+      return { ...state, user: action.payload }
     //errors
     case RESET_GENERIC_ERROR:
       return {...state, genericError: action.payload }
     
     case GENERIC_ERROR:
       return {...state, genericError: action.payload  }
+    case RESET_IS_MEMBER:
+      return { ...state, verifyIsMember : null }
 
-    case SET_USER:
+    /* case SET_USER:
       return {
         ...state,
         user: action.payload,
-      };
+      }; */
     case UPDATE_PROFILE_PICTURE:
       return {
         ...state,

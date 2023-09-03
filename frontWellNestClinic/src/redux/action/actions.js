@@ -2,26 +2,9 @@ import axios from 'axios';
 
 import { SET_USER,  UPDATE_PROFILE_PICTURE,  UPDATE_PASSWORD,
   PAY_MEMBERSHIP,  CANCEL_MEMBERSHIP, LOGIN_USERMEMBER,  VERIFY_USERNAME,
-  VERIFY_ISMEMBER, GENERIC_ERROR, RESET_GENERIC_ERROR } from './type.js';
+  VERIFY_ISMEMBER, GENERIC_ERROR, RESET_GENERIC_ERROR, RESET_IS_MEMBER,
+  GET_USER_ID } from './type.js';
 
-  
-export const LoginUserMenber = (data) => {  
-    const enpoint = import.meta.env.VITE_BASENDPOINT_BACK + '/userClient/validateUser/';
-    return (dispatch) => {
-      axios.get(enpoint, data).then(({data}) => {
-        return dispatch({
-          type: LOGIN_USERMEMBER,
-          payload: data
-        })
-      }).catch((error) => {
-        var err = error.response;
-        return dispatch({
-          type: GENERIC_ERROR,
-          payload: err.data.error
-        });
-      });
-    };
-};
 
 export const verifyUsername = (userName) => {
   const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/validateUser/?userName=${userName}`
@@ -69,7 +52,66 @@ export const resetGenericError = () => {
   }
 }
 
+export const loginUser = (email, password, dni) => {
+  return async function (dispatch) {
+    const datos = {
+      password: password,
+      userName: email,
+      dni: dni,
+    };
+    const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/login` ;
+    try {
+      const response = await axios.post(endpoint, datos);
+      const apiResponse = response.data;
 
+      dispatch({ type: LOGIN_USERMEMBER, payload: apiResponse });
+
+      return response;
+    } catch (error) {
+      return error.response;
+    }
+  };
+};
+
+export const signUp = async (email, password, id) => {
+  const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/register`;
+  try {
+    const body = {
+      email: email,
+      password: password,
+      id: id,
+    };
+    const response = await axios.post(endpoint, body);
+    return response;
+
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const resetIsMember = () => ({
+  type: RESET_IS_MEMBER,
+  payload: null
+});
+
+export const getUser = (id) => {
+  const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/?id=${id}`;
+  return (dispatch) => {
+    axios.get(endPoint).then(({data}) => {
+      return dispatch({
+        type: GET_USER_ID,
+        payload: data
+      })
+    }).catch((error) => {
+      var err = error.response;
+      return dispatch({
+        type: GENERIC_ERROR,
+        payload: err.data.error
+      });
+    });
+  };
+  
+}
 
 
 

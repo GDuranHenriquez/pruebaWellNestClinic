@@ -1,8 +1,8 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from "../LandingPage/LandingPage.module.css"
 import { useDispatch, useSelector } from "react-redux";
-import { verifyIsMember, resetGenericError } from "../../redux/action/actions";
+import { verifyIsMember, resetGenericError, resetIsMember } from "../../redux/action/actions";
 
 //Toast
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,6 +12,7 @@ const CheckUser = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const genericError = useSelector((state) => state.genericError);
+    const ResponseVerifyIsMember = useSelector((state) => state.verifyIsMember);
 
     const [cedula, setCedula] = useState('');
 
@@ -63,22 +64,40 @@ const CheckUser = () => {
         
     };
 
+    const BtnResetIsMember = ()=>{
+        dispatch(resetIsMember());
+    };
+    const toRegister = ()=>{
+        navigate('/sign-up');
+    }
+
+    useEffect(() => {
+        
+    })
+
     return (
         <div className={styles.container}>
-        <div className={styles.containerSection}>
-            <h2>Valide su usuario para continuar con el registro:</h2>
-            <div className={styles.checkInputs}>
-              <input
-                  type="text"
-                  placeholder="Ingrese su cédula"
-                  value={cedula}
-                  onChange={handleCedulaChange}
-                  id={styles.CheckInptTex}
+            {!ResponseVerifyIsMember && <div className={styles.containerSection}>
+                <h2>Valide su usuario para continuar con el registro:</h2>
+                <div className={styles.checkInputs}>
+                <input
+                    type="text"
+                    placeholder="Ingrese su cédula"
+                    value={cedula}
+                    onChange={handleCedulaChange}
+                    id={styles.CheckInptTex}
 
-              />
-              <button id={styles.CheckInptTexBtn} onClick={handleCheckUser}>Validar Usuario</button>
-            </div>
-        </div>
+                />
+                <button id={styles.CheckInptTexBtn} onClick={handleCheckUser}>Validar Usuario</button>
+                </div>
+            </div>}
+            {ResponseVerifyIsMember && <div className={styles.containerSection}>   
+                <h2>Greetings {ResponseVerifyIsMember.name} {ResponseVerifyIsMember.lastName} </h2>
+                <div className={styles.checkInputs}>
+                <button id={styles.CheckInptTexBtn} onClick={BtnResetIsMember}>Cancel</button>
+                <button id={styles.CheckInptTexBtn} onClick={toRegister}>Continue</button>
+                </div>              
+            </div>}
         {genericError && genericError.status === 403?  messageError(genericError.response):''}
         <ToastContainer></ToastContainer>
         </div>

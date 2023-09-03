@@ -1,14 +1,15 @@
 import BackGroundGlobal from "../../components/backgrounds/BackgroundGlobal";
 import  { styled } from 'styled-components'
-import Home from "../../components/home/Home";
+import SignUpComponent from "../../components/SignUp/SignUp";
 
-function HomePages(){
+
+function SignUp(){
 
   return <ContinerHomePage>
     <BackGroundGlobal imgBackGround='https://d1odllitvcy39q.cloudfront.net/images/141_nueva-fachada-seguro-americano-2014.jpg'></BackGroundGlobal>
-    <Home></Home>
+    <SignUpComponent/>
   </ContinerHomePage>
-};
+}
 
 
 const ContinerHomePage = styled.div`
@@ -18,4 +19,4 @@ const ContinerHomePage = styled.div`
 
 `
 
-export default HomePages;
+export default SignUp;
