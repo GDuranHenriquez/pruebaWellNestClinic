@@ -1,32 +1,26 @@
 import {useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import styles from "../LandingPage/LandingPage.module.css"
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { verifyIsMember, resetGenericError } from "../../redux/action/actions";
+
+//Toast
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CheckUser = () => {
-    const navigate = useNavigate(); 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const genericError = useSelector((state) => state.genericError);
 
     const [cedula, setCedula] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
 
     const handleCedulaChange = (event) => {
         setCedula(event.target.value);
-        setErrorMessage('');
     };
-
-    // const handleCheckUser = () => {
-    //     const isUserValid = checkUserInSystem(cedula);
-
-    //     if (isUserValid) {
-    //         navigate('/signup'); 
-    //     } else {
-    //         setErrorMessage('El usuario no se encuentra registrado en la obra social.');
-    //     }
-    // };
-
-
     const handleCheckUser = async () => {
-        try {
+        dispatch(verifyIsMember(cedula));
+        /* try {
 
             const response = await axios.get(`https://serverwellnestclinic.onrender.com/userClient/isMember/${cedula}`);
             if (response.status === 200) {
@@ -35,9 +29,39 @@ const CheckUser = () => {
         } catch (error) {
             window.alert(error.response.data.response);
             setErrorMessage('Ocurrió un error al validar el usuario.');
-        }
+        } */
     };
     
+    //toast message
+    const messageError = (message)=>{
+        dispatch(resetGenericError());
+        toast.error(message, {
+          position: "bottom-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          })
+        
+    };
+    
+    const messageSuccess = (message)=>{
+        dispatch(resetGenericError())
+        toast.success(message, {
+          position: "bottom-right",
+          autoClose: 1500,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+          });
+        
+    };
 
     return (
         <div className={styles.container}>
@@ -53,10 +77,12 @@ const CheckUser = () => {
 
               />
               <button id={styles.CheckInptTexBtn} onClick={handleCheckUser}>Validar Usuario</button>
-              {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
             </div>
         </div>
+        {genericError && genericError.status === 403?  messageError(genericError.response):''}
+        <ToastContainer></ToastContainer>
         </div>
+
     );
 };
 
