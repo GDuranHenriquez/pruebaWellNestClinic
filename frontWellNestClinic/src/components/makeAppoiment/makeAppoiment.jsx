@@ -1,22 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getSpeciality, doctorFiltering } from "../../redux/action/actions";
+import Footer from '../../components/Footer/Footer';
 import styles from "./makeAppoiment.module.css";
 
 const MakeAppoiment = () => {
+  const dispach = useDispatch()
+  const speciality = useSelector((state) => state.allSpeciality);
+  const filteredDoctors = useSelector((state) => state.filteredDoctors);
+  
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    specialty: "",
-    physician: "",
+    specialty: "dontSelect",
+    physician: "dontSelect",
     date: "",
   });
-
   const [selectedName, setSelectedName] = useState({
     specialty: "",
     physician: "",
   });
 
-  const minDate = "2023-09-01";
-  const maxDate = "2023-09-15";
+  useEffect(() => {
+    dispach(getSpeciality());
+  }, []);
 
   const handleDateChange = (e) => {
     const selected = new Date(e.target.value);
@@ -29,7 +38,16 @@ const MakeAppoiment = () => {
   };
 
   const nextStep = () => {
-    setStep(step + 1);
+    if (step === 1 && formData.specialty === "dontSelect") {
+      alert("I don't select a specialty");
+    } else if(step === 2 && formData.physician === "dontSelect") {
+      alert("I don't select a physician");
+    } else if(step === 3 && formData.date === "") {
+      alert("I don't select a date");
+    }else {
+      dispach(doctorFiltering(formData.specialty));
+      setStep(step + 1);
+    }
   };
 
   const prevStep = () => {
@@ -53,11 +71,12 @@ const MakeAppoiment = () => {
               value={selectedName.specialty}
               onChange={handleSelectChange}
             >
-              <option value="">Select Specialty</option>
-              <option value="General Practitioner">General Practitioner</option>
-              <option value="Traumatology">Traumatology</option>
-              <option value="Dermatology">Dermatology</option>
-              <option value="Dentist">Dentist</option>
+              <option value="dontSelect">Select Specialty</option>
+              {speciality.map((data) => {
+                return(
+                <option key={data.id} value={data.name}>{data.name}</option>
+                )
+              })}
             </select>
             <div className={styles.containerSelectButtons}>
               <button className={styles.buttonFirstBack}>Back</button>
@@ -76,11 +95,12 @@ const MakeAppoiment = () => {
               value={selectedName.physician}
               onChange={handleSelectChange}
             >
-              <option value="">Select Physician</option>
-              <option value="Doc 1">Doc 1</option>
-              <option value="Doc 2">Doc 2</option>
-              <option value="Doc 3">Doc 3</option>
-              <option value="Doc 4">Doc 4</option>
+              <option value="dontSelect">Select Physician</option>
+              {filteredDoctors.map((doctor) => {
+                return(
+                  <option key={doctor.id} value={`${doctor.name} ${doctor.lastName}`}>{`${doctor.name} ${doctor.lastName}`}</option>
+                )
+              })}
             </select>
             <div className={styles.containerSelectButtons}>
               <button className={styles.buttonBackNext} onClick={prevStep}>
@@ -100,8 +120,8 @@ const MakeAppoiment = () => {
               type="date"
               name="date"
               value={formData.date}
-              min={minDate}
-              max={maxDate}
+              min="2023-09-01"
+              max="2023-09-15"
               onChange={handleDateChange}
             />
             <div className={styles.containerSelectButtons}>
@@ -118,9 +138,9 @@ const MakeAppoiment = () => {
         return (
           <div className={styles.containerData}>
             <h1>Confirm Data</h1>
-            <h2>{formData.specialty}</h2>
-            <h2>{formData.physician}</h2>
-            <h2>{formData.date}</h2>
+            <h2>Speciality: {formData.specialty}</h2>
+            <h2>Physician: {formData.physician}</h2>
+            <h2>Choose a date: {formData.date}</h2>
             <div className={styles.containerSelectButtons}>
               <button className={styles.buttonBackNext} onClick={prevStep}>
                 Back
@@ -134,22 +154,24 @@ const MakeAppoiment = () => {
       default:
         return (
           <div className={styles.containerData}>
-            <span>Formulario completado</span>
-            <button className={styles.buttonBackNext}>Home</button>
+            <h2>Scheduled Appointment</h2>
+            <NavLink to={"/home"}>
+              <button className={styles.buttonBackNext}>Home</button>
+            </NavLink>
           </div>
         );
     }
   };
 
   return (
-    <div className={styles.containerConfirmShit}>     
+    <div className={styles.containerMakeAppoiment}>     
       <div className={styles.containerSection}>
         <div className={styles.containerTitle}>
           <h1>Make an appointment</h1>
         </div>
         {renderStep()}
       </div>
-      
+      <Footer />
     </div>
   );
 };

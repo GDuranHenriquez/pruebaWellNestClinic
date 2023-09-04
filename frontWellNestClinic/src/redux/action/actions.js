@@ -3,7 +3,7 @@ import axios from 'axios';
 import { SET_USER,  UPDATE_PROFILE_PICTURE,  UPDATE_PASSWORD,
   PAY_MEMBERSHIP,  CANCEL_MEMBERSHIP, LOGIN_USERMEMBER,  VERIFY_USERNAME,
   VERIFY_ISMEMBER, GENERIC_ERROR, RESET_GENERIC_ERROR, RESET_IS_MEMBER,
-  GET_USER_ID } from './type.js';
+  GET_USER_ID, GET_SPECIALITY, DOCTOR_FILTERING } from './type.js';
 
 
 export const verifyUsername = (userName) => {
@@ -143,3 +143,34 @@ export const payMembership = () => ({
 export const cancelMembership = () => ({
   type: CANCEL_MEMBERSHIP,
 });
+
+
+
+
+
+export const getSpeciality = () => async (dispach) => {
+  try {
+    const { data } = await axios.get('http://localhost:3002/speciality');
+    return dispach({
+      type: GET_SPECIALITY,
+      payload: data,
+    })
+  } catch (error) {
+    return error.response;
+  }
+}
+
+export const doctorFiltering = (dataSpeciality) => async (dispach) => {
+  try {
+    const { data } = await axios.get('http://localhost:3002/doctor');
+    const filteredDoctors = data.filter((doctor) => {
+      return doctor.specialities.some((speciality) => speciality.name === dataSpeciality);
+    })
+    return dispach({
+      type: DOCTOR_FILTERING,
+      payload: filteredDoctors,
+    })
+  } catch (error) {
+    return error.response;
+  }
+}

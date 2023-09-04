@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import { SET_USER, UPDATE_PROFILE_PICTURE, UPDATE_PASSWORD, 
   PAY_MEMBERSHIP, CANCEL_MEMBERSHIP, GENERIC_ERROR,
-  LOGIN_USERMEMBER,  VERIFY_USERNAME,  VERIFY_ISMEMBER, RESET_GENERIC_ERROR, RESET_IS_MEMBER,GET_USER_ID } from '../action/type'; 
+  LOGIN_USERMEMBER,  VERIFY_USERNAME,  VERIFY_ISMEMBER, RESET_GENERIC_ERROR, RESET_IS_MEMBER,GET_USER_ID, GET_SPECIALITY, DOCTOR_FILTERING } from '../action/type'; 
 
 const initialState = {
   //useClient
@@ -13,7 +14,10 @@ const initialState = {
   profilePicture: [], 
   password: '', 
   membershipStatus: [],
-  page:1  
+  page:1,
+
+  allSpeciality: [],
+  filteredDoctors: [],
 };
 
 const userReducer = (state = initialState, action) => {
@@ -57,6 +61,18 @@ const userReducer = (state = initialState, action) => {
         ...state,
         membershipStatus: 'Expired',
       };
+
+
+    case GET_SPECIALITY:
+      return {
+        ...state,
+        allSpeciality: action.payload,
+      }
+    case DOCTOR_FILTERING:
+      return {
+        ...state,
+        filteredDoctors: action.payload,
+      }
     default:
       return state;
   }

@@ -17,6 +17,8 @@ export const VERIFY_USERNAME = 'VERIFY_USERNAME';
 export const VERIFY_ISMEMBER = 'VERIFY_ISMEMBER';
 
 
-
+//makeAppoiment
+export const GET_SPECIALITY = 'GET_SPECIALITY';
+export const DOCTOR_FILTERING = 'DOCTOR_FILTERING';
 
 
