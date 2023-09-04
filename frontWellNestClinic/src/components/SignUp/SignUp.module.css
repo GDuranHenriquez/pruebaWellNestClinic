@@ -83,3 +83,16 @@ label{
   .isVisible{
     display: true;
   }
+
+  @media (max-width: 1920px) {
+    .container {
+      width: 24%;
+      max-width: 24%;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: rgba(0, 0, 0, 0.6);
+      
+    }
+  }

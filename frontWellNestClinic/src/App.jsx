@@ -9,6 +9,7 @@ import LoginPages from './pages/Login/LoginPages'
 import SignUp from './pages/SignUp/SignUp';
 import MyProfilePage from './pages/MyProfile/MyProfilePage';
 import './App.css'
+import MyPharmacyPage from './pages/pharmacy/pharmacyPage';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path='/login' element={<LoginPages/>} ></Route>
         <Route path='/sign-up' element={<SignUp/>} ></Route>
         <Route path='/my-profile' element={<MyProfilePage/>} ></Route>
+        <Route path='/pharmacy' element={<MyPharmacyPage/>}> </Route>
       </Routes>
     </div>
   )

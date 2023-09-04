@@ -7,7 +7,9 @@ function NavBar() {
   return (<div className={styles.containerNav}>
     <nav className={styles.navSup}>
 
+      <Link to="/home">
       <img className={styles.logo} src={logo} alt="logo" />
+      </Link>
 
       <div className={styles.menu}>        
         <Link id={styles.links} to="/home">Home</Link>
@@ -17,7 +19,9 @@ function NavBar() {
         <Link id={styles.links} to="/my-profile" className={styles.iconUserDownLink}>
         <IconUserDown className={styles.iconUserDown}/>
         </Link>
+        <Link to="/">
         <IconLogout className={styles.iconLogout}/>
+        </Link>
       </div>
       
     </nav>

@@ -6,7 +6,7 @@ import MyProfileComp from "../../components/MyProfileComp/MyProfileComp";
 function MyProfilePage(){
 
   return <ContinerHomePage>
-    <BackGroundGlobal imgBackGround='https://media.istockphoto.com/id/1301652887/es/foto/concepto-de-atenci%C3%B3n-m%C3%A9dica.webp?s=1024x1024&w=is&k=20&c=s7Kn3Gn1VPmUMLXCoZGC8xIklqSckcU07MSVp5-rW3Y='></BackGroundGlobal>
+    <BackGroundGlobal imgBackGround="https://gacetamedica.com/wp-content/uploads/2021/10/GettyImages-1201500582.jpg"></BackGroundGlobal>
     <MyProfileComp/>
    </ContinerHomePage>
 }

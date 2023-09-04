@@ -65,13 +65,13 @@ const MakeAppoiment = () => {
       case 1:
         return (
           <div className={styles.containerData}>
-            <h1>Select Specialty</h1>
+            <h1>Select Speciality</h1>
             <select
               name="specialty"
               value={selectedName.specialty}
               onChange={handleSelectChange}
             >
-              <option value="dontSelect">Select Specialty</option>
+              <option value="dontSelect">Select Speciality</option>
               {speciality.map((data) => {
                 return(
                 <option key={data.id} value={data.name}>{data.name}</option>
@@ -137,7 +137,7 @@ const MakeAppoiment = () => {
       case 4:
         return (
           <div className={styles.containerData}>
-            <h1>Confirm Data</h1>
+            <h1>Confirm Date</h1>
             <h2>Speciality: {formData.specialty}</h2>
             <h2>Physician: {formData.physician}</h2>
             <h2>Choose a date: {formData.date}</h2>

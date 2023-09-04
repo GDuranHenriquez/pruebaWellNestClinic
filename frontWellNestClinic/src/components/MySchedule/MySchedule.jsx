@@ -4,16 +4,10 @@ import styles from "./MySchedule.module.css";
 
 const MySchedule = () => {
     const [schedule, setSchedule] = useState([
-        { id: 1, date: '2023-09-10', doctor: 'Dr. Smith', especialidad: "Otorrino" },
+        { id: 1, date: '2023-09-12', doctor: 'Jorge Fernandez', especialidad: "Endocrinologia" },
         { id: 2, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Cardiólogo" },
         { id: 3, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Oftalmólogo" },
-        { id: 4, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Urólogo" },
-        { id: 4, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Urólogo" },
-        { id: 4, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Urólogo" },
-        { id: 4, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Urólogo" },
-        { id: 4, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Urólogo" },
-        { id: 4, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Urólogo" },
-        { id: 4, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Urólogo" },
+        { id: 4, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Urólogo" }
     ]);
 
     const handleCancelSchedule = (id) => {
@@ -53,12 +47,12 @@ const MySchedule = () => {
             )}
 
             <div className={styles.buttons}>
-                <Link  to="/newSchedule" className={styles.newScheduleButton}>
-                    Agendar Nueva Cita
+                <Link  to="/makeAppoiment" className={styles.newScheduleButton}>
+                    Make a new appointment
                 </Link>
 
                 <Link  to="/home" className={styles.newScheduleButton}>
-                    Volver al Home
+                    Back to home
                 </Link>
             </div>           
 

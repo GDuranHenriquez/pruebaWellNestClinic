@@ -78,17 +78,17 @@ const CheckUser = () => {
     return (
         <div className={styles.container}>
             {!ResponseVerifyIsMember && <div className={styles.containerSection}>
-                <h2>Valide su usuario para continuar con el registro:</h2>
+                <h2>Validate your ID to continue:</h2>
                 <div className={styles.checkInputs}>
                 <input
                     type="text"
-                    placeholder="Ingrese su cédula"
+                    placeholder="Enter your ID"
                     value={cedula}
                     onChange={handleCedulaChange}
                     id={styles.CheckInptTex}
 
                 />
-                <button id={styles.CheckInptTexBtn} onClick={handleCheckUser}>Validar Usuario</button>
+                <button id={styles.CheckInptTexBtn} onClick={handleCheckUser}>Validate User</button>
                 </div>
             </div>}
             {ResponseVerifyIsMember && <div className={styles.containerSection}>   
