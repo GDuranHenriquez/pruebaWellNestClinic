@@ -1,5 +1,3 @@
-import style from "./pharmacyPage.module.css"
- 
 
 function MyPharmacyPage(){
 

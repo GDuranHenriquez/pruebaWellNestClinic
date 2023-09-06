@@ -1,47 +1,36 @@
-.navSup{
-    position: fixed;
+.logo{
+    height: 80px;
+    border-radius: 10px;
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 10%;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
-    border-bottom: solid 1px rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 1;        
 }
-
-.logo{
-    height: 100%;
-    width: 100px;
-    border-radius: 10px;
-    margin-left: 20px;
-}
-.logo:hover{
-    cursor: pointer;
-}
-
 
 .menu{
-  width: 80%;
-  height: 100%;  
+  height: 6%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  color: blue; 
   padding: 10px;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;  
+  justify-content: space-evenly;
+  vertical-align: top;
   align-items: center;
+  border-left: solid blue 1px; 
 }
 
-#links{
+.linkNoUnderline {
     text-decoration: none;
-    color: blue; 
-}
-
+    color: inherit;
+  }
 
 .menuItem{
-    background-color: transparent;
+    background-color: white;
 }
 
 .iconLogout{

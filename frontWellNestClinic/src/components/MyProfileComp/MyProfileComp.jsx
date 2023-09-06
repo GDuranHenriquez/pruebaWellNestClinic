@@ -3,12 +3,11 @@ import axios from 'axios';
 import {  useSelector } from 'react-redux';
 import defaultProfile from '../../assets/perfil.png';
 import style from './MyProfile.module.css'
-//import { updateProfilePicture, updatePassword, cancelMembership } from '../../redux/actions';
 
 function MyProfileComp() {
   const userClient = useSelector((state) => state.user)
-  const [newPassword, setNewPassword] = useState(''); // Para cambiar contraseña
-  const [confirmPassword, setConfirmPassword] = useState(''); // Para cambiar contraseña
+  const [newPassword, setNewPassword] = useState(''); 
+  const [confirmPassword, setConfirmPassword] = useState(''); 
 
   useEffect(() => {
     
@@ -68,6 +67,46 @@ function MyProfileComp() {
     }
   };
 
+  const cambiarDireccion = async () => {
+    const newAddress = prompt('Ingrese la nueva dirección:');
+
+    if (!newAddress) {
+      return;
+    }
+
+    try {
+      const response = await axios.put('https://serverwellnestclinic.onrender.com/api/change-address', {
+        newAddress: newAddress,
+      });
+
+      updateAddress(response.data.newAddress);
+      alert('Dirección cambiada exitosamente.');
+    } catch (error) {
+      console.error('Error al cambiar la dirección:', error);
+      alert('No se pudo cambiar la dirección.');
+    }
+  }
+
+  const cambiarContacto = async () => {
+    const newContact = prompt('Ingrese el nuevo contacto:');
+
+    if (!newContact) {
+      return;
+    }
+
+    try {
+      const response = await axios.put('https://serverwellnestclinic.onrender.com/api/change-contact', {
+        newContact: newContact,
+      });
+
+      updateContact(response.data.newContact);
+      alert('Contacto cambiado exitosamente.');
+    } catch (error) {
+      console.error('Error al cambiar el contacto:', error);
+      alert('No se pudo cambiar el contacto.');
+    }
+  }
+
   const cancelarMembresia = async () => {
     const confirmation = window.confirm('¿Estás seguro de que deseas cancelar tu membresía? Esta acción es irreversible.');
 
@@ -97,16 +136,19 @@ function MyProfileComp() {
         <p>Address: {userClient.address}</p>
         <p>Contact: {userClient.backupContact}</p>
         <p>Membership status: {userClient.activePlan}</p>
+        <p>Next payment date: {userClient.nextPaymentDate}</p>
       </div>
       
       <div className={style.accionsUsers}>
-        <button onClick={cambiarFotoDePerfil}>Cambiar Foto de Perfil</button>
+        <button onClick={cambiarFotoDePerfil}>Change profile picture</button>
       <div>
         <input type="password" placeholder="Nueva Contraseña" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
         <input type="password" placeholder="Confirmar Contraseña" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-        <button onClick={cambiarContraseña}>Cambiar Contraseña</button>
+        <button onClick={cambiarContraseña}>Change password</button>
       </div>
-      <button onClick={cancelarMembresia}>Cancelar Membresía</button>
+      <button onClick={cancelarMembresia}>Cancel membership</button>
+      <button onClick={cambiarDireccion}>Change address</button>
+      <button onClick={cambiarContacto}>Change contact</button>
       </div>
 
       

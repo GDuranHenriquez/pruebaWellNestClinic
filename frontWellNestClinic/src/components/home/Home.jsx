@@ -8,7 +8,7 @@ function Home() {
   return (
     <div className={styles.fondo}>
         <div className={styles.pad}>
-      
+      <NavBar />
       <div className={styles.msg}>
         <div className={styles.contenedor}>
       <h1 className={styles.h1}>WELCOME TO WELLNEST CLINIC</h1>

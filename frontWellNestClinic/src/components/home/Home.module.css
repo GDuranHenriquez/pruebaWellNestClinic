@@ -9,20 +9,24 @@
 }
 
 .pad{
-    
+    padding-bottom:40px ;
+    padding-top: 40px;
 }
 
 .h1{
     font-size:30px;
-    margin-top: 250px;
 }
 
 
 .msg{
     border-radius: 20px;
-    width: 70%;
+    width: 65%;
     margin: 0 auto;
     color: darkblue;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.895);
+}
+
+.contenedor{
+    padding: 20px;
 }
 
