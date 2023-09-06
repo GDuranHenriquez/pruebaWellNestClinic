@@ -3,7 +3,7 @@ import HomePages from './pages/Home/Home'
 import NavBar from './components/NavBar/NavBar';
 import {Route, Routes, useLocation} from "react-router-dom";
 import CheckUser from './components/CheckUser/CheckUser'
-import Appoiment from './pages/apoiment/Appoiment';
+import Appoiment from './pages/Appointment/Appoiment';
 import MySchedulePage from './pages/mySchedule/MySchedulePage';
 import LoginPages from './pages/Login/LoginPages'
 import SignUp from './pages/SignUp/SignUp';
