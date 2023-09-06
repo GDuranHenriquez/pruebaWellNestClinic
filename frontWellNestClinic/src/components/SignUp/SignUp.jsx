@@ -6,8 +6,8 @@ import { signUp } from "../../redux/action/actions";
 import validation from "./Validation";
 
 //Toast
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUpComponent = (props) => {
   const navigate = useNavigate();
@@ -16,27 +16,32 @@ const SignUpComponent = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const IsMember = useSelector((state) => state.verifyIsMember);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const errors = validation({ email, password});
+    setIsLoading(true);
+    const errors = validation({ email, password });
     setError(errors);
     if (Object.keys(errors).length === 0) {
       try {
         //esto cambiarlo por props
         const signUpResponse = await signUp(email, password, IsMember.id);
-        
+
         setEmail("");
         setPassword("");
         if (signUpResponse.status == 200) {
-          navigate("/login");
-        }else if(signUpResponse.status == 403){
-          messageError(signUpResponse.data.error)
-        }else {
+          messageSuccess("Your account was created successfully!");
+          setTimeout(() => {
+            navigate("/login");
+          }, 3000);
+        } else if (signUpResponse.status == 403) {
+          messageError(signUpResponse.data.error);
+        } else {
           let message = signUpResponse.data.message;
           if (!message) {
-            messageError(signUpResponse.data.error)
-            /* message = signUpResponse.data.error; */
+            messageError(signUpResponse.data.error);
+          
           }
           const errorServer = { server: message };
           setError(errorServer);
@@ -44,79 +49,100 @@ const SignUpComponent = (props) => {
       } catch (error) {
         const errorServer = { server: "There is a server error" };
         setError(errorServer);
+      } finally {
+        setIsLoading(false);
       }
+    } else {
+      setIsLoading(false);
     }
   };
 
-  const messageError = (message)=>{
+  const messageError = (message) => {
     toast.error(message, {
       position: "bottom-right",
-      autoClose: 1500,
+      autoClose: 3500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: 'light',
-      })
-    
-};
+      theme: "light",
+    });
+  };
 
-const messageSuccess = (message)=>{
+  const messageSuccess = (message) => {
     toast.success(message, {
       position: "bottom-right",
-      autoClose: 1500,
+      autoClose: 3500,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: 'light',
-      });
-    
-};
+      theme: "light",
+    });
+  };
 
   return (
     <div>
-      <h1 className={style.heading}>Welcome</h1>
-      <div className={style.container}>
-        <h2>Sign Up</h2>
-        <form onSubmit={handleSubmit}>
-          <div className={style.form}>
-            <div>
-              <label className={style.label}>Email address</label>
-              
-            </div>
-            <input
-              type="text"
-              className={style.input}
-              placeholder="Enter email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            {error.email && <p className={style.error}>{error.email}</p>}
+      {isLoading ? (
+        <div className={style.loading}>
+          <div className={style.spinner}></div>
+          <p>Loading...</p>
+        </div>
+      ) : (
+        <div>
+          <h1 className={style.heading}>Welcome</h1>
+          <div className={style.container}>
+            <h2>Sign Up</h2>
+            <form onSubmit={handleSubmit}>
+              <div className={style.form}>
+                <div>
+                  <label className={style.label}>Email address</label>
+                </div>
+                <input
+                  type="text"
+                  className={style.input}
+                  placeholder="Enter email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+                {error.email && <p className={style.error}>{error.email}</p>}
+              </div>
+              <div>
+                <label className={style.label}>Password </label>
+              </div>
+              <input
+                type="password"
+                className={style.input}
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              {error.password && (
+                <p className={style.error}>{error.password}</p>
+              )}
+              <button className={style.button} type="submit">
+                Submit
+              </button>
+              {error.server && <p className={style.error}>{error.server}</p>}
+              <h4>Or sign up with Google</h4>
+              <h5>
+                Already have an account?{" "}
+                <a
+                  className={style.login}
+                  href="/login"
+                  onClick={() => navigate("/login")}
+                >
+                  Sign in
+                </a>
+              </h5>
+            </form>
           </div>
-          <div>
-            <label className={style.label}>Password </label>
-          </div>
-          <input
-            type="password"
-            className={style.input}
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          {error.password && <p className={style.error}>{error.password}</p>}
-          <button className={style.button} type="submit">
-            Submit
-          </button>
-          {error.server && <p className={style.error}>{error.server}</p>}
-          <h4>Or sign up with Google</h4>
-          <h5>Already have an account? Sign in</h5>
-        </form>
-      </div>
+        </div>
+      )}
       <ToastContainer></ToastContainer>
     </div>
   );

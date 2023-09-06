@@ -24,17 +24,20 @@ export const verifyUsername = (userName) => {
   };
 };
 
-export const verifyIsMember = (ID) => {
+export const verifyIsMember = (ID, setIsLoading) => {
   const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/isMember/${ID}`
   return (dispatch) => {
     axios.get(endPoint).then(({data}) => {
+      setIsLoading(false);
       return dispatch({
         type: VERIFY_ISMEMBER,
         payload: data
       })
     }).catch((error) => {
+      setIsLoading(false);
       var err = error.response;
       if(err.status === 403){
+        setIsLoading(false);
         return dispatch({
           type: GENERIC_ERROR,
           payload: {...err.data, status: err.status}
