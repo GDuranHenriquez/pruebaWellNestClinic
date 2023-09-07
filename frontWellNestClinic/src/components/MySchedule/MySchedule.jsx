@@ -47,7 +47,7 @@ const MySchedule = () => {
             )}
 
             <div className={styles.buttons}>
-                <Link  to="/makeAppoiment" className={styles.newScheduleButton}>
+                <Link  to="/makeAppointment" className={styles.newScheduleButton}>
                     Make a new appointment
                 </Link>
 

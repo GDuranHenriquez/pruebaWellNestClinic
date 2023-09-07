@@ -7,6 +7,7 @@ import {
   resetGenericError,
   resetIsMember,
 } from "../../redux/action/actions";
+import Loading from "../Loading/Loading";
 
 //Toast
 import { ToastContainer, toast } from "react-toastify";
@@ -80,12 +81,7 @@ const CheckUser = () => {
 
   return (
     <div className={styles.container}>
-      {isLoading ? (
-        <div className={styles.loading}>
-          <div className={styles.spinner}></div>
-          <p>Loading...</p>
-        </div>
-      ) : !ResponseVerifyIsMember ? (
+      {!ResponseVerifyIsMember ? (
         <div className={styles.containerSection}>
           <h2>Validate your ID to continue:</h2>
           <div className={styles.checkInputs}>
@@ -116,10 +112,6 @@ const CheckUser = () => {
           </div>
         </div>
       )}
-      {genericError && genericError.status === 403
-        ? messageError(genericError.response)
-        : ""}
-
       <div className={styles.containerSection}>
         <p className={styles.contactInfo}>
           Address: 123 Main Street, City, Country
@@ -129,6 +121,13 @@ const CheckUser = () => {
           Email: contact@wellnestclinic.com
         </p>
       </div>
+      {genericError && genericError.status === 403
+        ? messageError(genericError.response)
+        : ""}
+
+      {isLoading && (
+       <Loading></Loading>
+      )}
 
       <ToastContainer></ToastContainer>
     </div>

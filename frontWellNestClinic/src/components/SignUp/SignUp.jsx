@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signUp } from "../../redux/action/actions";
 import validation from "./Validation";
+import Loading from "../Loading/Loading";
 
 //Toast
 import { ToastContainer, toast } from "react-toastify";
@@ -86,10 +87,7 @@ const SignUpComponent = (props) => {
   return (
     <div>
       {isLoading ? (
-        <div className={style.loading}>
-          <div className={style.spinner}></div>
-          <p>Loading...</p>
-        </div>
+        <Loading></Loading>
       ) : (
         <div>
           <h1 className={style.heading}>Welcome</h1>

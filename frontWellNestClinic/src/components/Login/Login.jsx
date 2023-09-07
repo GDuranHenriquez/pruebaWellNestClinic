@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import style from "./Login.module.css";
 import { loginUser, getUser } from "../../redux/action/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import {useAuth} from "../../Authenticator/AuthPro";
+import Loading from "../Loading/Loading"
 
 //Toast
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,6 +20,13 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isVisible, setIsVisible] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const auth = useAuth()
+
+  if (auth.isAuthenticated) {
+    return(
+      <Navigate to="/home"></Navigate>
+    )
+  }
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -36,6 +46,7 @@ const Login = () => {
       const loginResponse = await dispatch(loginUser(email, password, dni));
       if (loginResponse.data.pass) {
         dispatch(getUser(loginResponse.data.id));
+        auth.getAccess()
         navigate("/home");
       } else if (loginResponse.status === 403) {
         if (loginResponse.data.message) {
@@ -69,10 +80,7 @@ const Login = () => {
   return (
     <div className={style.page}>
       {isLoading ? (
-        <div className={style.loading}>
-          <div className={style.spinner}></div>
-          <p>Loading...</p>
-        </div>
+        <Loading></Loading>
       ) : (
         <div>
           <h1 id={style.title} className={style.heading}>

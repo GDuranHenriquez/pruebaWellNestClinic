@@ -1,15 +1,23 @@
-// import React from "react";
-// import { Navigate, useLocation } from "react-router-dom";
-// import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { Navigate, useLocation, Outlet } from "react-router-dom";
+import NavBar from "./NavBar/NavBar";
+import { useAuth } from "../Authenticator/AuthPro";
 
-// const ProtectedRoute = ({ children }) => {
-//   const user = userSelector((state) => state.user);
-//   let location = useLocation();
+const ProtectedRoute = ({ children }) => {
+  const isAuth = useAuth();
+  const { pathname } = useLocation();
+  const noNavBar = ["/", "/checkUser", "/login", "/sign-up"];
 
-//   if (!user.state.isAuthenticated) {
-//     return <Navigate to="/" state={{ from: location }} replace />;
-//   }
-//   return children;
-// };
+  return (
+    <>
+      {isAuth.isAuthenticated && <NavBar />}
+      {isAuth.isAuthenticated ? (
+        <Outlet></Outlet>
+      ) : (
+        <Navigate to="/"></Navigate>
+      )}
+    </>
+  );
+};
 
-// export default ProtectedRoute;
+export default ProtectedRoute;
