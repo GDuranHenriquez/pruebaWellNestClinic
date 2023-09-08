@@ -171,7 +171,6 @@ const MakeAppoiment = () => {
         </div>
         {renderStep()}
       </div>
-      <Footer />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSelector } from "react-redux"
 import axios from 'axios';
 import defaultProfile from '../../assets/perfil.png';
 import style from './MyProfile.module.css';
@@ -17,6 +18,8 @@ function MyProfileComp() {
   const [newContact, setNewContact] = useState('');
   const [confirmContact, setConfirmContact] = useState('');
   const [isChangingContact, setIsChangingContact] = useState(false);
+
+  const userClient = useSelector((state)=>state.user)
 
   
 const takePhoto = async () => {

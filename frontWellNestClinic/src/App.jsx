@@ -10,7 +10,9 @@ import MyProfilePage from "./pages/MyProfile/MyProfilePage";
 import "./App.css";
 import MyPharmacyPage from "./pages/pharmacy/pharmacyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import DetailPage from "./pages/DetailPage.jsx/DetailPage";
 import { AuthProvider } from "./Authenticator/AuthPro";
+import DoctorsPage from "./pages/Doctors/DoctorsPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -54,6 +56,10 @@ function App() {
         {
           path: "/pharmacy",
           element: <MyPharmacyPage></MyPharmacyPage>,
+        },
+        {
+          path: "/doctors",
+          element: <DoctorsPage></DoctorsPage>,
         },
       ],
     },

@@ -21,4 +21,8 @@ export const VERIFY_ISMEMBER = 'VERIFY_ISMEMBER';
 export const GET_SPECIALITY = 'GET_SPECIALITY';
 export const DOCTOR_FILTERING = 'DOCTOR_FILTERING';
 
+//doctors
+export const GET_DOCTORS ="GET_DOCTORS";
+export const GET_SPECIALTIES = "GET_SPECIALTIES";
+
 

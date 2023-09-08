@@ -3,7 +3,7 @@ import axios from 'axios';
 import { SET_USER,  UPDATE_PROFILE_PICTURE,  UPDATE_PASSWORD,
   PAY_MEMBERSHIP,  CANCEL_MEMBERSHIP, LOGIN_USERMEMBER,  VERIFY_USERNAME,
   VERIFY_ISMEMBER, GENERIC_ERROR, RESET_GENERIC_ERROR, RESET_IS_MEMBER,
-  GET_USER_ID, GET_SPECIALITY, DOCTOR_FILTERING } from './type.js';
+  GET_USER_ID, GET_SPECIALITY, DOCTOR_FILTERING, GET_DOCTORS, GET_SPECIALTIES } from './type.js';
 
 
 export const verifyUsername = (userName) => {
@@ -172,6 +172,37 @@ export const doctorFiltering = (dataSpeciality) => async (dispach) => {
     return dispach({
       type: DOCTOR_FILTERING,
       payload: filteredDoctors,
+    })
+  } catch (error) {
+    return error.response;
+  }
+}
+
+
+
+
+
+export const getDoctors = () => {
+  return async (dispatch) => {
+      try {
+          const response = await axios.get('https://serverwellnestclinic.onrender.com/doctor/');
+          dispatch({
+              type: GET_DOCTORS,
+              payload: response.data,
+          });
+      } catch (error) {
+          console.error('Error fetching doctors:', error);
+      }
+  };
+};
+
+
+export const getSpecialties = () => async (dispach) => {
+  try {
+    const { data } = await axios.get('https://serverwellnestclinic.onrender.com/speciality');
+    return dispach({
+      type: GET_SPECIALTIES,
+      payload: data,
     })
   } catch (error) {
     return error.response;
