@@ -3,13 +3,14 @@ import style from "./Login.module.css";
 import { loginUser, getUser } from "../../redux/action/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
-import {useAuth} from "../../Authenticator/AuthPro";
-import Loading from "../Loading/Loading"
+import { useAuth } from "../../Authenticator/AuthPro";
+import Loading from "../Loading/Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 //Toast
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,14 +19,16 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [dni, setDni] = useState("");
   const [password, setPassword] = useState("");
-  const [isVisible, setIsVisible] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const auth = useAuth()
+  const auth = useAuth();
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   if (auth.isAuthenticated) {
-    return(
-      <Navigate to="/home"></Navigate>
-    )
+    return <Navigate to="/home"></Navigate>;
   }
 
   const handleEmailChange = (e) => {
@@ -46,7 +49,13 @@ const Login = () => {
       const loginResponse = await dispatch(loginUser(email, password, dni));
       if (loginResponse.data.pass) {
         dispatch(getUser(loginResponse.data.id));
-        auth.getAccess()
+        // const json = (await Response.json()) as AuthResponse;
+
+        // if (json.body.accessToken && json.body.refreshToken) {
+        //   auth.saveUser(json);
+        // }
+
+        auth.getAccess();
         navigate("/home");
       } else if (loginResponse.status === 403) {
         if (loginResponse.data.message) {
@@ -121,14 +130,19 @@ const Login = () => {
                   <label className={style.label}>Password </label>
                 </div>
                 <input
-                  type="password"
-                  className={`${style.input} ${
-                    isVisible ? style.isVisible : ""
-                  }`}
+                  type={showPassword ? "text" : "password"}
+                  className={style.input}
                   placeholder="Enter password"
                   value={password}
                   onChange={handlePasswordChange}
                 />
+                <button className={style.toggle} type="button" onClick={togglePasswordVisibility}>
+                  {showPassword ? (
+                    <FontAwesomeIcon icon={faEye} />
+                  ) : (
+                    <FontAwesomeIcon icon={faEyeSlash} />
+                  )}
+                </button>
               </div>{" "}
               <button className={style.button} type="submit">
                 Submit

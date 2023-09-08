@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { signUp } from "../../redux/action/actions";
 import validation from "./Validation";
 import Loading from "../Loading/Loading";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 //Toast
 import { ToastContainer, toast } from "react-toastify";
@@ -16,8 +18,13 @@ const SignUpComponent = (props) => {
   const [error, setError] = useState({});
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const IsMember = useSelector((state) => state.verifyIsMember);
   const [isLoading, setIsLoading] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,7 +49,6 @@ const SignUpComponent = (props) => {
           let message = signUpResponse.data.message;
           if (!message) {
             messageError(signUpResponse.data.error);
-          
           }
           const errorServer = { server: message };
           setError(errorServer);
@@ -112,13 +118,24 @@ const SignUpComponent = (props) => {
                 <label className={style.label}>Password </label>
               </div>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 className={style.input}
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <button
+                className={style.toggle}
+                type="button"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? (
+                  <FontAwesomeIcon icon={faEye} />
+                ) : (
+                  <FontAwesomeIcon icon={faEyeSlash} />
+                )}
+              </button>
               {error.password && (
                 <p className={style.error}>{error.password}</p>
               )}

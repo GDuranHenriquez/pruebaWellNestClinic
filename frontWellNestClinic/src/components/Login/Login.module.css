@@ -15,7 +15,10 @@
 }
 #titleForm {
   margin: 10px auto;
+  font-size: 28px;
+  color: #ccc;
 }
+
 .form {
   width: 100%;
   margin-bottom: 15px;
@@ -44,10 +47,11 @@
 }
 
 .input {
-  width: 80%;
+  width: 70%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin: 4px;
 }
 
 .button {
@@ -70,10 +74,19 @@
   margin-top: 2px;
 }
 
-.isVisible {
-  display: true;
-}
-
 .signup {
   color: rgb(225, 219, 219);
 }
+
+.toggle {
+  background-color:rgb(100, 98, 98);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 9px 12px;
+
+  cursor: pointer;
+  margin: 0px 0 0px 2px;
+
+} 
+
