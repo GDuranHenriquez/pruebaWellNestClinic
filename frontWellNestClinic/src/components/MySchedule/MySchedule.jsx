@@ -21,10 +21,10 @@ const MySchedule = () => {
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.header}>My Schedules</h2>
+            <h2 className={styles.header}>My Schedule</h2>
             {schedule.length === 0 ? (
                 <div className={styles.containerSection}>
-                    <p className={styles.noAppointments}>Usted no posee citas agendadas</p>
+                    <p className={styles.noAppointments}>You don't have any scheduled appointments</p>
                 </div>
             ) : (
                 <div className={styles.containerSection}>
@@ -35,7 +35,7 @@ const MySchedule = () => {
                                 <span className={styles.doctor}>{schedule.doctor}</span>
                                 <span className={styles.specialty}>{schedule.especialidad}</span>
                                 <button className={styles['cancel-button']} onClick={() => handleCancelSchedule(schedule.id)}>
-                                    Cancelar Cita
+                                    Cancel appointment
                                 </button>
                             </li>
                         ))}

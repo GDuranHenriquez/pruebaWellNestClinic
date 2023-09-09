@@ -4,29 +4,37 @@
     align-items: center;
     align-content: center;
     justify-content: center;   
-    text-align: center;
-    padding-top: calc(100vh * (1 - 0.9));
+    
+    padding-top: 90px;
 }
-
-.pad{
-    padding-bottom:40px ;
-    padding-top: 40px;
-}
-
 .h1{
     font-size:30px;
+    color:  rgb(8, 8, 81);
+    margin-top: 5px;
 }
 
 
 .msg{
     border-radius: 20px;
-    width: 65%;
+    width: 800px;
     margin: 0 auto;
-    color: darkblue;
-    background: rgba(255, 255, 255, 0.895);
+    color: rgb(21, 21, 128);
+    background: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+   
 }
 
 .contenedor{
-    padding: 20px;
+    padding: 40px;
 }
+
+.logo{
+    height: 150px;
+    width: 150px;
+    border-radius: 10px;
+   margin-top: 5px;
+    margin-bottom: 20px;
+    
+}
+
 

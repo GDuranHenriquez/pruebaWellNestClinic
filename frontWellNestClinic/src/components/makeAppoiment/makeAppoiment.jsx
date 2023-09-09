@@ -31,7 +31,7 @@ const MakeAppoiment = () => {
     const selected = new Date(e.target.value);
 
     if (selected.getDay() === 5 || selected.getDay() === 0) {
-      alert("No puedes seleccionar sábados ni domingos.");
+      alert("You can't select Saturdays or Sundays");
     } else {
       setFormData({ ...formData, date: e.target.value });
     }
@@ -39,11 +39,11 @@ const MakeAppoiment = () => {
 
   const nextStep = () => {
     if (step === 1 && formData.specialty === "dontSelect") {
-      alert("I don't select a specialty");
+      alert("You must select a specialty.");
     } else if(step === 2 && formData.physician === "dontSelect") {
-      alert("I don't select a physician");
+      alert("You must select a physician.");
     } else if(step === 3 && formData.date === "") {
-      alert("I don't select a date");
+      alert("You must select a date.");
     }else {
       dispach(doctorFiltering(formData.specialty));
       setStep(step + 1);
@@ -65,13 +65,13 @@ const MakeAppoiment = () => {
       case 1:
         return (
           <div className={styles.containerData}>
-            <h1>Select Speciality</h1>
+            <h1>Choose a specialty</h1>
             <select
               name="specialty"
               value={selectedName.specialty}
               onChange={handleSelectChange}
             >
-              <option value="dontSelect">Select Speciality</option>
+              <option value="dontSelect">Select specialty</option>
               {speciality.map((data) => {
                 return(
                 <option key={data.id} value={data.name}>{data.name}</option>
@@ -138,7 +138,7 @@ const MakeAppoiment = () => {
         return (
           <div className={styles.containerData}>
             <h1>Confirm Date</h1>
-            <h2>Speciality: {formData.specialty}</h2>
+            <h2>Specialty: {formData.specialty}</h2>
             <h2>Physician: {formData.physician}</h2>
             <h2>Choose a date: {formData.date}</h2>
             <div className={styles.containerSelectButtons}>
@@ -167,7 +167,7 @@ const MakeAppoiment = () => {
     <div className={styles.containerMakeAppoiment}>     
       <div className={styles.containerSection}>
         <div className={styles.containerTitle}>
-          <h1>Make an appointment</h1>
+          <h1>Schedule an appointment</h1>
         </div>
         {renderStep()}
       </div>

@@ -19,7 +19,7 @@ const LandingPage = () => {
                 <p className={styles.contactInfo}>
                     Address: 123 Main Street, City, Country<br />
                     Phone: (123) 456-7890<br />
-                    Email: contact@wellnestclinic.com
+                    Email: wellnestclinic.pf@gmail.com
                 </p>
             </div>
         </div>

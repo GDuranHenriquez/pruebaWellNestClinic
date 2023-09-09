@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cards from '../Cards/Cards';
 
+
 function PharmacyComp() {
   const [products, setProducts] = useState([]);
   const [filterType, setFilterType] = useState('');
@@ -89,7 +90,7 @@ function PharmacyComp() {
           onChange={(e) => setSearch(e.target.value)}
         />
         <button onClick={searchProductByName}>Search</button>
-        <button onClick={changePriceOrder}>Price Order</button>-
+        <button onClick={changePriceOrder}>Price order</button>-
       </div>
 
       <div className="products">

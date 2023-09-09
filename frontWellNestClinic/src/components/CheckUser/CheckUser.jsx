@@ -29,16 +29,6 @@ const CheckUser = () => {
     setIsLoading(true);
     dispatch(verifyIsMember(cedula, setIsLoading));
 
-    /* try {
-
-            const response = await axios.get(`https://serverwellnestclinic.onrender.com/userClient/isMember/${cedula}`);
-            if (response.status === 200) {
-                navigate('/signup');
-            }
-        } catch (error) {
-            window.alert(error.response.data.response);
-            setErrorMessage('Ocurrió un error al validar el usuario.');
-        } */
   };
 
   //toast message
@@ -118,7 +108,7 @@ const CheckUser = () => {
           <br />
           Phone: (123) 456-7890
           <br />
-          Email: contact@wellnestclinic.com
+          Email: wellnestclinic.pf@gmail.com
         </p>
       </div>
       {genericError && genericError.status === 403

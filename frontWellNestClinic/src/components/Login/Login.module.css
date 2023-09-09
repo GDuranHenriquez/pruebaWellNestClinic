@@ -1,5 +1,6 @@
 .page {
   padding: 20px 0 20px 0;
+
 }
 .heading {
   font-size: 34px;
@@ -26,6 +27,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 9999;
 }
 
 .container {

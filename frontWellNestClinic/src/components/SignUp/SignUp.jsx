@@ -92,9 +92,7 @@ const SignUpComponent = (props) => {
 
   return (
     <div>
-      {isLoading ? (
-        <Loading></Loading>
-      ) : (
+        {isLoading && <Loading></Loading>}
         <div>
           <h1 className={style.heading}>Welcome</h1>
           <div className={style.container}>

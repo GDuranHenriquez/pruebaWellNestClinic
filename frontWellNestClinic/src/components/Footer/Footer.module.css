@@ -6,38 +6,23 @@
     left: 0;
     right: 0;  
     background-color: white;
-    border-top: solid 1px rgba(0, 0, 0, 0.5);
+    border-top: solid 1px rgba(49, 49, 49, 0.5); 
 }
 
-    .texto{
-        display: flex;
-        flex-wrap: nowrap;
-        
-        justify-content: space-around;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-        color: blue;
-        cursor: pointer;
-        font-size: 12px;
-        font-family: Tahoma;
-    }
-    p{
-        margin: 0;
-        font-weight: 500;
-    }
+.texto{
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    color: rgb(78, 78, 248);
+    font-weight: 500;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.texto p {
+    font-size: 14px;
+    
+}
 
-    .iconWhatsapp{
-        color: rgb(25, 164, 25);
-        cursor: pointer;
-    }
-
-    .iconInstagram{
-        color: red;
-        cursor: pointer;
-    }
-
-    .iconTelegram{
-        color: rgb(71, 238, 247);
-        cursor: pointer;
-    }
+  

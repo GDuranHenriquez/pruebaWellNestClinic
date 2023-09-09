@@ -13,8 +13,8 @@ function NavBar() {
         <Link to="/home" className={styles.linkNoUnderline}>Home </Link>
         <Link to="/makeAppointment" className={styles.linkNoUnderline}>Make an appointment</Link>
         <Link to="/appointments" className={styles.linkNoUnderline}>My medical appointments</Link>
-        <Link to="/pharmacy" className={styles.linkNoUnderline}>Pharmacy</Link>
         <Link to="/doctors" className={styles.linkNoUnderline}>Doctors</Link>
+        <Link to="/pharmacy" className={styles.linkNoUnderline}>Pharmacy</Link>
         <Link to="/my-profile" className={styles.iconUserDownLink}>
         <IconUserDown className={styles.iconUserDown}/>
         </Link>

@@ -7,6 +7,7 @@ import { useAuth } from "../../Authenticator/AuthPro";
 import Loading from "../Loading/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { AuthProvider } from "../../Authenticator/AuthPro";
 
 //Toast
 import { ToastContainer, toast } from "react-toastify";
@@ -48,12 +49,15 @@ const Login = () => {
     try {
       const loginResponse = await dispatch(loginUser(email, password, dni));
       if (loginResponse.data.pass) {
-        dispatch(getUser(loginResponse.data.id));
-        // const json = (await Response.json()) as AuthResponse;
+       
+        dispatch(getUser(loginResponse.data.user.id, loginResponse.data.accessToken));
 
-        // if (json.body.accessToken && json.body.refreshToken) {
-        //   auth.saveUser(json);
-        // }
+        // const json = (await loginResponse.json()) 
+        
+
+        if (loginResponse.data.accessToken && loginResponse.data.refreshToken) {
+          auth.saveUser(loginResponse);
+        }
 
         auth.getAccess();
         navigate("/home");
@@ -88,9 +92,8 @@ const Login = () => {
 
   return (
     <div className={style.page}>
-      {isLoading ? (
-        <Loading></Loading>
-      ) : (
+      
+      {isLoading && <Loading></Loading>}
         <div>
           <h1 id={style.title} className={style.heading}>
             Welcome
@@ -162,8 +165,6 @@ const Login = () => {
             </form>
           </div>
         </div>
-      )}
-
       <ToastContainer></ToastContainer>
     </div>
   );

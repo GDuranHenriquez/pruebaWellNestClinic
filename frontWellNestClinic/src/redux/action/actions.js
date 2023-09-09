@@ -7,7 +7,7 @@ import { SET_USER,  UPDATE_PROFILE_PICTURE,  UPDATE_PASSWORD,
 
 
 export const verifyUsername = (userName) => {
-  const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/validateUser/?userName=${userName}`
+  const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/validateUser/?userName=${userName}`
   return (dispatch) => {
     axios.get(endPoint).then(({data}) => {
       return dispatch({
@@ -25,7 +25,7 @@ export const verifyUsername = (userName) => {
 };
 
 export const verifyIsMember = (ID, setIsLoading) => {
-  const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/isMember/${ID}`
+  const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/isMember/${ID}`
   return (dispatch) => {
     axios.get(endPoint).then(({data}) => {
       setIsLoading(false);
@@ -62,10 +62,10 @@ export const loginUser = (email, password, dni) => {
       userName: email,
       dni: dni,
     };
-    const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/login` ;
+    const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/login` ;
     try {
       const response = await axios.post(endpoint, datos);
-      const apiResponse = response.data;
+      const apiResponse = response.data.user;
 
       dispatch({ type: LOGIN_USERMEMBER, payload: apiResponse });
 
@@ -77,7 +77,7 @@ export const loginUser = (email, password, dni) => {
 };
 
 export const signUp = async (email, password, id) => {
-  const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/register`;
+  const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/register`;
   try {
     const body = {
       email: email,
@@ -97,10 +97,17 @@ export const resetIsMember = () => ({
   payload: null
 });
 
-export const getUser = (id) => {
+export const getUser = (id, token) => {
   const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/?id=${id}`;
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+    }
+  };
   return (dispatch) => {
-    axios.get(endPoint).then(({data}) => {
+   
+    axios.get(endPoint, config).then(({data}) => {
+      
       return dispatch({
         type: GET_USER_ID,
         payload: data
@@ -115,13 +122,6 @@ export const getUser = (id) => {
   };
   
 }
-
-
-
-
-
-
-
 
 
 export const setUser = (user) => ({
@@ -146,9 +146,6 @@ export const payMembership = () => ({
 export const cancelMembership = () => ({
   type: CANCEL_MEMBERSHIP,
 });
-
-
-
 
 
 export const getSpeciality = () => async (dispach) => {
@@ -177,9 +174,6 @@ export const doctorFiltering = (dataSpeciality) => async (dispach) => {
     return error.response;
   }
 }
-
-
-
 
 
 export const getDoctors = () => {
