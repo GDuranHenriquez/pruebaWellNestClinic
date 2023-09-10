@@ -2,8 +2,31 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from "./NavBar.module.css";
 import {IconLogout, IconUserDown} from "@tabler/icons-react";
+import { useAuth } from '../../Authenticator/AuthPro';
+import axios from 'axios';
 
 function NavBar() {
+
+  const auth = useAuth();
+
+  const logout =  async () =>{
+    try {
+      const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + "/sing-out";
+      const refreshToken = auth.getRefreshToken();
+      const response = await axios.delete(endPoint, {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`
+        },
+        data: null
+      });
+      if (response.status === 200) {
+        auth.signOut();
+      }
+    } catch (error) {
+      throw new Error(error.message)
+    }
+  }
+
   return (
     <nav className={styles.navSup}>
 
@@ -18,7 +41,7 @@ function NavBar() {
         <Link to="/my-profile" className={styles.iconUserDownLink}>
         <IconUserDown className={styles.iconUserDown}/>
         </Link>
-        <Link to= "/">
+        <Link onClick={logout} to= "#">
         <IconLogout className={styles.iconLogout}/>
         </Link>
       </div>

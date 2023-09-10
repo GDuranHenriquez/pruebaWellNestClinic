@@ -7,6 +7,7 @@ const AuthContext = createContext({
   getAccessToken: () => {},
   saveUser: (AuthResponse) => {},
   getRefreshToken: () => {},
+  signOut: () => {},
 });
 
 export function AuthProvider({ children }) {
@@ -106,10 +107,17 @@ export function AuthProvider({ children }) {
     setIsAuthenticated(true);
   }
 
+  function signOut(){
+    setAccessToken('');
+    setUser('');
+    localStorage.removeItem("token");
+    setIsAuthenticated(false);
+  }
+
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, getAccessToken, saveUser, getRefreshToken, checkAuth }}>
+      value={{ isAuthenticated, getAccessToken, saveUser, getRefreshToken, checkAuth, signOut }}>
       {children}
     </AuthContext.Provider>
   );
