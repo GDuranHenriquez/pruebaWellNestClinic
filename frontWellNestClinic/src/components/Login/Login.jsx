@@ -7,7 +7,7 @@ import { useAuth } from "../../Authenticator/AuthPro";
 import Loading from "../Loading/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import { AuthProvider } from "../../Authenticator/AuthPro";
+
 
 //Toast
 import { ToastContainer, toast } from "react-toastify";
@@ -48,6 +48,7 @@ const Login = () => {
 
     try {
       const loginResponse = await dispatch(loginUser(email, password, dni));
+      
       if (loginResponse.data.pass) {
        
         dispatch(getUser(loginResponse.data.user.id, loginResponse.data.accessToken));

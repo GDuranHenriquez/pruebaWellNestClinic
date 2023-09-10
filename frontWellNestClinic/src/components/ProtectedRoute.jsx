@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Navigate, useLocation, Outlet } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import NavBar from "./NavBar/NavBar";
 import { useAuth } from "../Authenticator/AuthPro";
 
 const ProtectedRoute = ({ children }) => {
   const isAuth = useAuth();
-  const { pathname } = useLocation();
-  const noNavBar = ["/", "/checkUser", "/login", "/sign-up"];
+  
+  
 
   return (
     <>

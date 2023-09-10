@@ -32,7 +32,7 @@ function PharmacyComp() {
 
 
   useEffect(() => {
-    fetchProducts();
+    /* fetchProducts(); */
   }, [filterType, alphabeticalOrder, search]);
 
   const handleFilterType = async (selectedType) => {
@@ -62,7 +62,7 @@ function PharmacyComp() {
   };
 
   useEffect(() => {
-    fetchProducts();
+    /* fetchProducts(); */
   }, [filterType, alphabeticalOrder, search, priceOrder]);
 
   return (

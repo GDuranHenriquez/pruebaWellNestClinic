@@ -1,9 +1,16 @@
-
+import { useAuth } from "../../Authenticator/AuthPro";
+import { Navigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from "./LandingPage.module.css"
 
 
 const LandingPage = () => {
+    const auth = useAuth();
+
+    if (auth.isAuthenticated) {
+        return <Navigate to="/home"></Navigate>;
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.containerSection}>

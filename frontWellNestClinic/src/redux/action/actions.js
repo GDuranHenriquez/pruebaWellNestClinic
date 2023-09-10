@@ -3,7 +3,7 @@ import axios from 'axios';
 import { SET_USER,  UPDATE_PROFILE_PICTURE,  UPDATE_PASSWORD,
   PAY_MEMBERSHIP,  CANCEL_MEMBERSHIP, LOGIN_USERMEMBER,  VERIFY_USERNAME,
   VERIFY_ISMEMBER, GENERIC_ERROR, RESET_GENERIC_ERROR, RESET_IS_MEMBER,
-  GET_USER_ID, GET_SPECIALITY, DOCTOR_FILTERING, GET_DOCTORS, GET_SPECIALTIES } from './type.js';
+  GET_USER_ID, GET_SPECIALITY, DOCTOR_FILTERING, GET_DOCTORS, GET_SPECIALTIES } from './type';
 
 
 export const verifyUsername = (userName) => {
@@ -63,6 +63,7 @@ export const loginUser = (email, password, dni) => {
       dni: dni,
     };
     const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/login` ;
+    
     try {
       const response = await axios.post(endpoint, datos);
       const apiResponse = response.data.user;
@@ -96,6 +97,7 @@ export const resetIsMember = () => ({
   type: RESET_IS_MEMBER,
   payload: null
 });
+
 
 export const getUser = (id, token) => {
   const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/?id=${id}`;
