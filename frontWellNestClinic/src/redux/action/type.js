@@ -18,8 +18,8 @@ export const VERIFY_ISMEMBER = 'VERIFY_ISMEMBER';
 
 
 //makeAppoiment
-export const GET_SPECIALITY = 'GET_SPECIALITY';
 export const DOCTOR_FILTERING = 'DOCTOR_FILTERING';
+export const ALL_SCHEDULE = "ALL_SCHEDULE"
 
 //doctors
 export const GET_DOCTORS ="GET_DOCTORS";

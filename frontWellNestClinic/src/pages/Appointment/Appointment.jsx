@@ -1,6 +1,6 @@
 import MakeAppoiment from "../../components/makeAppoiment/makeAppoiment";
 import BackGroundGlobal from "../../components/backgrounds/BackgroundGlobal";
-import style from "./appoiment.module.css";
+import style from "./Appointment.module.css";
 
 function Appointment() {
   return (

@@ -31,11 +31,6 @@ function NavBar() {
     }
   }
 
-  useEffect(() =>{
-    console.log(location);
-  });
-
-
   return (<>
     {routespages.includes(location)? <NavBarPharmacy logout={logout}/>:<NavBarPrincipal logout={logout}/>}
   </>);

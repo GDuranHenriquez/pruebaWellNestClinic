@@ -2,7 +2,7 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import HomePages from "./pages/Home/Home";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import CheckUser from "./components/CheckUser/CheckUser";
-import Appointment from "./pages/Appointment/Appoiment";
+import Appointment from "./pages/Appointment/Appointment";
 import MySchedulePage from "./pages/mySchedule/MySchedulePage";
 import LoginPages from "./pages/Login/LoginPages";
 import SignUp from "./pages/SignUp/SignUp";
@@ -12,7 +12,7 @@ import MyPharmacyPage from "./pages/pharmacy/pharmacyPage";
 import shoppingCartPage from "./pages/shoppingCart/shoppingCartPage";
 import checkoutPage from "./pages/checkoutPage/checkoutPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-import DetailPage from "./pages/DetailPage.jsx/DetailPage";
+// import DetailPage from "./pages/DetailPage.jsx/DetailPage";
 import { AuthProvider } from "./Authenticator/AuthPro";
 import DoctorsPage from "./pages/Doctors/DoctorsPage";
 

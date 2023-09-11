@@ -3,20 +3,26 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getSpeciality, doctorFiltering } from "../../redux/action/actions";
-import Footer from '../../components/Footer/Footer';
+import { getSpecialties, doctorFiltering, allSchedule } from "../../redux/action/actions";
+import { useAuth } from "../../Authenticator/AuthPro";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import styles from "./makeAppoiment.module.css";
 
 const MakeAppoiment = () => {
-  const dispach = useDispatch()
-  const speciality = useSelector((state) => state.allSpeciality);
+  const dispach = useDispatch();
+  const speciality = useSelector((state) => state.specialities);
   const filteredDoctors = useSelector((state) => state.filteredDoctors);
-  
+  const auth = useAuth();
+
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     specialty: "dontSelect",
     physician: "dontSelect",
     date: "",
+    schedule: 'dontSelect'
   });
   const [selectedName, setSelectedName] = useState({
     specialty: "",
@@ -24,26 +30,18 @@ const MakeAppoiment = () => {
   });
 
   useEffect(() => {
-    dispach(getSpeciality());
+    dispach(getSpecialties());
   }, []);
 
-  const handleDateChange = (e) => {
-    const selected = new Date(e.target.value);
-
-    if (selected.getDay() === 5 || selected.getDay() === 0) {
-      alert("You can't select Saturdays or Sundays");
-    } else {
-      setFormData({ ...formData, date: e.target.value });
-    }
+  const handleDateChange = (newDate) => {
+    setFormData({ ...formData, date: newDate.$d });
   };
 
   const nextStep = () => {
     if (step === 1 && formData.specialty === "dontSelect") {
-      alert("You must select a specialty.");
-    } else if(step === 2 && formData.physician === "dontSelect") {
-      alert("You must select a physician.");
-    } else if(step === 3 && formData.date === "") {
-      alert("You must select a date.");
+      alert("I don't select a specialty");
+    } else if (step === 2 && formData.physician === "dontSelect") {
+      alert("I don't select a physician");
     }else {
       dispach(doctorFiltering(formData.specialty));
       setStep(step + 1);
@@ -54,10 +52,31 @@ const MakeAppoiment = () => {
     setStep(step - 1);
   };
 
+  const fullDate = new Date(formData.date);
+  const month = fullDate.getMonth() + 1;
+  const formattedDate = `${fullDate.getFullYear()} ${month} ${fullDate.getDate()}`;
+
+  const prevStepSchedule = () => {
+    if (step === 3 && formData.date === "") {
+      alert("I don't select a date");
+    } else {
+      dispach(allSchedule({doctor: formData.physician,
+        userClient: auth.user.id,
+        date: formattedDate
+      }))
+      nextStep();
+    }
+  }
+
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
     setSelectedName({ ...selectedName, [name]: value });
     setFormData({ ...formData, [name]: value });
+  };
+
+  const isWeekend = (date) => {
+    const day = date.day();
+    return day === 0 || day === 6;
   };
 
   const renderStep = () => {
@@ -73,9 +92,11 @@ const MakeAppoiment = () => {
             >
               <option value="dontSelect">Select specialty</option>
               {speciality.map((data) => {
-                return(
-                <option key={data.id} value={data.name}>{data.name}</option>
-                )
+                return (
+                  <option key={data.id} value={data.name}>
+                    {data.name}
+                  </option>
+                );
               })}
             </select>
             <div className={styles.containerSelectButtons}>
@@ -97,9 +118,12 @@ const MakeAppoiment = () => {
             >
               <option value="dontSelect">Select Physician</option>
               {filteredDoctors.map((doctor) => {
-                return(
-                  <option key={doctor.id} value={`${doctor.name} ${doctor.lastName}`}>{`${doctor.name} ${doctor.lastName}`}</option>
-                )
+                return (
+                  <option
+                    key={doctor.id}
+                    value={`${doctor.id}`}
+                  >{`${doctor.name} ${doctor.lastName}`}</option>
+                );
               })}
             </select>
             <div className={styles.containerSelectButtons}>
@@ -116,19 +140,21 @@ const MakeAppoiment = () => {
         return (
           <div className={styles.containerData}>
             <h1>Choose a date</h1>
-            <input
-              type="date"
-              name="date"
-              value={formData.date}
-              min="2023-09-01"
-              max="2023-09-15"
-              onChange={handleDateChange}
-            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DemoContainer components={["DatePicker"]}>
+                <DatePicker
+                  label="Basic date picker"
+                  shouldDisableDate={isWeekend}
+                  value={formData.date}
+                  onChange={handleDateChange}
+                />
+              </DemoContainer>
+            </LocalizationProvider>
             <div className={styles.containerSelectButtons}>
               <button className={styles.buttonBackNext} onClick={prevStep}>
                 Back
               </button>
-              <button className={styles.buttonBackNext} onClick={nextStep}>
+              <button className={styles.buttonBackNext} onClick={prevStepSchedule}>
                 Next
               </button>
             </div>
@@ -140,7 +166,7 @@ const MakeAppoiment = () => {
             <h1>Confirm Date</h1>
             <h2>Specialty: {formData.specialty}</h2>
             <h2>Physician: {formData.physician}</h2>
-            <h2>Choose a date: {formData.date}</h2>
+            <h2>Choose a date: {formData.date.toLocaleDateString()}</h2>
             <div className={styles.containerSelectButtons}>
               <button className={styles.buttonBackNext} onClick={prevStep}>
                 Back
@@ -164,7 +190,7 @@ const MakeAppoiment = () => {
   };
 
   return (
-    <div className={styles.containerMakeAppoiment}>     
+    <div className={styles.containerMakeAppoiment}>
       <div className={styles.containerSection}>
         <div className={styles.containerTitle}>
           <h1>Schedule an appointment</h1>
