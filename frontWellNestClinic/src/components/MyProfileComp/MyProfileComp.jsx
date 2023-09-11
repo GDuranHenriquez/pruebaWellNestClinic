@@ -280,23 +280,23 @@ function MyProfileComp() {
       </div>
 
       <div className={style.configOptions}>
-      <h2>Configuration Options</h2>
+      <h1>Configuration Options</h1>
       {/* Cambiar foto de perfil */}
       {isChangingProfilePicture ? (
           <div>
             <input type="file" accept="image/*" onChange={uploadFromFile} />
-            <button onClick={takePhoto}>Tomar foto</button>
+            <button onClick={takePhoto}>Take photo</button>
             <div>
               <button onClick={saveProfilePicture}>
-                {isUploading ? 'Uploading...' : 'Guardar Cambio'}
+                {isUploading ? 'Uploading...' : 'Save Change'}
               </button>
               <button className={style.cancelButton} onClick={toggleChangeProfilePicture}>
-                Cancelar
+                Cancel
               </button>
             </div>
           </div>
         ) : (
-          <button onClick={toggleChangeProfilePicture}>Cambiar foto de perfil</button>
+          <button onClick={toggleChangeProfilePicture}>Change Profile Picture</button>
         )}
         {/* Cambiar contraseña */}
         {isChangingPassword ? (
@@ -320,9 +320,9 @@ function MyProfileComp() {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <div>
-              <button onClick={changePassword}>Guardar Cambio</button>
+              <button onClick={changePassword}>Save Change</button>
               <button className="cancel" onClick={toggleChangePassword}>
-                Cancelar
+                Cancel
               </button>
             </div>
           </div>
@@ -352,9 +352,9 @@ function MyProfileComp() {
               onChange={(e) => setConfirmAddress(e.target.value)}
             />
             <div>
-              <button onClick={changeAddress}>Guardar Cambio</button>
+              <button onClick={changeAddress}>Save Change</button>
               <button className="cancel" onClick={toggleChangeAddress}>
-                Cancelar
+                Cancel
               </button>
             </div>
           </div>
@@ -384,9 +384,9 @@ function MyProfileComp() {
               onChange={(e) => setConfirmContact(e.target.value)}
             />
             <div>
-              <button onClick={changeContact}>Guardar Cambio</button>
+              <button onClick={changeContact}>Save Change</button>
               <button className="cancel" onClick={toggleChangeContact}>
-                Cancelar
+                Cancel
               </button>
             </div>
           </div>

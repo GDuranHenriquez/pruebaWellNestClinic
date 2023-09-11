@@ -1,18 +1,19 @@
 .profileContainer{
   width: 100%;
-  padding-top: calc(100vh * (1 - 0.85));
   display: flex;
-  flex-wrap: nowrap;
   justify-content: center;
-  gap: 20px;
+  gap: 70px;
 }
 
+
 .userProfile {
-  float: left; /* Para colocar el perfil a la izquierda */
-  width: 50%; /* Ajusta el ancho según tus necesidades */
-  padding: 20px;
-  box-sizing: border-box;
-  border-right: 1px solid #ccc; /* Línea divisoria entre el perfil y opciones de configuración */
+  border: solid 2px darkblue;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.744);
+  color: darkblue;
+  float: left; 
+  width: 40%;
+  font-size: 20px;
 }
 
 .userProfile img {
@@ -20,61 +21,65 @@
   height: auto;
 }
 
-/* Estilos para las opciones de configuración */
+
 .configOptions {
-  float: left; /* Para colocar las opciones a la derecha */
-  width: 50%; /* Ajusta el ancho según tus necesidades */
+  border: solid 2px darkblue;
+  border-radius: 20px;
+  float: left;
+  width: 40%; 
   padding: 20px;
-  box-sizing: border-box;
-  background-color: #f7f7f7; /* Color de fondo para destacar las opciones */
+  background-color: rgba(255, 255, 255, 0.744);
 }
 
-.configOptions h2 {
-  font-size: 24px;
+.configOptions h1 {
+  font-size: 35px;
   margin-bottom: 20px;
+  margin-top: 15px;
   color: darkblue;
 }
 
-/* Estilos para los botones de cambio */
+
 .configOptions button {
   display: block;
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-top: 45px;
   font-size: 16px;
-  background-color: #007bff; /* Color de fondo del botón */
-  color: #fff; /* Color del texto del botón */
-  border: none;
+  background-color: #007bff;
+  color: white; 
+  border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .configOptions button:hover {
-  background-color: #0056b3; /* Color de fondo del botón al pasar el mouse */
+  background-color: #0056b3;
 }
 
-/* Estilos para los campos de entrada en modo de cambio */
 .configOptions input[type="text"],
 .configOptions input[type="password"] {
   width: 100%;
-  padding: 8px;
+  height: 30%;
+  padding: 5px;
   margin-bottom: 10px;
+  margin-top: 10px;
+  margin-right: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-/* Estilos para los botones de guardar y cancelar en modo de cambio */
 .configOptions div {
   display: flex;
   justify-content: space-between;
 }
 
 .configOptions div button {
-  width: 48%; /* Ancho igual para ambos botones */
-  background-color: #28a745; /* Color de fondo para "Guardar Cambio" */
-  color: #fff;
+  display: flex;
+  width: 100%;
+  margin-top: 70px;
+  margin-bottom: -20px;
+  margin-right: 10px; 
+  background-color: #566575;
+  color: white;
 }
 
-.configOptions div button.cancel {
-  background-color: #dc3545; /* Color de fondo para "Cancelar" */
-}
