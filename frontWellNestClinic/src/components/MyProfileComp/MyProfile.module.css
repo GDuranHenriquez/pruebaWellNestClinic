@@ -1,4 +1,4 @@
-.containerPerfil{
+.profileContainer{
   width: 100%;
   padding-top: calc(100vh * (1 - 0.85));
   display: flex;
@@ -7,35 +7,74 @@
   gap: 20px;
 }
 
-.dataPerfil{
-  width: 45%;
+.userProfile {
+  float: left; /* Para colocar el perfil a la izquierda */
+  width: 50%; /* Ajusta el ancho según tus necesidades */
+  padding: 20px;
+  box-sizing: border-box;
+  border-right: 1px solid #ccc; /* Línea divisoria entre el perfil y opciones de configuración */
+}
+
+.userProfile img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Estilos para las opciones de configuración */
+.configOptions {
+  float: left; /* Para colocar las opciones a la derecha */
+  width: 50%; /* Ajusta el ancho según tus necesidades */
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #f7f7f7; /* Color de fondo para destacar las opciones */
+}
+
+.configOptions h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: darkblue;
+}
+
+/* Estilos para los botones de cambio */
+.configOptions button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  background-color: #007bff; /* Color de fondo del botón */
+  color: #fff; /* Color del texto del botón */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.configOptions button:hover {
+  background-color: #0056b3; /* Color de fondo del botón al pasar el mouse */
+}
+
+/* Estilos para los campos de entrada en modo de cambio */
+.configOptions input[type="text"],
+.configOptions input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 4px;
 }
 
-.accionsUsers{
-  width: 45%;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.8); 
+/* Estilos para los botones de guardar y cancelar en modo de cambio */
+.configOptions div {
+  display: flex;
+  justify-content: space-between;
 }
 
-#nombrePerfil{
-  margin: 0 0 10px 0;
-  font-size: 20px;
-
+.configOptions div button {
+  width: 48%; /* Ancho igual para ambos botones */
+  background-color: #28a745; /* Color de fondo para "Guardar Cambio" */
+  color: #fff;
 }
 
-#imgProfile{
-  min-width: 120px;
-  min-height: 120px;
-  max-width: 120px;
-  max-height: 120px;
-  border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.8);
-}
-p{
-  font-size: 12px;
-  margin-bottom: 5px;
+.configOptions div button.cancel {
+  background-color: #dc3545; /* Color de fondo para "Cancelar" */
 }
