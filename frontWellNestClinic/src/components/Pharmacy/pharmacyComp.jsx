@@ -81,14 +81,17 @@ function PharmacyComp() {
           Alphabetical Order ({alphabeticalOrder === 'asc' ? 'A-Z' : 'Z-A'})
         </button>
 
-        <input  type="text"
+        <div className={styled.search}>
+          <input  type="text"
           id={styled.inpSearch}
           placeholder="Search by name"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-        />
+          />
+          <button id={styled.BtnSearch} onClick={searchProductByName}>Search</button>
+        </div>
 
-        <button id={styled.BtnSearch} onClick={searchProductByName}>Search</button>
+        
 
         <button id={styled.btnPryceOrder} onClick={changePriceOrder}>Price order</button>
       </div>

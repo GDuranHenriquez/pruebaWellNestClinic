@@ -77,10 +77,10 @@ function NavBarPharmacy({logout}){
       <img className={styles.logo} src="/imagenes/Logo.jpg" alt="logo" />
       <div className={styles.menu}>
         
-        <Link to="/home" className={styles.linkNoUnderline}>Home </Link>
+        <Link to="/pharmacy" className={styles.linkNoUnderline}>Home Pharmacy </Link>
         <Link to="/ofers" className={styles.linkNoUnderline}>Oferts</Link>
         <Link to="/my-orders" className={styles.linkNoUnderline}>My Orders</Link>
-        <Link to="/wellnest-clinic" className={styles.linkNoUnderline}>WellNest Clinic</Link>
+        <Link to="/home" className={styles.linkNoUnderline}>WellNest Clinic</Link>
         <Link to="/my-cart" className={styles.iconUserDownLink}>
           <IconShoppingCart className={styles.iconUserDown}/>
         </Link>

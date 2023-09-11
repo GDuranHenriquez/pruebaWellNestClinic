@@ -55,12 +55,13 @@ export const resetGenericError = () => {
   }
 }
 
-export const loginUser = (email, password, dni) => {
+export const loginUser = (email, password, dni, token) => {
   return async function (dispatch) {
     const datos = {
       password: password,
       userName: email,
       dni: dni,
+      token: token
     };
     const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/login` ;
     
@@ -77,13 +78,14 @@ export const loginUser = (email, password, dni) => {
   };
 };
 
-export const signUp = async (email, password, id) => {
+export const signUp = async (email, password, id, token) => {
   const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/register`;
   try {
     const body = {
       email: email,
       password: password,
       id: id,
+      token: token
     };
     const response = await axios.post(endpoint, body);
     return response;

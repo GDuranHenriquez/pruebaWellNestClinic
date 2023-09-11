@@ -7,6 +7,7 @@ import validation from "./Validation";
 import Loading from "../Loading/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { GoogleLogin } from '@react-oauth/google';
 
 //Toast
 import { ToastContainer, toast } from "react-toastify";
@@ -34,7 +35,7 @@ const SignUpComponent = (props) => {
     if (Object.keys(errors).length === 0) {
       try {
         //esto cambiarlo por props
-        const signUpResponse = await signUp(email, password, IsMember.id);
+        const signUpResponse = await signUp(email, password, IsMember.id, null);
 
         setEmail("");
         setPassword("");
@@ -90,6 +91,45 @@ const SignUpComponent = (props) => {
     });
   };
 
+  const googleResponse = async (response) => {
+    try {
+      if(response.credential){
+        setIsLoading(true);    
+        //esto cambiarlo por props
+        const signUpResponse = await signUp(null, null, IsMember.id, response.credential);
+        setEmail("");
+        setPassword("");
+
+        if (signUpResponse.status == 200) {
+          messageSuccess("Your account was created successfully!");
+          setTimeout(() => {
+            navigate("/login");
+          }, 3000);
+        } else if (signUpResponse.status == 403) {
+            messageError(signUpResponse.data.error);
+        } else {
+          let message = signUpResponse.data.message;
+          if (!message) {
+            messageError(signUpResponse.data.error);
+          }
+          const errorServer = { server: message };
+          setError(errorServer);
+        }
+      } else {
+        setIsLoading(false);
+      }
+    } catch (error) {
+      const errorServer = { server: "There is a server error" };
+      setError(errorServer);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const googleResponseError = (erros) => {
+    console.log('Register faile');
+  }
+
   return (
     <div>
         {isLoading && <Loading></Loading>}
@@ -97,7 +137,7 @@ const SignUpComponent = (props) => {
           <h1 className={style.heading}>Welcome</h1>
           <div className={style.container}>
             <h2>Sign Up</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} >
               <div className={style.form}>
                 <div>
                   <label className={style.label}>Email address</label>
@@ -153,9 +193,20 @@ const SignUpComponent = (props) => {
                 </a>
               </h5>
             </form>
+            <br/> <br/>
+            <GoogleLogin
+              useOneTap
+              clientId={import.meta.env.VITE_CLIENT_ID_GOOGLE}
+              onSuccess={googleResponse}
+              onError={googleResponseError}
+              text = "Sign in with Google"
+              shape = 'circle'
+              logo_alignment = "center"
+              
+              />;
           </div>
         </div>
-      )}
+      )
       <ToastContainer></ToastContainer>
     </div>
   );

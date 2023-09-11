@@ -9,12 +9,11 @@ import SignUp from "./pages/SignUp/SignUp";
 import MyProfilePage from "./pages/MyProfile/MyProfilePage";
 import "./App.css";
 import MyPharmacyPage from "./pages/pharmacy/pharmacyPage";
-import shoppingCartPage from "./pages/shoppingCart/shoppingCartPage";
-import checkoutPage from "./pages/checkoutPage/checkoutPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-// import DetailPage from "./pages/DetailPage.jsx/DetailPage";
+import DetailPage from "./pages/DetailPage.jsx/DetailPage";
 import { AuthProvider } from "./Authenticator/AuthPro";
 import DoctorsPage from "./pages/Doctors/DoctorsPage";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 function App() {
   const router = createBrowserRouter([
@@ -57,14 +56,6 @@ function App() {
         {
           path: "/pharmacy",
           element: <MyPharmacyPage></MyPharmacyPage>,
-        },
-        {
-          path: "/shoppingcart",
-          element: <shoppingCartPage></shoppingCartPage>,
-        },
-        {
-          path: "/checkout",
-          element: <checkoutPage></checkoutPage>,
         },
         {
           path: "/doctors",

@@ -7,7 +7,7 @@ import { useAuth } from "../../Authenticator/AuthPro";
 import Loading from "../Loading/Loading";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-
+import { GoogleLogin } from '@react-oauth/google';
 
 //Toast
 import { ToastContainer, toast } from "react-toastify";
@@ -47,7 +47,7 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const loginResponse = await dispatch(loginUser(email, password, dni));
+      const loginResponse = await dispatch(loginUser(email, password, dni, null));
       
       if (loginResponse.data.pass) {
        
@@ -90,6 +90,44 @@ const Login = () => {
       theme: "light",
     });
   };
+
+  const googleResponse = async (response) => {
+    setIsLoading(true);
+    try {
+      const loginResponse = await dispatch(loginUser(null, null, null, response.credential));
+      
+      if (loginResponse.data.pass) {
+       
+        dispatch(getUser(loginResponse.data.user.id, loginResponse.data.accessToken));
+
+        // const json = (await loginResponse.json()) 
+        
+
+        if (loginResponse.data.accessToken && loginResponse.data.refreshToken) {
+          auth.saveUser(loginResponse);
+        }
+
+        auth.getAccess();
+        navigate("/home");
+      } else if (loginResponse.status === 403) {
+        if (loginResponse.data.message) {
+          messageError(loginResponse.data.message);
+        } else {
+          messageError(loginResponse.data.error);
+        }
+      } else {
+        messageError(loginResponse.data.error);
+      }
+    } catch (error) {
+      setError("Internal error");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  const googleResponseError = (erros) => {
+    messageError('Register faile');
+  }
 
   return (
     <div className={style.page}>
@@ -164,6 +202,13 @@ const Login = () => {
                 </a>
               </h5>
             </form>
+            <br/> <br/>
+            <GoogleLogin
+              useOneTap
+              clientId={import.meta.env.VITE_CLIENT_ID_GOOGLE}
+              onSuccess={googleResponse}
+              onError={googleResponseError}
+              text = "Sign in with Google"/>;
           </div>
         </div>
       <ToastContainer></ToastContainer>

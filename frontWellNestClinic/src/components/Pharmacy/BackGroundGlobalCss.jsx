@@ -8,7 +8,7 @@ export const BackgrounContainer = styled.div`
   height: 100vh;
   z-index: -10;
   background-color: white;
-  filter: brightness(95%);
+  filter: brightness(85%);
   img{
     object-fit: cover;
     width: 100%;
