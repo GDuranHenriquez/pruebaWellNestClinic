@@ -1,21 +1,39 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { IconShoppingCart } from '@tabler/icons-react';
 
 import styles from './Card.module.css';
 
-function Card({ product, onAddToCartClick }) {
+function Card({product}) {
+  const [isVisPlusMines, setIsVisPlusMines] = useState(0);
+
   return (
     <div className={styles.card}>
-      <img src={product.imageUrl} alt={product.name} className={styles.image} />
-      <h2 className={styles.name}>{product.name}</h2>
-      <Link to={`/product/${product.id}`} className={styles.seeMore}>
-        See More
-      </Link>
-      <button onClick={() => onAddToCartClick(product)} className={styles.addToCart}>
-        Add to Cart
-      </button>
+      <div className={styles.imgProduct}>
+        <img id={styles.imgProduct} src={product.imageUrl} alt={`imagen de ${product.name}`} />
+      </div>
+
+      <div className={styles.dataProduc}>
+        <div className={styles.name}>
+          <p id={styles.name}>{product.name}</p>
+        </div>
+        <div className={styles.price}>
+
+          <p id={styles.price}>Price: {product.price}</p>
+        </div>
+        <div className={ styles.divBtnAdd }>
+          <button id={styles.divBtnAdd} /* onClick={''} */ className={styles.btnAdd}>
+            Add to Cart
+          </button>
+          <IconShoppingCart id={ styles.iconCart }></IconShoppingCart>
+        </div>
+      </div>
     </div>
   );
+}
+
+Card.propTypes = {
+  product: PropTypes.object.isRequired,
 }
 
 export default Card;

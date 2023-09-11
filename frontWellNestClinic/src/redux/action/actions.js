@@ -3,7 +3,7 @@ import axios from 'axios';
 import { SET_USER,  UPDATE_PROFILE_PICTURE,  UPDATE_PASSWORD,
   PAY_MEMBERSHIP,  CANCEL_MEMBERSHIP, LOGIN_USERMEMBER,  VERIFY_USERNAME,
   VERIFY_ISMEMBER, GENERIC_ERROR, RESET_GENERIC_ERROR, RESET_IS_MEMBER,
-  GET_USER_ID, GET_SPECIALITY, DOCTOR_FILTERING, GET_DOCTORS, GET_SPECIALTIES } from './type';
+  GET_USER_ID, GET_SPECIALITY, DOCTOR_FILTERING, GET_DOCTORS, GET_SPECIALTIES, GET_ALL_DOCTORS } from './type';
 
 
 export const verifyUsername = (userName) => {
@@ -98,7 +98,6 @@ export const resetIsMember = () => ({
   payload: null
 });
 
-
 export const getUser = (id, token) => {
   const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/?id=${id}`;
   const config = {
@@ -125,7 +124,6 @@ export const getUser = (id, token) => {
   
 }
 
-
 export const setUser = (user) => ({
   type: SET_USER,
   payload: user,
@@ -148,7 +146,6 @@ export const payMembership = () => ({
 export const cancelMembership = () => ({
   type: CANCEL_MEMBERSHIP,
 });
-
 
 export const getSpeciality = () => async (dispach) => {
   try {
@@ -177,7 +174,6 @@ export const doctorFiltering = (dataSpeciality) => async (dispach) => {
   }
 }
 
-
 export const getDoctors = () => {
   return async (dispatch) => {
       try {
@@ -192,7 +188,6 @@ export const getDoctors = () => {
   };
 };
 
-
 export const getSpecialties = () => async (dispach) => {
   try {
     const { data } = await axios.get('https://serverwellnestclinic.onrender.com/speciality');
@@ -202,5 +197,21 @@ export const getSpecialties = () => async (dispach) => {
     })
   } catch (error) {
     return error.response;
+  }
+}
+
+export const getAllProducts = () =>  async (dispach) => {
+  try {
+    const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/product`;
+    const { data } = await axios.get(endPoint);
+    return dispach({
+      type: GET_ALL_DOCTORS,
+      payload: data
+    })
+  } catch (error) {
+    return dispach({
+      type: GENERIC_ERROR,
+      payload: error.message
+    })
   }
 }

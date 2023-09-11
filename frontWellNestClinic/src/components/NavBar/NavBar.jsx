@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from "./NavBar.module.css";
 import {IconLogout, IconUserDown} from "@tabler/icons-react";
 import { useAuth } from '../../Authenticator/AuthPro';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+import { IconShoppingCart } from '@tabler/icons-react';
+import PropTypes from 'prop-types';
 
-function NavBar() {
+function NavBar() {  
+  const location = useLocation().pathname;
+  const routespages = ['/pharmacy']
 
   const auth = useAuth();
-
   const logout =  async () =>{
     try {
       const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + "/sing-out";
@@ -27,6 +31,18 @@ function NavBar() {
     }
   }
 
+  useEffect(() =>{
+    console.log(location);
+  });
+
+
+  return (<>
+    {routespages.includes(location)? <NavBarPharmacy logout={logout}/>:<NavBarPrincipal logout={logout}/>}
+  </>);
+}
+
+function NavBarPrincipal({logout}){
+  
   return (
     <nav className={styles.navSup}>
 
@@ -50,4 +66,35 @@ function NavBar() {
   );
 }
 
+NavBarPrincipal.propTypes = {
+  logout: PropTypes.func.isRequired,
+}
+
+NavBarPharmacy.propTypes = {
+  logout: PropTypes.func.isRequired,
+}
+
+function NavBarPharmacy({logout}){
+  
+  return (
+    <nav className={styles.navSup}>
+
+      <img className={styles.logo} src="/imagenes/Logo.jpg" alt="logo" />
+      <div className={styles.menu}>
+        
+        <Link to="/home" className={styles.linkNoUnderline}>Home </Link>
+        <Link to="/ofers" className={styles.linkNoUnderline}>Oferts</Link>
+        <Link to="/my-orders" className={styles.linkNoUnderline}>My Orders</Link>
+        <Link to="/wellnest-clinic" className={styles.linkNoUnderline}>WellNest Clinic</Link>
+        <Link to="/my-cart" className={styles.iconUserDownLink}>
+          <IconShoppingCart className={styles.iconUserDown}/>
+        </Link>
+        <Link onClick={logout} to= "#">
+        <IconLogout className={styles.iconLogout}/>
+        </Link>
+      </div>
+      
+    </nav>
+  );
+} 
 export default NavBar;

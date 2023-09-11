@@ -1,12 +1,13 @@
 import style from "./pharmacyPage.module.css"
-import BackGroundGlobal from '../../components/Pharmacy/pharmacyComp'
+import BackGrounPharmacy from '../../components/Pharmacy/BackGrounPharmacy'
 import PharmacyComp from '../../components/Pharmacy/pharmacyComp'
-
+import Cards from "../../components/Cards/Cards"
 
 function MyPharmacyPage(){
-  return (<div className={style.farmacia}>
-    <BackGroundGlobal imgBackGround="https://i.pinimg.com/474x/f6/46/81/f64681ae17370c0c383b19a7f74e1f98.jpg"></BackGroundGlobal>
-    {/* <PharmacyComp></PharmacyComp> */}
+  return (<div className={style.MyPharmacyPage}>
+    <BackGrounPharmacy></BackGrounPharmacy>
+    <PharmacyComp></PharmacyComp>
+    <Cards></Cards>
   </div>)
 }
 

@@ -4,7 +4,8 @@ import {
   PAY_MEMBERSHIP, CANCEL_MEMBERSHIP, GENERIC_ERROR,
   LOGIN_USERMEMBER, VERIFY_USERNAME, VERIFY_ISMEMBER,
   RESET_GENERIC_ERROR, RESET_IS_MEMBER, GET_USER_ID,
-  GET_SPECIALITY, DOCTOR_FILTERING, GET_SPECIALTIES, GET_DOCTORS
+  GET_SPECIALITY, DOCTOR_FILTERING, GET_SPECIALTIES, GET_DOCTORS,
+  GET_ALL_DOCTORS
 } from '../action/type';
 
 const initialState = {
@@ -25,10 +26,14 @@ const initialState = {
 
   doctors: [],
   specialities: [],
+  //Products
+  allProducts:[],
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
+    case GET_ALL_DOCTORS:
+      return { ...state, allProducts: action.payload}
     //userClient
     case VERIFY_ISMEMBER:
       return { ...state, verifyIsMember: action.payload }

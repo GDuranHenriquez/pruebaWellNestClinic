@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cards from '../Cards/Cards';
-
+import styled from './pharmacyComp.module.css';
+import { useDispatch } from 'react-redux'
+import { getAllProducts } from '../../redux/action/actions';
+ 
 
 function PharmacyComp() {
-  const [products, setProducts] = useState([]);
   const [filterType, setFilterType] = useState('');
   const [alphabeticalOrder, setAlphabeticalOrder] = useState('asc');
   const [search, setSearch] = useState('');
   const [priceOrder, setPriceOrder] = useState('asc');
+
+  const dispatch = useDispatch();
 
  
   const fetchProducts = async () => {
@@ -19,7 +23,6 @@ function PharmacyComp() {
       console.error('Error loading products:', error);
     }
   };
-
   
   const searchProductByName = async () => {
     try {
@@ -30,10 +33,13 @@ function PharmacyComp() {
     }
   };
 
-
   useEffect(() => {
     /* fetchProducts(); */
   }, [filterType, alphabeticalOrder, search]);
+
+  useEffect(() => {
+    dispatch(getAllProducts());
+  }, [])
 
   const handleFilterType = async (selectedType) => {
     try {
@@ -61,44 +67,30 @@ function PharmacyComp() {
     }
   };
 
-  useEffect(() => {
-    /* fetchProducts(); */
-  }, [filterType, alphabeticalOrder, search, priceOrder]);
-
   return (
-    <div>
-      <div>
-
-        <Cards
-        products={products}
-        onSeeMoreClick={handleSeeMoreClick}
-        onAddToCartClick={handleAddToCartClick}
-      />
-      <select value={filterType} onChange={(e) => handleFilterType(e.target.value)}>
-          <option value="">All</option>
-          <option value="type1">Type 1</option>
-          <option value="type2">Type 2</option>
-          {/* More type options */}
+    <div className={styled.containerCards}>
+      <div className={styled.filterType}>        
+        <select id={styled.selectType} value={filterType} onChange={(e) => handleFilterType(e.target.value)}>
+            <option value="">All</option>
+            <option value="type1">Type 1</option>
+            <option value="type2">Type 2</option>
+            {/* More type options */}
         </select>
-        <button onClick={changeAlphabeticalOrder}>
+
+        <button id={styled.alphabeticOrder} onClick={changeAlphabeticalOrder}>
           Alphabetical Order ({alphabeticalOrder === 'asc' ? 'A-Z' : 'Z-A'})
         </button>
-        <input
-          type="text"
+
+        <input  type="text"
+          id={styled.inpSearch}
           placeholder="Search by name"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button onClick={searchProductByName}>Search</button>
-        <button onClick={changePriceOrder}>Price order</button>-
-      </div>
 
-      <div className="products">
-        {products.map((product) => (
-          <div key={product.id} className="product">
-            {/* Product information */}
-          </div>
-        ))}
+        <button id={styled.BtnSearch} onClick={searchProductByName}>Search</button>
+
+        <button id={styled.btnPryceOrder} onClick={changePriceOrder}>Price order</button>
       </div>
     </div>
   );

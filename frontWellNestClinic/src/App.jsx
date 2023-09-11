@@ -20,7 +20,6 @@ function App() {
       path: "/",
       element: <LandingPage></LandingPage>,
     },
-
     {
       path: "/sign-up",
       element: <SignUp></SignUp>,

@@ -25,4 +25,6 @@ export const DOCTOR_FILTERING = 'DOCTOR_FILTERING';
 export const GET_DOCTORS ="GET_DOCTORS";
 export const GET_SPECIALTIES = "GET_SPECIALTIES";
 
+//products
+export const GET_ALL_DOCTORS = "GET_ALL_DOCTORS";
 
