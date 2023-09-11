@@ -9,6 +9,8 @@ import SignUp from "./pages/SignUp/SignUp";
 import MyProfilePage from "./pages/MyProfile/MyProfilePage";
 import "./App.css";
 import MyPharmacyPage from "./pages/pharmacy/pharmacyPage";
+import shoppingCartPage from "./pages/shoppingCart/shoppingCartPage";
+import checkoutPage from "./pages/checkoutPage/checkoutPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DetailPage from "./pages/DetailPage.jsx/DetailPage";
 import { AuthProvider } from "./Authenticator/AuthPro";
@@ -56,6 +58,14 @@ function App() {
         {
           path: "/pharmacy",
           element: <MyPharmacyPage></MyPharmacyPage>,
+        },
+        {
+          path: "/shoppingcart",
+          element: <shoppingCartPage></shoppingCartPage>,
+        },
+        {
+          path: "/checkout",
+          element: <checkoutPage></checkoutPage>,
         },
         {
           path: "/doctors",

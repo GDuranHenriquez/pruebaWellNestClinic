@@ -11,9 +11,7 @@ function Card({ product, onAddToCartClick }) {
       <Link to={`/product/${product.id}`} className={styles.seeMore}>
         See More
       </Link>
-      <button onClick={() => onAddToCartClick(product)} className={styles.addToCart}>
-        Add to Cart
-      </button>
+      <button onClick={() => onAddToCartClick(product)}>Add to Cart</button>
     </div>
   );
 }
