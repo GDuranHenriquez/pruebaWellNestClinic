@@ -14,7 +14,8 @@ import DetailPage from "./pages/DetailPage.jsx/DetailPage";
 import { AuthProvider } from "./Authenticator/AuthPro";
 import DoctorsPage from "./pages/Doctors/DoctorsPage";
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import PurchaseDetail from "./components/Pharmacy/PurchaseDetail";
+import PurchaseDetail from "./components/Pharmacy/PurchaseDetail/PurchaseDetail";
+import ProductDetail from "./components/Pharmacy/ProductDetail/ProductDetail";
 
 
 function App() {
@@ -66,6 +67,10 @@ function App() {
         {
           path: "/purchase-detail",
           element: <PurchaseDetail></PurchaseDetail>,
+        },
+        {
+          path: "/product/:id",
+          element: <ProductDetail></ProductDetail>,
         },
       ],
     },

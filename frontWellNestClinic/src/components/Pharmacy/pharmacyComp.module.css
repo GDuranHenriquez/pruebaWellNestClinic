@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
-  background-color: rgba(19, 40, 223, 0.8);
+  background-color: rgba(227, 240, 214, 0.8);
   height: 50px;
 }
 
@@ -50,7 +50,7 @@
   outline: none;
 }
 #selectType::-ms-expand{
-  background-color: aliceblue;
+  background-color: rgb(255, 250, 240);
 }
 
 .search{

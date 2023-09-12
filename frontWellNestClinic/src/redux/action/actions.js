@@ -1,59 +1,83 @@
-import axios from 'axios';
+import axios from "axios";
 
-import { SET_USER,  UPDATE_PROFILE_PICTURE,  UPDATE_PASSWORD,
-  PAY_MEMBERSHIP,  CANCEL_MEMBERSHIP, LOGIN_USERMEMBER,  VERIFY_USERNAME,
-  VERIFY_ISMEMBER, GENERIC_ERROR, RESET_GENERIC_ERROR, RESET_IS_MEMBER,
-  GET_USER_ID, DOCTOR_FILTERING, ALL_SCHEDULE, GET_DOCTORS, GET_SPECIALTIES, GET_ALL_DOCTORS } from './type.js';
-
+import {
+  SET_USER,
+  UPDATE_PROFILE_PICTURE,
+  UPDATE_PASSWORD,
+  PAY_MEMBERSHIP,
+  CANCEL_MEMBERSHIP,
+  LOGIN_USERMEMBER,
+  VERIFY_USERNAME,
+  VERIFY_ISMEMBER,
+  GENERIC_ERROR,
+  RESET_GENERIC_ERROR,
+  RESET_IS_MEMBER,
+  GET_USER_ID,
+  DOCTOR_FILTERING,
+  ALL_SCHEDULE,
+  GET_DOCTORS,
+  GET_SPECIALTIES,
+  GET_ALL_PRODUCTS,
+  GET_PRODUCT_BY_NAME,
+  GET_PRODUCT_DETAIL
+} from "./type.js";
 
 export const verifyUsername = (userName) => {
-  const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/validateUser/?userName=${userName}`
+  const endPoint =
+    import.meta.env.VITE_BASENDPOINT_BACK +
+    `/login-register/validateUser/?userName=${userName}`;
   return (dispatch) => {
-    axios.get(endPoint).then(({data}) => {
-      return dispatch({
-        type: VERIFY_USERNAME,
-        payload: data
+    axios
+      .get(endPoint)
+      .then(({ data }) => {
+        return dispatch({
+          type: VERIFY_USERNAME,
+          payload: data,
+        });
       })
-    }).catch((error) => {
-      var err = error.response;
-      return dispatch({
-        type: GENERIC_ERROR,
-        payload: err.data.error
+      .catch((error) => {
+        var err = error.response;
+        return dispatch({
+          type: GENERIC_ERROR,
+          payload: err.data.error,
+        });
       });
-    });
   };
 };
 
 export const verifyIsMember = (ID, setIsLoading) => {
-  const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/isMember/${ID}`
+  const endPoint =
+    import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/isMember/${ID}`;
   return (dispatch) => {
-    axios.get(endPoint).then(({data}) => {
-      setIsLoading(false);
-      return dispatch({
-        type: VERIFY_ISMEMBER,
-        payload: data
-      })
-    }).catch((error) => {
-      setIsLoading(false);
-      var err = error.response;
-      if(err.status === 403){
+    axios
+      .get(endPoint)
+      .then(({ data }) => {
         setIsLoading(false);
         return dispatch({
-          type: GENERIC_ERROR,
-          payload: {...err.data, status: err.status}
+          type: VERIFY_ISMEMBER,
+          payload: data,
         });
-      }
-      
-    });
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        var err = error.response;
+        if (err.status === 403) {
+          setIsLoading(false);
+          return dispatch({
+            type: GENERIC_ERROR,
+            payload: { ...err.data, status: err.status },
+          });
+        }
+      });
   };
-}
+};
 
 export const resetGenericError = () => {
   return {
     type: RESET_GENERIC_ERROR,
-    payload: null
-  }
-}
+    payload: null,
+  };
+};
 
 export const loginUser = (email, password, dni, token) => {
   return async function (dispatch) {
@@ -61,10 +85,11 @@ export const loginUser = (email, password, dni, token) => {
       password: password,
       userName: email,
       dni: dni,
-      token: token
+      token: token,
     };
-    const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/login` ;
-    
+    const endpoint =
+      import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/login`;
+
     try {
       const response = await axios.post(endpoint, datos);
       const apiResponse = response.data.user;
@@ -79,17 +104,17 @@ export const loginUser = (email, password, dni, token) => {
 };
 
 export const signUp = async (email, password, id, token) => {
-  const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/register`;
+  const endpoint =
+    import.meta.env.VITE_BASENDPOINT_BACK + `/login-register/register`;
   try {
     const body = {
       email: email,
       password: password,
       id: id,
-      token: token
+      token: token,
     };
     const response = await axios.post(endpoint, body);
     return response;
-
   } catch (error) {
     return error.response;
   }
@@ -97,34 +122,35 @@ export const signUp = async (email, password, id, token) => {
 
 export const resetIsMember = () => ({
   type: RESET_IS_MEMBER,
-  payload: null
+  payload: null,
 });
 
 export const getUser = (id, token) => {
-  const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/?id=${id}`;
+  const endPoint =
+    import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/?id=${id}`;
   const config = {
     headers: {
-      'Authorization': `Bearer ${token}`,
-    }
+      Authorization: `Bearer ${token}`,
+    },
   };
   return (dispatch) => {
-   
-    axios.get(endPoint, config).then(({data}) => {
-      
-      return dispatch({
-        type: GET_USER_ID,
-        payload: data
+    axios
+      .get(endPoint, config)
+      .then(({ data }) => {
+        return dispatch({
+          type: GET_USER_ID,
+          payload: data,
+        });
       })
-    }).catch((error) => {
-      var err = error.response;
-      return dispatch({
-        type: GENERIC_ERROR,
-        payload: err.data.error
+      .catch((error) => {
+        var err = error.response;
+        return dispatch({
+          type: GENERIC_ERROR,
+          payload: err.data.error,
+        });
       });
-    });
   };
-  
-}
+};
 
 export const setUser = (user) => ({
   type: SET_USER,
@@ -151,76 +177,119 @@ export const cancelMembership = () => ({
 
 export const doctorFiltering = (dataSpeciality) => async (dispach) => {
   try {
-    const { data } = await axios.get(import.meta.env.VITE_BASENDPOINT_BACK + '/doctor/');
+    const { data } = await axios.get(
+      import.meta.env.VITE_BASENDPOINT_BACK + "/doctor/"
+    );
     const filteredDoctors = data.filter((doctor) => {
-      return doctor.specialities.some((speciality) => speciality.name === dataSpeciality);
-    })
+      return doctor.specialities.some(
+        (speciality) => speciality.name === dataSpeciality
+      );
+    });
     return dispach({
       type: DOCTOR_FILTERING,
       payload: filteredDoctors,
-    })
+    });
   } catch (error) {
     return error.response;
   }
-}
+};
 
 export const allSchedule = (dataAppointment) => async (dispach) => {
   try {
-    const {data} = await axios.post(import.meta.env.VITE_BASENDPOINT_BACK + '/appointment/doctor-schedule ', dataAppointment);
+    const { data } = await axios.post(
+      import.meta.env.VITE_BASENDPOINT_BACK + "/appointment/doctor-schedule ",
+      dataAppointment
+    );
     console.log(data);
     return dispach({
       type: ALL_SCHEDULE,
       payload: data,
-    })
+    });
   } catch (error) {
     return error.response;
   }
-}
+};
 
 export const getDoctors = () => {
   return async (dispatch) => {
-      try {
-        const accessToken = localStorage.getItem("accessToken")
-        const config = {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        };
-          const response = await axios.get(import.meta.env.VITE_BASENDPOINT_BACK + '/doctor/', config);
-          dispatch({
-              type: GET_DOCTORS,
-              payload: response.data,
-          });
-      } catch (error) {
-          console.error('Error fetching doctors:', error);
-      }
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const response = await axios.get(
+        import.meta.env.VITE_BASENDPOINT_BACK + "/doctor/",
+        config
+      );
+      dispatch({
+        type: GET_DOCTORS,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error fetching doctors:", error);
+    }
   };
 };
 
 export const getSpecialties = () => async (dispach) => {
   try {
-    const { data } = await axios.get(import.meta.env.VITE_BASENDPOINT_BACK + '/speciality');
+    const { data } = await axios.get(
+      import.meta.env.VITE_BASENDPOINT_BACK + "/speciality"
+    );
     return dispach({
       type: GET_SPECIALTIES,
       payload: data,
-    })
+    });
   } catch (error) {
     return error.response;
   }
-}
+};
 
-export const getAllProducts = () =>  async (dispach) => {
+export const getAllProducts = () => async (dispatch) => {
   try {
-    const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/product`;
-    const { data } = await axios.get(endPoint);
-    return dispach({
-      type: GET_ALL_DOCTORS,
-      payload: data
-    })
+    const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/product`;
+    const { data } = await axios.get(endpoint);
+    return dispatch({
+      type: GET_ALL_PRODUCTS,
+      payload: data,
+    });
   } catch (error) {
-    return dispach({
-      type: GENERIC_ERROR,
-      payload: error.message
-    })
+    return error.response;
   }
-}
+};
+
+export const getProductByName = (productName) => {
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(
+        import.meta.env.VITE_BASENDPOINT_BACK +
+          `/product/name/${productName}`
+      );
+      dispatch({
+        type: GET_PRODUCT_BY_NAME,
+        payload: data,
+      });
+    } catch (error) {
+      return error.message;
+    }
+  };
+};
+
+export const getProductDetail = (productId) => {
+  return async function (dispatch) {
+    try {
+      const { data } = await axios.get(
+        import.meta.env.VITE_BASENDPOINT_BACK +
+          `/product/${productId}`
+      );
+      return dispatch({
+        type: "GET_PRODUCT_DETAIL",
+        payload: data,
+      });
+    } catch (error) {
+      return error.message;
+    }
+  };
+};

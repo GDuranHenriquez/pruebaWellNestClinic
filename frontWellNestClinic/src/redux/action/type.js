@@ -8,7 +8,7 @@ export const PAY_MEMBERSHIP = 'PAY_MEMBERSHIP';
 export const CANCEL_MEMBERSHIP = 'CANCEL_MEMBERSHIP';
 export const RESET_GENERIC_ERROR = 'RESET_GENERIC_ERROR';
 export const RESET_IS_MEMBER = 'RESET_IS_MEMBER';
-export const GET_USER_ID = 'GET_USER_ID'
+export const GET_USER_ID = 'GET_USER_ID';
 
 
 //login
@@ -26,5 +26,7 @@ export const GET_DOCTORS ="GET_DOCTORS";
 export const GET_SPECIALTIES = "GET_SPECIALTIES";
 
 //products
-export const GET_ALL_DOCTORS = "GET_ALL_DOCTORS";
+export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
+export const GET_PRODUCT_BY_NAME = 'GET_PRODUCT_BY_NAME';
+export const GET_PRODUCT_DETAIL = 'GET_PRODUCT_DETAIL'
 
