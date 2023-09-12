@@ -190,8 +190,7 @@ const Login = () => {
                 Submit
               </button>
               {error && <p className={style.error}>{error}</p>}
-              <h4>Or log in with Google</h4>
-              <h5>
+              <h4>
                 Don't have an account?{" "}
                 <a
                   className={style.signup}
@@ -200,15 +199,15 @@ const Login = () => {
                 >
                   Register
                 </a>
-              </h5>
+              </h4>
             </form>
-            <br/> <br/>
+            {/* <br/> <br/> */}
             <GoogleLogin
               useOneTap
               clientId={import.meta.env.VITE_CLIENT_ID_GOOGLE}
               onSuccess={googleResponse}
               onError={googleResponseError}
-              text = "Sign in with Google"/>;
+              text = "Sign in with Google"/>
           </div>
         </div>
       <ToastContainer></ToastContainer>

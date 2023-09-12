@@ -4,10 +4,10 @@ import styles from "./MySchedule.module.css";
 
 const MySchedule = () => {
     const [schedule, setSchedule] = useState([
-        { id: 1, date: '2023-09-12', doctor: 'Jorge Fernandez', especialidad: "Endocrinologia" },
-        { id: 2, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Cardiólogo" },
-        { id: 3, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Oftalmólogo" },
-        { id: 4, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Urólogo" }
+        { id: 1, date: '2023-09-12', doctor: 'George White', especialidad: "Endocrinologist" },
+        { id: 2, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Cardiologist" },
+        { id: 3, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Ophthalmologist" },
+        { id: 4, date: '2023-09-11', doctor: 'Dr. Johnson', especialidad: "Urologist" }
     ]);
 
     const handleCancelSchedule = (id) => {

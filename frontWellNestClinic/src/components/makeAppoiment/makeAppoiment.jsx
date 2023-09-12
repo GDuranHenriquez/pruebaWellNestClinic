@@ -39,9 +39,9 @@ const MakeAppoiment = () => {
 
   const nextStep = () => {
     if (step === 1 && formData.specialty === "dontSelect") {
-      alert("I don't select a specialty");
+      alert("You must select a specialty");
     } else if (step === 2 && formData.physician === "dontSelect") {
-      alert("I don't select a physician");
+      alert("You must select a physician");
     }else {
       dispach(doctorFiltering(formData.specialty));
       setStep(step + 1);
@@ -58,7 +58,7 @@ const MakeAppoiment = () => {
 
   const prevStepSchedule = () => {
     if (step === 3 && formData.date === "") {
-      alert("I don't select a date");
+      alert("You must select a date");
     } else {
       dispach(allSchedule({doctor: formData.physician,
         userClient: auth.user.id,

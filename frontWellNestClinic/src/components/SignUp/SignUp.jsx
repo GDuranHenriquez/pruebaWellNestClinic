@@ -181,8 +181,8 @@ const SignUpComponent = (props) => {
                 Submit
               </button>
               {error.server && <p className={style.error}>{error.server}</p>}
-              <h4>Or sign up with Google</h4>
-              <h5>
+             
+              <h4>
                 Already have an account?{" "}
                 <a
                   className={style.login}
@@ -191,9 +191,9 @@ const SignUpComponent = (props) => {
                 >
                   Sign in
                 </a>
-              </h5>
+              </h4>
             </form>
-            <br/> <br/>
+            {/* <br/> <br/> */}
             <GoogleLogin
               useOneTap
               clientId={import.meta.env.VITE_CLIENT_ID_GOOGLE}
@@ -203,7 +203,7 @@ const SignUpComponent = (props) => {
               shape = 'circle'
               logo_alignment = "center"
               
-              />;
+              />
           </div>
         </div>
       )

@@ -1,32 +1,27 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import { IconShoppingCart } from '@tabler/icons-react';
+import { useState } from "react";
+import PropTypes from "prop-types";
+import { IconShoppingCart } from "@tabler/icons-react";
 
-import styles from './Card.module.css';
+import styles from "./Card.module.css";
 
-function Card({product}) {
+function Card({ product }) {
   const [isVisPlusMines, setIsVisPlusMines] = useState(0);
 
   return (
     <div className={styles.card}>
-      <div className={styles.imgProduct}>
-        <img id={styles.imgProduct} src={product.imageUrl} alt={`imagen de ${product.name}`} />
+      <img
+        className={styles.imgProduct}
+        src={product.imageUrl}
+        alt={`image of ${product.name}`}
+      />
+      <div className={styles.name}>{product.name}</div>
+      <div className={styles.data}>
+        <div>Price: ${product.price}</div>
+        <div>Rating: {product.Product_Average.averageRating}⭐</div>
       </div>
-
-      <div className={styles.dataProduc}>
-        <div className={styles.name}>
-          <p id={styles.name}>{product.name}</p>
-        </div>
-        <div className={styles.price}>
-
-          <p id={styles.price}>Price: {product.price}</p>
-        </div>
-        <div className={ styles.divBtnAdd }>
-          <button id={styles.divBtnAdd} /* onClick={''} */ className={styles.btnAdd}>
-            Add to Cart
-          </button>
-          <IconShoppingCart id={ styles.iconCart }></IconShoppingCart>
-        </div>
+      <div className={styles.BtnAdd}>
+        <button onClick={""}><p className={styles.addTo}>Add to</p><IconShoppingCart id={styles.iconCart}></IconShoppingCart> </button>
+        {/* <IconShoppingCart id={styles.iconCart}></IconShoppingCart> */}
       </div>
     </div>
   );
@@ -34,6 +29,6 @@ function Card({product}) {
 
 Card.propTypes = {
   product: PropTypes.object.isRequired,
-}
+};
 
 export default Card;

@@ -14,6 +14,8 @@ import DetailPage from "./pages/DetailPage.jsx/DetailPage";
 import { AuthProvider } from "./Authenticator/AuthPro";
 import DoctorsPage from "./pages/Doctors/DoctorsPage";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import PurchaseDetail from "./components/Pharmacy/PurchaseDetail";
+
 
 function App() {
   const router = createBrowserRouter([
@@ -60,6 +62,10 @@ function App() {
         {
           path: "/doctors",
           element: <DoctorsPage></DoctorsPage>,
+        },
+        {
+          path: "/purchase-detail",
+          element: <PurchaseDetail></PurchaseDetail>,
         },
       ],
     },

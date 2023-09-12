@@ -62,6 +62,7 @@ export function AuthProvider({ children }) {
     setAccessToken(accessToken);
     setUser(userInfo);
     localStorage.setItem("token", refreshToken);
+    localStorage.setItem("accessToken", accessToken);
     setIsAuthenticated(true);
   }
 

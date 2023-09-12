@@ -15,14 +15,7 @@ function PharmacyComp() {
   const dispatch = useDispatch();
 
  
-  const fetchProducts = async () => {
-    try {
-      const response = await axios.get(`https://serverwellnestclinic.onrender.com/products?type=${filterType}&alphabeticalOrder=${alphabeticalOrder}&search=${search}&priceOrder=${priceOrder}`);
-      setProducts(response.data);
-    } catch (error) {
-      console.error('Error loading products:', error);
-    }
-  };
+
   
   const searchProductByName = async () => {
     try {

@@ -180,7 +180,13 @@ export const allSchedule = (dataAppointment) => async (dispach) => {
 export const getDoctors = () => {
   return async (dispatch) => {
       try {
-          const response = await axios.get(import.meta.env.VITE_BASENDPOINT_BACK + '/doctor/');
+        const accessToken = localStorage.getItem("accessToken")
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+          const response = await axios.get(import.meta.env.VITE_BASENDPOINT_BACK + '/doctor/', config);
           dispatch({
               type: GET_DOCTORS,
               payload: response.data,
