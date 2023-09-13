@@ -280,15 +280,18 @@ export const getProductByName = (productName) => {
 export const getProductDetail = (productId) => {
   return async function (dispatch) {
     try {
+      console.log("Fetching product details for productId:", productId);
       const { data } = await axios.get(
         import.meta.env.VITE_BASENDPOINT_BACK +
           `/product/${productId}`
+          
       );
       return dispatch({
-        type: "GET_PRODUCT_DETAIL",
+        type: GET_PRODUCT_DETAIL,
         payload: data,
       });
     } catch (error) {
+      console.log("Error fetching product details", error);
       return error.message;
     }
   };

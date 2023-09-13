@@ -1,40 +1,79 @@
-.fondo{  
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    align-content: center;
-    justify-content: center;   
-    
-    padding-top: 90px;
-}
-.h1{
-    font-size:30px;
-    color:  rgb(8, 8, 81);
-    margin-top: 5px;
-}
+.fondo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
 
-
-.msg{
-    border-radius: 20px;
-    width: 800px;
-    margin: 0 auto;
-    color: rgb(21, 21, 128);
-    background: rgba(255, 255, 255, 0.7);
-    font-size: 11px;
-   
+  padding-top: 140px;
+}
+.h1 {
+  font-size: 40px;
+  width: 500px;
+  color: rgb(0, 0, 0);
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
 
-.contenedor{
-    padding: 40px;
+.msg {
+  margin-right: 850px;
+  justify-content: left;
+  text-align: left;
 }
 
-.logo{
-    height: 150px;
-    width: 150px;
+.h2 {
+  width: 600px;
+  color: rgb(23, 23, 23);
+  font-size: 15px;
+}
+
+.buttons {
+  display: flex;
+  margin-right: 1250px;
+  /* width: 100%; */
+  /* margin: 20px 0 10px 0;
+  gap: 20px; */
+}
+.newScheduleButton {
+  background-color: #02098c;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius: 5px;
+  height: 60px;
+  width: 120px;
+  margin-top: 20px;
+  margin-left: 130px;
+}
+
+.newScheduleButton:hover {
+  background-color: #f2f7f6;
+  color: #02098c;
+  transition: background-color 0.3s;
+}
+
+.aboutUsButton {
+  background-color: #02098c;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius: 5px;
+  height: 60px;
+  width: 120px;
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.aboutUsButton:hover {
+  background-color: #f2f7f6;
+  color: #02098c;
+  transition: background-color 0.3s;
+}
+
+/* .logo {
+    height: 130px;
+    width: 130px;
     border-radius: 10px;
-   margin-top: 5px;
+    margin-top: 1px;
     margin-bottom: 20px;
-    
-}
-
-
+    margin-right: 1100px;
+  } */

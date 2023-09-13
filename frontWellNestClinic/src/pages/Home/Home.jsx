@@ -5,7 +5,8 @@ import Home from "../../components/home/Home";
 function HomePages(){
 
   return <ContinerHomePage>
-    <BackGroundGlobal imgBackGround="https://gacetamedica.com/wp-content/uploads/2021/10/GettyImages-1201500582.jpg"></BackGroundGlobal>
+    {/* <BackGroundGlobal imgBackGround="https://wallpapers.com/images/featured/doctor-kwucobzhm0etbcwy.jpg"></BackGroundGlobal> */}
+    <BackGroundGlobal imgBackGround="https://www.decisores.com/wp-content/uploads/2022/11/medico-1536x864.jpg"></BackGroundGlobal>
     <Home></Home>
   </ContinerHomePage>
 }

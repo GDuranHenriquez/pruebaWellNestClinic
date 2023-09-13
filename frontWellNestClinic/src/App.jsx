@@ -19,6 +19,7 @@ import ProductDetail from "./components/Pharmacy/ProductDetail/ProductDetail";
 import CheckoutComp from "./components/Checkout/CheckoutComp";
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import AboutUs from "./components/AboutUs/AboutUs";
 
 const stripePromise = loadStripe("pk_test_51NphDtGBKVf0lzYs934e4NCQPYkmv5gFN9nSRaiJ4Ewpioi7WxGduWbxMDXhC0jkmeS1bvFFU8rAOG9FSaAHKwu2006neqNJuX");
 
@@ -60,6 +61,11 @@ function App() {
           path: "/my-profile",
           element: <MyProfilePage></MyProfilePage>,
         },
+        {
+          path: "/about-us",
+          element: <AboutUs></AboutUs>,
+        },
+
         {
           path: "/pharmacy",
           element: <MyPharmacyPage></MyPharmacyPage>,

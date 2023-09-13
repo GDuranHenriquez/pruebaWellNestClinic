@@ -14,10 +14,10 @@
 }
 
 .logo{
-    height: 100%;
-    width: 80px;
+    height: 57px;
+    width: 62px;
     border-radius: 10px;
-    margin-left: 20px;
+    margin-left: 130px;
 }
 .logo:hover{
     cursor: pointer;

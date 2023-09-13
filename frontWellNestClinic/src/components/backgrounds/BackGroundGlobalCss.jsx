@@ -11,6 +11,6 @@ export const BackgrounContainer = styled.div`
     object-fit: cover;
     width: 100%;
     height: 100%;
-    filter: brightness(70%);
+    filter: brightness(90%);
   }
 `
