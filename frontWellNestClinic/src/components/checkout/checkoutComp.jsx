@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-function checkoutComp({ selectedProducts }) {
+function CheckoutComp({ selectedProducts }) {
   const [userData, setUserData] = useState({
     username: '',
     phoneNumber: '',
     address: '',
-    paymentMethod: '',
   });
 
   const [discount, setDiscount] = useState(0);
   const [shippingCost, setShippingCost] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const history = useHistory();
+
+  const stripe = useStripe();
+  const elements = useElements();
 
   useEffect(() => {
     // Calcular el precio total de los productos seleccionados
@@ -45,26 +48,37 @@ function checkoutComp({ selectedProducts }) {
     }));
   };
 
-  const handlePaymentMethodChange = (e) => {
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      paymentMethod: e.target.value,
-    }));
-  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const handlePaymentClick = async () => {
-    if (!userData.username || !userData.phoneNumber || !userData.address || !userData.paymentMethod) {
-      alert('Please fill in all shipping information and select a payment method.');
+    if (!userData.username || !userData.phoneNumber || !userData.address) {
+      alert('Please fill in all shipping information.');
       return;
     }
-  
+
+    if (!stripe || !elements) {
+      // Stripe.js no se ha cargado aún. Espera un momento y vuelve a intentarlo.
+      return;
+    }
+
+    // Crea un token de tarjeta de crédito utilizando Stripe Elements
+    const { token, error } = await stripe.createToken(elements.getElement(CardElement));
+
+    if (error) {
+      console.error('Error creating token:', error);
+      alert('Payment failed. Please check your card information.');
+      return;
+    }
+
     try {
+      // Envía el token de tarjeta de crédito al servidor junto con otros datos
       const response = await axios.post('/your-payment-endpoint', {
         userData,
         selectedProducts,
         totalCost,
+        token: token.id,
       });
-  
+
       if (response.status === 200) {
         alert('Payment successful! Redirecting to confirmation page.');
         history.push('/confirmation');
@@ -92,7 +106,7 @@ function checkoutComp({ selectedProducts }) {
       </div>
       <div>
         <h3>Shipping Information</h3>
-        <form>
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="username"
@@ -114,15 +128,10 @@ function checkoutComp({ selectedProducts }) {
             value={userData.address}
             onChange={handleInputChange}
           />
-          <select
-            name="paymentMethod"
-            value={userData.paymentMethod}
-            onChange={handlePaymentMethodChange}
-          >
-            <option value="">Select Payment Method</option>
-            <option value="creditCard">Credit Card</option>
-            <option value="paypal">PayPal</option>
-          </select>
+          <div>
+            <CardElement />
+          </div>
+          <button type="submit">Pay ${totalCost.toFixed(2)}</button>
         </form>
       </div>
       <div>
@@ -132,10 +141,10 @@ function checkoutComp({ selectedProducts }) {
         <p>Shipping Cost: ${shippingCost.toFixed(2)}</p>
         <p>Total Cost: ${totalCost.toFixed(2)}</p>
       </div>
-      <button onClick={handlePaymentClick}>Pay ${totalCost.toFixed(2)}</button>
       <Link to="/shopping-cart">Back to Cart</Link>
     </div>
   );
 }
 
-export default checkoutComp;
+export default CheckoutComp;
+

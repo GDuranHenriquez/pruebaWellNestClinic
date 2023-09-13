@@ -16,7 +16,11 @@ import DoctorsPage from "./pages/Doctors/DoctorsPage";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import PurchaseDetail from "./components/Pharmacy/PurchaseDetail/PurchaseDetail";
 import ProductDetail from "./components/Pharmacy/ProductDetail/ProductDetail";
+import CheckoutComp from "./components/Checkout/CheckoutComp";
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
+const stripePromise = loadStripe("pk_test_51NphDtGBKVf0lzYs934e4NCQPYkmv5gFN9nSRaiJ4Ewpioi7WxGduWbxMDXhC0jkmeS1bvFFU8rAOG9FSaAHKwu2006neqNJuX");
 
 function App() {
   const router = createBrowserRouter([
@@ -78,7 +82,11 @@ function App() {
 
   return (
     <AuthProvider>
-      <RouterProvider router={router}></RouterProvider>
+      <RouterProvider router={router}>
+      <Elements stripe={stripePromise}>
+          <CheckoutComp></CheckoutComp>
+      </Elements>
+      </RouterProvider>
     </AuthProvider>
   );
 }
