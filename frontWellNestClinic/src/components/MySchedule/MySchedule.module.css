@@ -27,6 +27,16 @@
   padding: 0;
 }
 
+.tittleAppointment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #eee;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
 .appointment {
   display: flex;
   justify-content: space-between;
