@@ -1,4 +1,5 @@
 import { useContext, createContext, useState, useEffect } from "react";
+import Loading from "../components/Loading/Loading";
 import axios from "axios";
 
 const AuthContext = createContext({
@@ -14,7 +15,7 @@ export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState("");
   const [accessToken, setAccessToken] = useState("");
-
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     checkAuth();
@@ -44,6 +45,12 @@ export function AuthProvider({ children }) {
   async function checkAuth() {
     if (accessToken) {
       //This user is autenticated
+      const  userInfo = await getUserInfo(accessToken);
+      if(userInfo){
+        saveSessionInfo(userInfo, accessToken, getRefreshToken());
+        setIsLoading(false);
+        return;
+      }
     } else {
       const token = getRefreshToken();
       if (token) {
@@ -52,17 +59,19 @@ export function AuthProvider({ children }) {
           const  userInfo = await getUserInfo(newAccessToken);
           if(userInfo){
             saveSessionInfo(userInfo, newAccessToken, token);
+            setIsLoading(false);
+            return;
           }
         }
       }
     }
+    setIsLoading(false);
   }
 
   function saveSessionInfo(userInfo, accessToken, refreshToken){
     setAccessToken(accessToken);
     setUser(userInfo);
     localStorage.setItem("token", refreshToken);
-    localStorage.setItem("accessToken", accessToken);
     setIsAuthenticated(true);
   }
 
@@ -119,7 +128,7 @@ export function AuthProvider({ children }) {
   return (
     <AuthContext.Provider
       value={{ isAuthenticated, getAccessToken, saveUser, getRefreshToken, checkAuth, signOut, user }}>
-      {children}
+      {isLoading? <Loading/> : children}
     </AuthContext.Provider>
   );
 }

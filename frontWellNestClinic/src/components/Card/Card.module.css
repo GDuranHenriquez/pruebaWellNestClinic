@@ -10,12 +10,11 @@
   margin-top: 2rem;
   margin-left: 10px;
   margin-right: 10px;
-
   transform: translateZ(0);
   transition: transform 0.25s ease-out;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 10px;
-  background-color: rgba(203, 229, 253, 0.532);
+  background-color: #dee4d9;
 }
 
 .imgProduct {
@@ -64,12 +63,12 @@
   font-size: 12px;
   margin: 0px;
   font-weight: 600;
-  color: rgb(17, 33, 162);
+  color: rgb(0, 0, 0);
 }
 
 #iconCart {
   width: 59px;
   height: 23px;
-  color: rgb(17, 33, 162);
+  color: rgb(0, 0, 0);
 
 }

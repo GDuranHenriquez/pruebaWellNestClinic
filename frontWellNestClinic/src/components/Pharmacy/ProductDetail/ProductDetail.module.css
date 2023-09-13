@@ -1,0 +1,71 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #eaeecdcf;
+
+}
+
+.name {
+    font-size: 30px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-top: 70px;
+    margin-bottom: 10px;
+    color: black;
+    display: inline-block
+}
+
+.image {
+    width: 300px;
+    height: 250px;
+    border-radius: 10px;
+}
+
+.description {
+    font-size: 18px;
+    padding: 10px;
+    background-color: #c1cfb6;
+    background-size: 200% auto;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 700px;
+    border-radius: 10px;
+    margin-top: 20px;
+
+}
+
+.BtnAdd {
+    align-self: center;
+    width: 60px;
+    height: 16px;
+    margin-top: 10px;
+    border-radius: 80px;
+    cursor: pointer;
+  }
+  
+  .BtnAdd button {
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    height: 40px;
+  }
+  
+  .addTo {
+    font-size: 12px;
+    margin: 0px;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+  }
+  
+  #iconCart {
+    width: 59px;
+    height: 23px;
+    color: rgb(0, 0, 0);
+  
+  }
+
+.button {
+    margin-top: 60px;
+}

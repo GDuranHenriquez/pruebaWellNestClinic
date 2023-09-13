@@ -2,8 +2,9 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 80%;
+  width: 100%;
   height: max-content;
   padding: 20px;
   gap: 20px;
+  background-color: #f1f0f0;
 }
