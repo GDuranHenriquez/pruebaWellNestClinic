@@ -4,18 +4,25 @@
   align-items: center;
   align-content: center;
   justify-content: center;
-
-  padding-top: 140px;
+  width: 90%;
+  margin: 0px;
+  padding: 0px;
 }
+.pad{
+  width: 100%;
+  padding-left: 20px;
+}
+
 .h1 {
   font-size: 40px;
   width: 500px;
   color: rgb(0, 0, 0);
   font-family: Georgia, "Times New Roman", Times, serif;
+  margin: 0px;
 }
 
 .msg {
-  margin-right: 850px;
+  right: 0px;
   justify-content: left;
   text-align: left;
 }
@@ -28,27 +35,21 @@
 
 .buttons {
   display: flex;
-  margin-right: 1250px;
   /* width: 100%; */
   /* margin: 20px 0 10px 0;
   gap: 20px; */
 }
-.newScheduleButton {
+.newScheduleButton{
   background-color: #02098c;
   color: white;
   font-size: 16px;
   text-decoration: none;
   border-radius: 5px;
   height: 60px;
-  width: 120px;
+  width: max-content;
+  padding: 5px;
   margin-top: 20px;
   margin-left: 130px;
-}
-
-.newScheduleButton:hover {
-  background-color: #f2f7f6;
-  color: #02098c;
-  transition: background-color 0.3s;
 }
 
 .aboutUsButton {
@@ -58,10 +59,30 @@
   text-decoration: none;
   border-radius: 5px;
   height: 60px;
+  width: max-content;
+  padding: 5px;
+  margin-top: 20px;
+  margin-left: 130px;
+}
+
+
+.newScheduleButton:hover {
+  background-color: #f2f7f6;
+  color: #02098c;
+  transition: background-color 0.3s;
+}
+
+/* .aboutUsButton {
+  background-color: #02098c;
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+  border-radius: 5px;
+  height: 60px;
   width: 120px;
   margin-top: 20px;
   margin-left: 50px;
-}
+} */
 
 .aboutUsButton:hover {
   background-color: #f2f7f6;

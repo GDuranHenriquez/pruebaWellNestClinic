@@ -72,3 +72,25 @@
   color:#007bff;
 
 }
+
+.rating{
+  height: max-content;
+  display: flex;
+  justify-content: center;
+  /* background-image: url(${ratingIconPng}); */
+}
+
+.backStart{
+  display: flex;
+  position: relative;
+  color: rgb(0, 0, 0, 0.4);
+  margin: 2px 0 2px 0;  
+}
+
+.frontStart{
+  display: flex;
+  color: #FFBC0B;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+}

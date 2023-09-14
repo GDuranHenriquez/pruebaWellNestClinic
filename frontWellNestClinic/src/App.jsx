@@ -15,13 +15,14 @@ import { AuthProvider } from "./Authenticator/AuthPro";
 import DoctorsPage from "./pages/Doctors/DoctorsPage";
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import PurchaseDetail from "./components/Pharmacy/PurchaseDetail/PurchaseDetail";
-import ProductDetail from "./components/Pharmacy/ProductDetail/ProductDetail";
+import DetailProductPages from "./pages/detailProduct/DetailProductPages"
 import CheckoutComp from "./components/Checkout/CheckoutComp";
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import AboutUs from "./components/AboutUs/AboutUs";
+import ShoppingCartPage from "./pages/shoppingCart/ShoppingCartPage";
 
-const stripePromise = loadStripe("pk_test_51NphDtGBKVf0lzYs934e4NCQPYkmv5gFN9nSRaiJ4Ewpioi7WxGduWbxMDXhC0jkmeS1bvFFU8rAOG9FSaAHKwu2006neqNJuX");
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PASSWORD);
 
 function App() {
   const router = createBrowserRouter([
@@ -80,7 +81,10 @@ function App() {
         },
         {
           path: "/product/:id",
-          element: <ProductDetail></ProductDetail>,
+          element: <DetailProductPages/>,
+        },{
+          path: "/my-cart",
+          element: <ShoppingCartPage></ShoppingCartPage>,
         },
       ],
     },

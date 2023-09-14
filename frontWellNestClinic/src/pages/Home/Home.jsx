@@ -13,9 +13,9 @@ function HomePages(){
 
 
 const ContinerHomePage = styled.div`
-  width: 100%;
-  height: 100vh;
-  /* margin-top: calc(100vh * (0.1)) */;
+    width: 100%;
+  /* height: 100vh; */
+  padding-top: calc(100vh * (0.1));
 
 `
 

@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Asegúrate de tener axios instalado en tu proyecto
 import { Link } from 'react-router-dom';
+import Loading from "../components/Loading/Loading";
+
 /* import { FaShoppingCart } from 'react-icons/fa'; */
 
 function DetailPage({ match }) {
   const [product, setProduct] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     // Obtener el ID del producto de la URL usando React Router
     const productId = match.params.id;
-
+    
     // Realizar una solicitud a la API para obtener los detalles del producto
     axios.get(`https://tu-api.com/products/${productId}`)
       .then((response) => {
@@ -18,6 +21,7 @@ function DetailPage({ match }) {
       .catch((error) => {
         console.error('Error al cargar los detalles del producto:', error);
       });
+      setIsLoading(false);
   }, [match.params.id]);
 
   if (!product) {
@@ -42,6 +46,7 @@ function DetailPage({ match }) {
         ))}
       </div>
       <Link to="/cart">Ir al carrito</Link>
+      {isLoading? <Loading></Loading>: ''}
     </div>
   );
 }

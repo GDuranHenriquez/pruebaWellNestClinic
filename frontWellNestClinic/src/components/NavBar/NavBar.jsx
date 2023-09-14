@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./NavBar.module.css";
 import { IconLogout, IconUserDown } from "@tabler/icons-react";
@@ -7,10 +7,24 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { IconShoppingCart } from "@tabler/icons-react";
 import PropTypes from "prop-types";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 function NavBar() {
-  const location = useLocation().pathname;
-  const routespages = ["/pharmacy"];
+  const location = useLocation(); 
+  const routespages = ["pharmacy", "product", "my-cart"];
+  const [isFarmacy, setIsFarmacy] = useState(0);
+
+  
+  const navBarCondition = (arr, location) => {
+    for(let i = 0; i < arr.length; i++){
+      if(location.includes(arr[i])){       
+        setIsFarmacy(1)
+        return;
+      }
+    }
+    setIsFarmacy(0);
+    return;
+  };
 
   const auth = useAuth();
   const logout = async () => {
@@ -31,9 +45,13 @@ function NavBar() {
     }
   };
 
+  useEffect(() => {
+    navBarCondition(routespages, location.pathname);
+  }, [location])
+
   return (
     <>
-      {routespages.includes(location) ? (
+      {isFarmacy === 1 ? (
         <NavBarPharmacy logout={logout} />
       ) : (
         <NavBarPrincipal logout={logout} />

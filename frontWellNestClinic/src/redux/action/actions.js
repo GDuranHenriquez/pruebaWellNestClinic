@@ -197,10 +197,9 @@ export const doctorFiltering = (dataSpeciality) => async (dispach) => {
 export const allSchedule = (dataAppointment) => async (dispach) => {
   try {
     const { data } = await axios.post(
-      import.meta.env.VITE_BASENDPOINT_BACK + "/appointment/doctor-schedule ",
+      import.meta.env.VITE_BASENDPOINT_BACK + "/appointment/doctor-schedule",
       dataAppointment
     );
-    console.log(data);
     return dispach({
       type: ALL_SCHEDULE,
       payload: data,
@@ -280,18 +279,15 @@ export const getProductByName = (productName) => {
 export const getProductDetail = (productId) => {
   return async function (dispatch) {
     try {
-      console.log("Fetching product details for productId:", productId);
       const { data } = await axios.get(
         import.meta.env.VITE_BASENDPOINT_BACK +
           `/product/${productId}`
-          
       );
       return dispatch({
-        type: GET_PRODUCT_DETAIL,
+        type: "GET_PRODUCT_DETAIL",
         payload: data,
       });
     } catch (error) {
-      console.log("Error fetching product details", error);
       return error.message;
     }
   };
