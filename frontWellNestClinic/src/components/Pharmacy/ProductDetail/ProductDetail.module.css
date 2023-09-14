@@ -1,71 +1,224 @@
+/* Container Styles */
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #eaeecdcf;
-
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #d4e4f6;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 620px;
+  height: max-content;
+  margin-top: 20px;
 }
-
+.containerImgPrice{
+  display: flex;
+  align-items: center;
+  align-self: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: rgba(246, 243, 243, 0.745);
+  width: 600px;
+  height: max-content;
+  border-radius: 10px;
+}
+.imgProducto{
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: center;
+  align-content: center;
+}
+.info2{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+.price {
+  color: #3e3f40;
+  font-weight: 500;
+  font-size: 18px;
+  margin-top: 9px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 .name {
-    font-size: 30px;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin-top: 70px;
-    margin-bottom: 10px;
-    color: black;
-    display: inline-block
+  font-size: 30px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #313232;
+  text-align: center;
+  margin-bottom: 9px;
+  margin-top: 5px;
 }
-
 .image {
-    width: 300px;
-    height: 250px;
-    border-radius: 10px;
+  width: 280px;
+  height: 220px;
+  border-radius: 10px;
+  align-self: center;
 }
-
+.productInfo {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  margin-top: 40px;
+  background-color: rgba(246, 243, 243, 0.745);
+  width: 600px;
+  height: 700px;
+  border-radius: 10px;
+}
+.info2 {
+  margin-left: 100px;
+}
+/* Product Name Styles */
+.name {
+  font-size: 24px;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #313232;
+  text-align: center;
+  margin-bottom: 9px;
+  margin-top: 5px;
+}
+.price {
+  color: #3e3f40;
+  font-weight: 500;
+  font-size: 18px;
+  margin-top: 9px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.btnAdd button {
+  border: none;
+  background-color: #007bff;
+  color: rgb(255, 255, 255);
+  height: 60px;
+  width: 90px;
+  border-radius: 10px;
+  border: 2px solid;
+  margin-top: 10px;
+  cursor: pointer;
+  transform: translateZ(0);
+  transition: transform 0.25s ease-out;
+}
+.btnAdd button:hover {
+  transform: scale(1.05);
+}
+.btnAdd p {
+  font-size: 16px;
+  margin-top: 1px;
+  margin-bottom: 1px;  
+}
+#iconCart {
+  width: 34px;
+  height: 28px;
+  margin-top: 6px;  
+}
+.link {
+  /* background-color: #007bff; */
+  width: 110px;
+}
+.contenedor {
+  width: 100%;
+  margin-left: 80px;
+  margin-top: 40px;
+  flex-direction: column;
+}
+.contenedor{
+  width: 100%;
+  margin-top: 30px;
+  flex-direction: column;
+  margin: 0 auto;
+}
 .description {
-    font-size: 18px;
-    padding: 10px;
-    background-color: #c1cfb6;
-    background-size: 200% auto;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 700px;
-    border-radius: 10px;
-    margin-top: 20px;
-
+  color: #333;
+  text-align: center;
+  align-items: center;
+  align-self: center;
+  align-content: center;
+  font-weight: bold;
+  font-size: 18px;
+}
+.descripcion {
+  color: #333;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+}
+.infoDoseDrug{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.content {
+  font-size: 16px;
+  font-weight: 500;
+  color: #090909;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.content ol {
+  padding: 0 5px 0 5px;
+  margin: 0px;
+}
+.contentDos {
+  width: 100%;
+  font-size: 16px;
+  font-weight: 500;
+  color: #090909;
+  text-align: center;
+  display: flex;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.contentDos ol {
+  padding: 0 5px 0 5px;
+  margin: 0px;
+}
+.backButton {
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  padding: 5px 5px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  /* text-align: center; */
+  margin-left: 10px;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center; */
+}
+.restCode {
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+}  
+.btnBack{
+  margin: 0 auto;
+}
+.button {
+    margin-top: 0px;
 }
 
-.BtnAdd {
-    align-self: center;
-    width: 60px;
-    height: 16px;
-    margin-top: 10px;
-    border-radius: 80px;
-    cursor: pointer;
-  }
-  
-  .BtnAdd button {
-    border: 1px solid rgba(0, 0, 0, 0.6);
-    border-radius: 10px;
-    height: 40px;
-  }
-  
-  .addTo {
-    font-size: 12px;
-    margin: 0px;
-    font-weight: 600;
-    color: rgb(0, 0, 0);
-  }
-  
-  #iconCart {
-    width: 59px;
-    height: 23px;
-    color: rgb(0, 0, 0);
-  
-  }
+.rating{
+  height: max-content;
+  display: flex;
+  justify-content: center;
+  /* background-image: url(${ratingIconPng}); */
+}
 
-.button {
-    margin-top: 60px;
+.backStart{
+  display: flex;
+  position: relative;
+  color: rgb(0, 0, 0, 0.4);
+  margin: 2px 0 2px 0;  
+}
+
+.frontStart{
+  display: flex;
+  color: #FFBC0B;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
 }

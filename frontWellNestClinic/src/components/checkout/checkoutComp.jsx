@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
@@ -13,7 +13,7 @@ function CheckoutComp({ selectedProducts }) {
   const [discount, setDiscount] = useState(0);
   const [shippingCost, setShippingCost] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
-  const history = useHistory();
+  const history = useNavigate();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -81,7 +81,7 @@ function CheckoutComp({ selectedProducts }) {
 
       if (response.status === 200) {
         alert('Payment successful! Redirecting to confirmation page.');
-        history.push('/confirmation');
+        history('/confirmation');
       } else {
         alert('Payment failed. Please try again.');
       }

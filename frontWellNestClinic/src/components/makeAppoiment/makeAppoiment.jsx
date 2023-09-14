@@ -10,8 +10,13 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import styles from "./makeAppoiment.module.css";
+import dayjs from "dayjs";
 
 const MakeAppoiment = () => {
+  const lastMonday = dayjs().startOf('week');
+  const nextSunday = dayjs().endOf('week').startOf('day');
+  const tomorrow = dayjs().add(1, 'day');
+
   const dispach = useDispatch();
   const speciality = useSelector((state) => state.specialities);
   const filteredDoctors = useSelector((state) => state.filteredDoctors);
@@ -27,7 +32,9 @@ const MakeAppoiment = () => {
   const [selectedName, setSelectedName] = useState({
     specialty: "",
     physician: "",
-  });
+  }); 
+  
+  const [formattedDate, setFormattedDate] = useState('');
 
   useEffect(() => {
     dispach(getSpecialties());
@@ -36,6 +43,13 @@ const MakeAppoiment = () => {
   const handleDateChange = (newDate) => {
     setFormData({ ...formData, date: newDate.$d });
   };
+
+  useEffect(() => {
+    const fullDate = new Date(formData.date);
+    const month = fullDate.getMonth() + 1;
+    const thisFormattedDate = `${fullDate.getFullYear()} ${month} ${fullDate.getDate()}`;
+    setFormattedDate(thisFormattedDate)
+  }, [formData]);  
 
   const nextStep = () => {
     if (step === 1 && formData.specialty === "dontSelect") {
@@ -52,9 +66,7 @@ const MakeAppoiment = () => {
     setStep(step - 1);
   };
 
-  const fullDate = new Date(formData.date);
-  const month = fullDate.getMonth() + 1;
-  const formattedDate = `${fullDate.getFullYear()} ${month} ${fullDate.getDate()}`;
+ 
 
   const prevStepSchedule = () => {
     if (step === 3 && formData.date === "") {
@@ -63,7 +75,9 @@ const MakeAppoiment = () => {
       dispach(allSchedule({doctor: formData.physician,
         userClient: auth.user.id,
         date: formattedDate
-      }))
+      })).then((data) => {
+        console.log(data)
+      })
       nextStep();
     }
   }
@@ -71,12 +85,16 @@ const MakeAppoiment = () => {
   const handleSelectChange = (e) => {
     const { name, value } = e.target;
     setSelectedName({ ...selectedName, [name]: value });
-    setFormData({ ...formData, [name]: value });
+    setFormData({ ...formData, [name]: value });    
   };
 
   const isWeekend = (date) => {
-    const day = date.day();
-    return day === 0 || day === 6;
+    const today = new Date();
+    if(date){
+      var endWek = date.day();
+    }    
+    //return day === 0 || day === 6;
+    return  endWek === 0 || endWek === 6;
   };
 
   const renderStep = () => {
@@ -115,6 +133,7 @@ const MakeAppoiment = () => {
               name="physician"
               value={selectedName.physician}
               onChange={handleSelectChange}
+              id = {selectedName}
             >
               <option value="dontSelect">Select Physician</option>
               {filteredDoctors.map((doctor) => {
@@ -145,8 +164,9 @@ const MakeAppoiment = () => {
                 <DatePicker
                   label="Basic date picker"
                   shouldDisableDate={isWeekend}
-                  value={formData.date}
+                  value={new Date('')}
                   onChange={handleDateChange}
+                  minDate={tomorrow}
                 />
               </DemoContainer>
             </LocalizationProvider>

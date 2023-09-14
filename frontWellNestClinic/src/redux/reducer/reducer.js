@@ -37,6 +37,7 @@ const userReducer = (state = initialState, action) => {
     case GET_PRODUCT_BY_NAME:
       return {...state, allProducts: action.payload}
       case GET_PRODUCT_DETAIL:
+        console.log("handling GET_PRODUCT_DETAIL action with payload", action.payload);
         return {...state, detail: action.payload}
 
     //userClient

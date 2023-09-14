@@ -1,47 +1,97 @@
-import React from "react";
-import { Link, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getProductDetail } from "../../../redux/action/actions";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import {  useSelector } from "react-redux";
 import style from "./ProductDetail.module.css";
 import { IconShoppingCart } from "@tabler/icons-react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+
+
 
 const ProductDetail = () => {
-  const { id } = useParams();
-  const dispatch = useDispatch();
 
   const products = useSelector((state) => state.detail);
 
-  useEffect(() => {
-    dispatch(getProductDetail(id));
-  }, [dispatch, id]);
-
-  // if (!Object.keys(products).length) {
-  //   return <div className={style.loading}>Loading...</div>;
-
-  // }
   return (
-    <div className={style.container}>
-      <h1 className={style.name}>{products.name}</h1>
+        <div className={style.container}>
+          <Link to="/pharmacy" className={style.link}>
+            <button className={style.backButton}>&larr; back</button>
+          </Link>
+          <div className={style.containerImgPrice}>
+            <div className={style.imgProducto} >
+              <img
+                className={style.image}
+                src={products.imageUrl}
+                alt="pharmacy product"
+              />
+            </div>
 
-      <img
-        className={style.image}
-        src={products.imageUrl}
-        alt="pharmacy product"
-      />
-      <div className={style.description}>{products.description}
-      </div>
-      <div className={style.BtnAdd}>
-        <button onClick={""}>
-          <p className={style.addTo}>Add to</p>
-          <IconShoppingCart id={style.iconCart}></IconShoppingCart>{" "}
-        </button>
-    </div>
-      <Link to="/pharmacy">
-        <button className={style.button}>Go back</button>
-      </Link>
-    </div>
+            <div className={style.info2}>
+              <h1 className={style.name}>{products.name}</h1>
+              <div className={style.price}> Price: ${products.price} </div>
+              <div className={style.rating} >
+                {startRating(products.Product_Average.averageRating)}
+              </div>
+              <div className={style.btnAdd}>
+                <button>
+                  <p className={style.addTo}>Add to</p>
+                  <IconShoppingCart id={style.iconCart}></IconShoppingCart>{" "}
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className={style.contenedor}>
+            <div className={style.description}>Description</div>
+            <p className={style.descripcion}>{products.description}</p>
+          </div>
+
+          <li className={style.content}>
+              <ol >Dose: {products.dose} |</ol>
+              <ol >Amount: {products.amount} |</ol>
+              <ol >
+                Type: {products.Product_PresentationType.type}
+              </ol>
+            </li>
+
+            <li className={style.contentDos}>
+              <ol >
+                Laboratory: {products.Product_Laboratory.name} |
+              </ol>
+              <ol >
+                Drug: {products.drugs.map((drug) => drug.name)} |
+              </ol>
+              <ol >Left in stock: {products.stock}</ol>
+            </li>
+
+        </div>
   );
 };
+
+const startRating = (rating) => {
+  //Numero de estrellas
+  //const totalStars = 5;
+  //calculamos el numero de estrelas a llenar
+  //Calculamos cuanto falta por llenar de la ultima estrella
+  //const remainingPercentage = rating - filledStars;
+  //const backstars = [];  
+  //const star = <FontAwesomeIcon icon={faStar} />  
+  //const filledStars = Math.floor(rating);
+  
+  const percentage = (rating/5)*100;
+  return <div className = {style.backStart}  >
+      <FontAwesomeIcon icon={faStar} />
+      <FontAwesomeIcon icon={faStar} />
+      <FontAwesomeIcon icon={faStar} />
+      <FontAwesomeIcon icon={faStar} />
+      <FontAwesomeIcon icon={faStar} />
+      <div className = {style.frontStart}  style={{width: percentage +`%`}}>
+        <FontAwesomeIcon icon={faStar} />
+        <FontAwesomeIcon icon={faStar} />
+        <FontAwesomeIcon icon={faStar} />
+        <FontAwesomeIcon icon={faStar} />
+        <FontAwesomeIcon icon={faStar} />
+      </div>
+    </div>
+
+}
 
 export default ProductDetail;

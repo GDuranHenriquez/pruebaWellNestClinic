@@ -197,10 +197,9 @@ export const doctorFiltering = (dataSpeciality) => async (dispach) => {
 export const allSchedule = (dataAppointment) => async (dispach) => {
   try {
     const { data } = await axios.post(
-      import.meta.env.VITE_BASENDPOINT_BACK + "/appointment/doctor-schedule ",
+      import.meta.env.VITE_BASENDPOINT_BACK + "/appointment/doctor-schedule",
       dataAppointment
     );
-    console.log(data);
     return dispach({
       type: ALL_SCHEDULE,
       payload: data,

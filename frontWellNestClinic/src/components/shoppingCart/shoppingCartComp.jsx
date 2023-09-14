@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-
-function shoppingCartComp() {
+import  { useNavigate } from 'react-router-dom'
+function ShoppingCartComp() {
   const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -58,9 +58,9 @@ function shoppingCartComp() {
     setTotalPrice(totalPrice);
   };
 
-  const history = useHistory();
+  const history = useNavigate();
   const goToCheckout = () => {
-    history.push('/checkout');
+    history('/checkout');
   };
 
   return (
@@ -86,4 +86,4 @@ function shoppingCartComp() {
   );
 }
 
-export default shoppingCartComp;
+export default ShoppingCartComp;

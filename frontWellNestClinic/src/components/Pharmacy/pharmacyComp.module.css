@@ -2,8 +2,9 @@
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
-  background-color: rgba(227, 240, 214, 0.8);
+  background-color:#accff6;
   height: 50px;
+  
 }
 
 .filterType{
@@ -28,7 +29,7 @@
   /* background: rgb(0, 20, 203, 0.8); */
   border-radius: 10px;
   padding: 5px 10px 5px 10px;
-  border: 2px solid rgb(255, 255, 255);
+  border: 1px solid rgb(154, 152, 152);
   background-color: rgb(255, 255, 255);
 }
 
