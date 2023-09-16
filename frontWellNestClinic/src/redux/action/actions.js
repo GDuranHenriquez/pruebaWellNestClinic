@@ -19,7 +19,7 @@ import {
   GET_SPECIALTIES,
   GET_ALL_PRODUCTS,
   GET_PRODUCT_BY_NAME,
-  GET_PRODUCT_DETAIL
+  GET_PRODUCT_DETAIL,
 } from "./type.js";
 
 export const verifyUsername = (userName) => {
@@ -259,12 +259,37 @@ export const getAllProducts = () => async (dispatch) => {
   }
 };
 
+export const getProductsFilter =
+  (presentationType, order, sort) => async (dispatch) => {
+    try {
+      let endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/product?`;
+      if (presentationType) {
+        endpoint = endpoint + `&presentation=${presentationType}`;
+      }
+
+      if (order) {
+        endpoint = endpoint + `&order=${order}`;
+      }
+
+      if (sort) {
+        endpoint = endpoint + `&sort=${sort}`;
+      }
+
+      const { data } = await axios.get(endpoint);
+      return dispatch({
+        type: GET_ALL_PRODUCTS,
+        payload: data,
+      });
+    } catch (error) {
+      return error.response;
+    }
+  };
+
 export const getProductByName = (productName) => {
   return async function (dispatch) {
     try {
       const { data } = await axios.get(
-        import.meta.env.VITE_BASENDPOINT_BACK +
-          `/product/name/${productName}`
+        import.meta.env.VITE_BASENDPOINT_BACK + `/product/name/${productName}`
       );
       dispatch({
         type: GET_PRODUCT_BY_NAME,
@@ -280,8 +305,7 @@ export const getProductDetail = (productId) => {
   return async function (dispatch) {
     try {
       const { data } = await axios.get(
-        import.meta.env.VITE_BASENDPOINT_BACK +
-          `/product/${productId}`
+        import.meta.env.VITE_BASENDPOINT_BACK + `/product/${productId}`
       );
       return dispatch({
         type: "GET_PRODUCT_DETAIL",

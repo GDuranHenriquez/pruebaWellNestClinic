@@ -3,14 +3,20 @@ import axios from "axios";
 import Cards from "../Cards/Cards";
 import styled from "./pharmacyComp.module.css";
 import { useDispatch } from "react-redux";
-import { getAllProducts, getProductByName } from "../../redux/action/actions";
+import {
+  getAllProducts,
+  getProductByName,
+  getProductsFilter,
+} from "../../redux/action/actions";
 
 function PharmacyComp() {
   const [filterType, setFilterType] = useState("");
   const [alphabeticalOrder, setAlphabeticalOrder] = useState("asc");
   const [search, setSearch] = useState("");
   const [priceOrder, setPriceOrder] = useState("asc");
+  const [ratingOrder, setRatingOrder] = useState("asc");
   const [showArrow, setShowArrow] = useState(false);
+  const [type, setType] = useState([]);
 
   const dispatch = useDispatch();
 
@@ -31,43 +37,61 @@ function PharmacyComp() {
 
   useEffect(() => {
     dispatch(getAllProducts());
+    async function fetchType() {
+      try {
+        const response = await axios.get(
+          "https://serverwellnestclinic.onrender.com/presentation-type"
+        );
+        setType(response.data);
+      } catch (error) {
+        console.error("Error fetching type:", error);
+      }
+    }
+
+    fetchType();
   }, []);
 
   useEffect(() => {
-    if (search.trim().length<=0) {
+    if (search.trim().length <= 0) {
       dispatch(getAllProducts());
-      setShowArrow(false)
+      setShowArrow(false);
     }
-  }, [search])
+  }, [search]);
 
   const handleFilterType = async (selectedType) => {
-    try {
-      const response = await axios.get(
-        `https://serverwellnestclinic.onrender.com/products?type=${selectedType}&order=${alphabeticalOrder}&search=${search}`
-      );
-      setProducts(response.data);
-      setFilterType(selectedType);
-    } catch (error) {
-      console.error("Error filtering by type:", error);
-    }
+    setFilterType(selectedType);
+    dispatch(getProductsFilter(selectedType, null));
   };
 
-  const changeAlphabeticalOrder = () => {
+  const changeAlphabeticalOrder = async () => {
     if (alphabeticalOrder === "asc") {
       setAlphabeticalOrder("desc");
     } else {
       setAlphabeticalOrder("asc");
     }
+    dispatch(getProductsFilter(filterType, alphabeticalOrder, "name"));
   };
 
-  const changePriceOrder = () => {
+  const changePriceOrder = async () => {
     if (priceOrder === "asc") {
       setPriceOrder("desc");
     } else {
       setPriceOrder("asc");
     }
+
+    dispatch(getProductsFilter(filterType, priceOrder, "price"));
   };
+
   
+  const changeRatingOrder = async () => {
+    if (ratingOrder === "asc") {
+      setRatingOrder("desc");
+    } else {
+      setRatingOrder("asc");
+    }
+
+    dispatch(getProductsFilter(filterType, ratingOrder, "rating"));
+  };
   return (
     <div className={styled.containerCards}>
       {showArrow && (
@@ -80,19 +104,25 @@ function PharmacyComp() {
           id={styled.selectType}
           value={filterType}
           onChange={(e) => handleFilterType(e.target.value)}
-          >
-          <option value="">All</option>
-          <option value="type1">Type 1</option>
-          <option value="type2">Type 2</option>
-          {/* More type options */}
+        >
+          <option value="">Type (all)</option>
+          {type.map((t) => (
+            <option className={styled.letra} key={t.id} value={t.id}>
+              {t.type}
+            </option>
+          ))}
         </select>
 
-        <button id={styled.alphabeticOrder} onClick={changeAlphabeticalOrder}>
-          Alphabetical Order ({alphabeticalOrder === "asc" ? "A-Z" : "Z-A"})
+        <button id={styled.order} onClick={changeAlphabeticalOrder}>
+          Name ({alphabeticalOrder === "asc" ? "z-a" : "a-z"})
         </button>
 
-        <button id={styled.btnPryceOrder} onClick={changePriceOrder}>
-          Price order
+        <button id={styled.order} onClick={changePriceOrder}>
+          Price ({priceOrder === "asc" ? "max-min" : "min-max"})
+        </button>
+
+        <button id={styled.order} onClick={changeRatingOrder}>
+        ⭐Rating ({ratingOrder === "asc" ? "5-1" : "1-5"})
         </button>
 
         <div className={styled.search}>

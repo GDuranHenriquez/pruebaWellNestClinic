@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import  { useNavigate } from 'react-router-dom'
 function ShoppingCartComp() {
+
   const [cartItems, setCartItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
