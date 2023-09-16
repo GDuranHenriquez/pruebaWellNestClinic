@@ -122,7 +122,7 @@ function PharmacyComp() {
         </button>
 
         <button id={styled.order} onClick={changeRatingOrder}>
-        ⭐Rating ({ratingOrder === "asc" ? "5-1" : "1-5"})
+        Rating ({ratingOrder === "asc" ? "5-1" : "1-5"})
         </button>
 
         <div className={styled.search}>

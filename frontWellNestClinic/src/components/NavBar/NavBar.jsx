@@ -63,7 +63,9 @@ function NavBar() {
 function NavBarPrincipal({ logout }) {
   return (
     <nav className={styles.navSup}>
-      <img className={styles.logo} src="/imagenes/Logo.jpg" alt="logo" />
+      <Link to="/home">
+  <img className={styles.logo} src="/imagenes/Logo.jpg" alt="logo" />
+</Link>
       <div className={styles.menu}>
         <Link to="/home" className={styles.linkNoUnderline}>
           Home{" "}
@@ -105,7 +107,9 @@ NavBarPharmacy.propTypes = {
 function NavBarPharmacy({ logout }) {
   return (
     <nav className={styles.navSup}>
-      <img className={styles.logo} src="/imagenes/Logo.jpg" alt="logo" />
+     <Link to="/pharmacy">
+  <img className={styles.logo} src="/imagenes/Logo.jpg" alt="logo" />
+</Link>
       <div className={styles.menu}>
         <Link to="/pharmacy" className={styles.linkNoUnderline}>
           Pharmacy{" "}
