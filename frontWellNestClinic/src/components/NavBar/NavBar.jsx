@@ -80,6 +80,9 @@ function NavBarPrincipal({ logout }) {
         <Link to="/pharmacy" className={styles.linkNoUnderline}>
           Pharmacy
         </Link>
+        <Link to="/about-us" className={styles.linkNoUnderline}>
+          About Us
+        </Link>
         <Link to="/my-profile" className={styles.iconUserDownLink}>
           <IconUserDown className={styles.iconUserDown} />
         </Link>
