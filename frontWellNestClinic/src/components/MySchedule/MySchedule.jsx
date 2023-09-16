@@ -17,10 +17,8 @@ const MySchedule = () => {
             try {
                 const response = await axios.get(`https://serverwellnestclinic.onrender.com/appointment/byUser/?userId=${userId}`);
                 if (Array.isArray(response.data)) {
-
                     const open = response.data.filter(appointment => appointment.Status_Appointment.status === 'open');
                     const canceled = response.data.filter(appointment => appointment.Status_Appointment.status === 'cancel');
-                    
                     setOpenAppointments(open);
                     setCanceledAppointments(canceled);
                 } else {
@@ -41,15 +39,34 @@ const MySchedule = () => {
         if (confirmDelete) {
             try {
                 await axios.delete(`https://serverwellnestclinic.onrender.com/appointment/${id}`);
-
                 const updatedCanceledAppointments = canceledAppointments.filter(item => item.id !== id);
                 setCanceledAppointments(updatedCanceledAppointments);
-                navigate("/home")
+                navigate("/home");
             } catch (error) {
                 console.error('Error al cancelar la cita médica:', error);
             }
         }
     };
+
+    function compareDates(a, b) {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+
+        if (dateA < dateB) {
+            return -1;
+        }
+        if (dateA > dateB) {
+            return 1;
+        }
+        return 0;
+    }
+
+    const sortedOpenAppointments = openAppointments.sort(compareDates);
+    const sortedCanceledAppointments = canceledAppointments.sort(compareDates);
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
     return (
         <div className={styles.container}>
@@ -60,18 +77,18 @@ const MySchedule = () => {
                 </div>
             ) : (
                 <div className={styles.containerSection}>
-                    {openAppointments.length > 0 && (
+                    {sortedOpenAppointments.length > 0 && (
                         <div>
                             <h3>Open Appointments</h3>
                             <ul className={styles.scheduleList}>
-                                {openAppointments.map(appointment => (
+                                {sortedOpenAppointments.map(appointment => (
                                     <li key={appointment.id} className={styles.appointment}>
                                         <span className={styles.date}>{appointment.date}</span>
-                                        <span className={styles.time}>{appointment.startTime}</span>
-                                        <span className={styles.doctor}>
+                                        <span className={styles.date}>{appointment.startTime}</span>
+                                        <span className={styles.date}>
                                             {`${appointment.Appointment_Doctor.name} ${appointment.Appointment_Doctor.lastName}`}
                                         </span>
-                                        <span className={styles.specialty}>{appointment.Appointment_Speciality.name}</span>
+                                        <span className={styles.date}>{capitalizeFirstLetter(appointment.Appointment_Speciality.name)}</span>
                                         <button
                                             className={styles['cancel-button']}
                                             onClick={() => handleCancelSchedule(appointment.id)}
@@ -84,18 +101,18 @@ const MySchedule = () => {
                         </div>
                     )}
 
-                    {canceledAppointments.length > 0 && (
+                    {sortedCanceledAppointments.length > 0 && (
                         <div>
                             <h3>Canceled Appointments</h3>
                             <ul className={styles.scheduleList}>
-                                {canceledAppointments.map(appointment => (
+                                {sortedCanceledAppointments.map(appointment => (
                                     <li key={appointment.id} className={styles.appointment}>
                                         <span className={styles.date}>{appointment.date}</span>
                                         <span className={styles.time}>{appointment.startTime}</span>
                                         <span className={styles.doctor}>
                                             {`${appointment.Appointment_Doctor.name} ${appointment.Appointment_Doctor.lastName}`}
                                         </span>
-                                        <span className={styles.specialty}>{appointment.Appointment_Speciality.name}</span>
+                                        <span className={styles.specialty}>{capitalizeFirstLetter(appointment.Appointment_Speciality.name)}</span>
                                     </li>
                                 ))}
                             </ul>
