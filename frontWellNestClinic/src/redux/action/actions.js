@@ -19,7 +19,7 @@ import {
   GET_SPECIALTIES,
   GET_ALL_PRODUCTS,
   GET_PRODUCT_BY_NAME,
-  GET_PRODUCT_DETAIL,
+  GET_ALL_PRODUCTS_PAGE,
 } from "./type.js";
 
 export const verifyUsername = (userName) => {
@@ -253,6 +253,27 @@ export const getAllProducts = () => async (dispatch) => {
     return dispatch({
       type: GET_ALL_PRODUCTS,
       payload: data,
+    });
+  } catch (error) {
+    return error.response;
+  }
+};
+
+export const getAllProductsByPage = (page, size) => async (dispatch) => {
+  try {
+    const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/product`;
+    const { data } = await axios.get(endpoint);
+    const start = (page - 1) * size;
+    let products = [];
+    for (let i = start; i < start + size; i++) {
+      if (data[i]) {
+        products.push(data[i]);
+      }
+    }
+    return dispatch({
+      type: GET_ALL_PRODUCTS_PAGE,
+      payload: products,
+      size: data.length
     });
   } catch (error) {
     return error.response;

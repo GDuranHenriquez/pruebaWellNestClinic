@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cards from "../Cards/Cards";
 import styled from "./pharmacyComp.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getAllProducts,
+  getAllProductsByPage,
   getProductByName,
   getProductsFilter,
 } from "../../redux/action/actions";
+import Paginado from "./Paginado";
 
 function PharmacyComp() {
   const [filterType, setFilterType] = useState("");
@@ -16,9 +18,20 @@ function PharmacyComp() {
   const [priceOrder, setPriceOrder] = useState("asc");
   const [ratingOrder, setRatingOrder] = useState("asc");
   const [showArrow, setShowArrow] = useState(false);
+  const allProducts = useSelector((state) => state.totalProducts);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage, setProductsPerPage] = useState(10);
+  const indexOfLastproduct = currentPage * productsPerPage;
+  const indexOfFirstproduct = indexOfLastproduct - productsPerPage;
+
   const [type, setType] = useState([]);
 
   const dispatch = useDispatch();
+
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    dispatch(getAllProductsByPage(pageNumber, productsPerPage))
+  };
 
   const searchProductByName = () => {
     dispatch(getProductByName(search));
@@ -26,7 +39,7 @@ function PharmacyComp() {
   };
 
   const navigateBack = () => {
-    dispatch(getAllProducts());
+    dispatch(getAllProductsByPage(1, productsPerPage));
     setShowArrow(false);
     // setSearch("");
   };
@@ -36,7 +49,7 @@ function PharmacyComp() {
   }, [filterType, alphabeticalOrder, search]);
 
   useEffect(() => {
-    dispatch(getAllProducts());
+    dispatch(getAllProductsByPage(currentPage, productsPerPage));
     async function fetchType() {
       try {
         const response = await axios.get(
@@ -51,12 +64,12 @@ function PharmacyComp() {
     fetchType();
   }, []);
 
-  useEffect(() => {
-    if (search.trim().length <= 0) {
-      dispatch(getAllProducts());
-      setShowArrow(false);
-    }
-  }, [search]);
+  // useEffect(() => {
+  //   if (search.trim().length <= 0) {
+  //     dispatch(getAllProducts());
+  //     setShowArrow(false);
+  //   }
+  // }, [search]);
 
   const handleFilterType = async (selectedType) => {
     setFilterType(selectedType);
@@ -94,6 +107,12 @@ function PharmacyComp() {
   };
   return (
     <div className={styled.containerCards}>
+       <Paginado
+        productsPerPage={productsPerPage}
+        allProducts={allProducts}
+        currentPage={currentPage}
+        paginado={paginado}
+      />
       {showArrow && (
         <button onClick={navigateBack} className={styled.arrow}>
           &larr; All products

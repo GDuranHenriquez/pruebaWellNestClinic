@@ -4,7 +4,7 @@ import {
   PAY_MEMBERSHIP, CANCEL_MEMBERSHIP, GENERIC_ERROR,
   LOGIN_USERMEMBER, VERIFY_USERNAME, VERIFY_ISMEMBER,
   RESET_GENERIC_ERROR, RESET_IS_MEMBER, GET_USER_ID, ALL_SCHEDULE,
-  DOCTOR_FILTERING, GET_SPECIALTIES, GET_DOCTORS, GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_DETAIL,
+  DOCTOR_FILTERING, GET_SPECIALTIES, GET_DOCTORS, GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_DETAIL, GET_ALL_PRODUCTS_PAGE,
 } from '../action/type';
 
 const initialState = {
@@ -28,12 +28,16 @@ const initialState = {
   //Products
   allProducts:[],
   detail: {},
+
+  totalProducts: 0
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ALL_PRODUCTS:
-      return { ...state, allProducts: action.payload}
+    case GET_ALL_PRODUCTS: 
+      return { ...state, allProducts: action.payload, totalProducts: action.payload.length}
+    case GET_ALL_PRODUCTS_PAGE: 
+      return { ...state, allProducts: action.payload, totalProducts: action.size}
     case GET_PRODUCT_BY_NAME:
       return {...state, allProducts: action.payload}
       case GET_PRODUCT_DETAIL:
