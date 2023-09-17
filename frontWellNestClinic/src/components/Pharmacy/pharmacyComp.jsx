@@ -94,7 +94,7 @@ function PharmacyComp() {
 
     dispatch(getProductsFilter(filterType, priceOrder, "price"));
   };
-
+  
   
   const changeRatingOrder = async () => {
     if (ratingOrder === "asc") {
@@ -102,22 +102,13 @@ function PharmacyComp() {
     } else {
       setRatingOrder("asc");
     }
-
+    
     dispatch(getProductsFilter(filterType, ratingOrder, "rating"));
   };
   return (
-    <div className={styled.containerCards}>
-       <Paginado
-        productsPerPage={productsPerPage}
-        allProducts={allProducts}
-        currentPage={currentPage}
-        paginado={paginado}
-      />
-      {showArrow && (
-        <button onClick={navigateBack} className={styled.arrow}>
-          &larr; All products
-        </button>
-      )}
+    <div className={styled.contenedorMayor}>
+   <div className={styled.contenedor}>
+        <div className={styled.containerCards}>
       <div className={styled.filterType}>
         <select
           id={styled.selectType}
@@ -156,7 +147,22 @@ function PharmacyComp() {
             Search
           </button>
         </div>
+        </div>
       </div>
+    </div>
+    <div className={styled.paginado}>
+        <Paginado
+         productsPerPage={productsPerPage}
+         allProducts={allProducts}
+         currentPage={currentPage}
+         paginado={paginado}
+       />
+       {showArrow && (
+         <button onClick={navigateBack} className={styled.arrow}>
+           &larr; All products
+         </button>
+       )}
+       </div>
     </div>
   );
 }

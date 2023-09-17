@@ -1,50 +1,53 @@
 .paginado {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .number {
-    margin: 0 7px;
-  }
-  
-  .number a {
-    text-decoration: none;
-    color: #000000;
-    font-size: 25px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  
-  .number a:hover {
-    text-decoration: underline;
-    color: rgb(21, 150, 77);
-  }
-  
-  .arrow {
-    margin: 0 7px;
-  }
-  
-  .arrow a {
-    color: #000000;
-    font-size: 28px;
-    font-weight: 600;
-    cursor: pointer;
-  }
-  
-  .arrow a:hover {
-    color: rgb(21, 150, 77);
-  }
-  
-  .number a.active {
-    color: rgb(21, 150, 77);
-  }
-  
-  .disabled a {
-    color: #a19e9e;
-    cursor: not-allowed;
-  }
-  
-  
+  display: flex;
+  list-style: none;
+  margin-top: 21px;
+  align-items: center;
+  justify-content: center;
+  /* background-color: red; */
+  height: 80px;
+}
+
+.number {
+  margin: 0 8px;
+  margin-top: 20px;
+}
+
+.number a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 24px;
+  font-family:monospace;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.number a:hover {
+  text-decoration: underline;
+  color: rgb(21, 36, 150);
+}
+
+.arrow {
+  margin: 0 8px;
+  margin-top: 14px;
+}
+
+.arrow a {
+  color: #000000;
+  font-size: 28px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.arrow a:hover {
+  color: rgb(21, 36, 150);
+}
+
+.number a.active {
+  color:  #2f8bf4;
+}
+
+.disabled a {
+  color: #a19e9e;
+  cursor: not-allowed;
+}
