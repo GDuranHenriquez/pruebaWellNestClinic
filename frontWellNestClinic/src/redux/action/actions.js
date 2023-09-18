@@ -19,7 +19,15 @@ import {
   GET_SPECIALTIES,
   GET_ALL_PRODUCTS,
   GET_PRODUCT_BY_NAME,
+<<<<<<< Updated upstream
   GET_ALL_PRODUCTS_PAGE,
+=======
+  GET_PRODUCT_DETAIL,
+  ADD_TO_CART,
+  REMOVE_FROM_CART,
+  CLEAR_CART,
+  GET_CART_USER,
+>>>>>>> Stashed changes
 } from "./type.js";
 
 export const verifyUsername = (userName) => {
@@ -337,3 +345,57 @@ export const getProductDetail = (productId) => {
     }
   };
 };
+<<<<<<< Updated upstream
+=======
+
+export const addToCart = (product) => {
+  return async (dispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + "/cart/"
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const response = await axios.post(endPoint,product,config);
+      dispatch({
+        type: ADD_TO_CART,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error fetching doctors:", error);
+    }
+  };
+};
+
+export const getCart = (userId) => {
+  return async (dispatch) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/cart/${userId}`
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const response = await axios.get(endPoint,config);
+      dispatch({
+        type: ADD_TO_CART,
+        payload: response.data,
+      });
+    } catch (error) {
+      console.error("Error fetching doctors:", error);
+    }
+  };
+};
+
+export const removeFromCart = (productId) => ({
+  type: REMOVE_FROM_CART,
+  payload: productId,
+});
+
+export const clearCart = () => ({
+  type: CLEAR_CART,
+});
+>>>>>>> Stashed changes

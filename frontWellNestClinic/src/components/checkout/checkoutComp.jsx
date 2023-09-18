@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
-function CheckoutComp({ selectedProducts }) {
+function CheckoutComp({ selectedProducts, addToCart }) {
   const [userData, setUserData] = useState({
     username: '',
     phoneNumber: '',
@@ -13,7 +13,7 @@ function CheckoutComp({ selectedProducts }) {
   const [discount, setDiscount] = useState(0);
   const [shippingCost, setShippingCost] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const stripe = useStripe();
   const elements = useElements();
@@ -80,8 +80,10 @@ function CheckoutComp({ selectedProducts }) {
       });
 
       if (response.status === 200) {
-        alert('Payment successful! Redirecting to confirmation page.');
-        history('/confirmation');
+        alert('Payment successful!');
+        // Agrega los productos al carrito después del pago exitoso
+        selectedProducts.forEach((product) => addToCart(product));
+        navigate('/confirmation'); // Redirige a la página de confirmación
       } else {
         alert('Payment failed. Please try again.');
       }
@@ -147,4 +149,6 @@ function CheckoutComp({ selectedProducts }) {
 }
 
 export default CheckoutComp;
+
+
 

@@ -29,4 +29,14 @@ export const GET_SPECIALTIES = "GET_SPECIALTIES";
 export const GET_ALL_PRODUCTS = "GET_ALL_PRODUCTS";
 export const GET_PRODUCT_BY_NAME = 'GET_PRODUCT_BY_NAME';
 export const GET_PRODUCT_DETAIL = 'GET_PRODUCT_DETAIL';
+<<<<<<< Updated upstream
 export const GET_ALL_PRODUCTS_PAGE = 'GET_ALL_PRODUCTS_PAGE';
+=======
+
+//shoppingCart
+export const ADD_TO_CART = 'ADD_TO_CART';
+export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const CLEAR_CART = 'CLEAR_CART';
+export const GET_CART_USER = 'GET_CART_USER';
+
+>>>>>>> Stashed changes

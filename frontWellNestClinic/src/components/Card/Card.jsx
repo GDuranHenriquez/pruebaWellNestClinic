@@ -1,22 +1,36 @@
 import { useState } from "react";
+import { addToCart } from '../../redux/action/actions';
 import PropTypes from "prop-types";
 import { IconShoppingCart } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import styles from "./Card.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from "../../Authenticator/AuthPro";
 
-function Card({ product }) {
-  const [id, SetId] = useState(product.id)
-
+function Card({product}) {
+  const isAuth = useAuth();
+  const dispatch = useDispatch();
+  const [id, SetId] = useState(product.id)  
+  const IDProductsCart = useSelector((state) => state.idProductsCart);
 
   const stars = Array.from({ length: product.Product_Average.averageRating }, (_, index) => (
     <span key={index} className={styles.star}>⭐</span>
   ));
 
+  const addTocardButon = (e) =>{
+    const user = isAuth.user;
+    const addProduct = {
+      user: user.id,
+      productId: product.id,
+      amount: 1
+    }
+    dispatch(addToCart(addProduct))
+  }
+
   return (
-    <div className={styles.card}>
-   
+    <div className={styles.card}>   
 
       <Link to={ `/product/${id}`}>
         <img
@@ -34,10 +48,10 @@ function Card({ product }) {
         
       </div>
       <div className={styles.BtnAdd}>
-        <button>
+        {IDProductsCart.includes(product.id)? '':<button onClick={addTocardButon}>
           <p className={styles.addTo}></p>
           <IconShoppingCart id={styles.iconCart}></IconShoppingCart>{" "}
-        </button>
+      </button>}      
       </div>
     </div>
   );
@@ -45,6 +59,7 @@ function Card({ product }) {
 
 Card.propTypes = {
   product: PropTypes.object.isRequired,
+  addToCart: PropTypes.func.isRequired,
 };
 
 const startRating = (rating) => {
@@ -74,6 +89,5 @@ const startRating = (rating) => {
     </div>
 
 }
-
 
 export default Card;
