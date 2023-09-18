@@ -81,8 +81,6 @@ function Card({product}) {
 
   return (
     <div className={styles.card}>   
-
-      <Link to={ `/product/${id}`} className={styles.imgProductLink}>
       <Link to={ `/product/${id}`} className={styles.imgProductLink}>
         <img
           className={styles.imgProduct}
@@ -90,7 +88,6 @@ function Card({product}) {
           alt={`image of ${product.name}`}
         />
       </Link>
-      <div className={styles.name}><p className={styles.nameP}>{product.name}</p></div>
       <div className={styles.name}><p className={styles.nameP}>{product.name}</p></div>
       <div className={styles.data}>
         <div> ${product.price}</div>

@@ -326,24 +326,6 @@ export const getProductsFilter =
     }
 };
 
-export const createAppointment = (appointment) => async (dispatch) => {
-    try {
-      let endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/appointment`;
-      const accessToken = localStorage.getItem("accessToken");
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      };
-      const { data } = await axios.post(endpoint, appointment, config);
-      return dispatch({
-        type: NOTHING,
-        payload: data,
-      });
-    } catch (error) {
-      return error.response;
-    }
-};
 
 export const createAppointment = (appointment) => async (dispatch) => {
   try {
