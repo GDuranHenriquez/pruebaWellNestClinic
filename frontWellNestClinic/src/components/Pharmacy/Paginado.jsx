@@ -61,7 +61,7 @@ export default function Paginado() {
   }, []);
 
   return (
-    <nav>
+    <nav className={style.nav}>
       <ul className={style.paginado}>
         <li
           className={`${style.arrow} ${

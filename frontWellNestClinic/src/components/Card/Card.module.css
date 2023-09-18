@@ -133,23 +133,48 @@
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
+  justify-content: space-between;
   width: 90%;
   margin: 0 auto;
+  margin: 0 auto;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: #82b7f5;
+  padding-left: 10%;
+  padding-right: 10%;
 }
-
+#inpAmount{
+  height: 20px;
+  width: 30%;
+  background: transparent;
+  border: none;
+  color: black;
+  font-weight: bold;
+  padding: 2px;
+  text-align: center;
+  
+}
+#inpAnount::-webkit-inner-spin-button,
+#inpAnount::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
 #btnAdd{
   padding: 0;
   margin: 0;
-  height: 30px;
-  width: 20%;
+  height: 90%;
+  width: 15%;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  justify-content: center;
+  justify-items: center;
 }
-#inpAnount{
-  height: 30px;
-  width: 50%;
-}
-#btnAdd{
+#btnAdd:hover{
+  cursor: pointer;
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  border-radius: 50%;
   padding: 0;
-  margin: 0;
-  height: 30px;
-  width: 20%;
 }

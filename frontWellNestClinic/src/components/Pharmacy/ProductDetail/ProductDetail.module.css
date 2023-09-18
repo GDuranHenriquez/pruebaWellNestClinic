@@ -83,7 +83,15 @@
   margin-top: 9px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.btnAdd button {
+
+.BtnAdd{
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-items: center;
+}
+
+.BtnAdd button {
   border: none;
   background-color: #007bff;
   color: rgb(255, 255, 255);
@@ -97,10 +105,10 @@
   transition: transform 0.25s ease-out;
 
 }
-.btnAdd button:hover {
+.BtnAdd button:hover {
   transform: scale(1.05);
 }
-.btnAdd p {
+.BtnAdd p {
   font-size: 16px;
   margin-top: 1px;
   margin-bottom: 1px;  
@@ -222,4 +230,54 @@
   overflow: hidden;
   position: absolute;
   top: 0;
+}
+
+.bntAddMinus{
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+  margin: 0 auto;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background-color: #82b7f5;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+#inpAmount{
+  height: 20px;
+  width: 30%;
+  background: transparent;
+  border: none;
+  color: black;
+  font-weight: bold;
+  padding: 2px;
+  text-align: center;
+  
+}
+#inpAnount::-webkit-inner-spin-button,
+#inpAnount::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
+#btnAdd{
+  padding: 0;
+  margin: 0;
+  height: 90%;
+  width: 15%;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+  justify-content: center;
+  justify-items: center;
+}
+#btnAdd:hover{
+  cursor: pointer;
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  border-radius: 50%;
+  padding: 0;
 }

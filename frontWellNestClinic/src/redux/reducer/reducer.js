@@ -113,7 +113,11 @@ const userReducer = (state = initialState, action) => {
         var productsInCart = [];
         var data = action.payload.cart.products;
         data.forEach(prod => {
-         productsInCart.push(prod.id);
+          const cartProduct = {
+            id: prod.id,
+            amount: prod.cart_product.amount
+          }
+         productsInCart.push(cartProduct);
         });
 
       // Agregar un producto al carrito

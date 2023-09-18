@@ -400,7 +400,7 @@ export const addToCart = (product) => {
         payload: response.data,
       });
     } catch (error) {
-      console.error("Error fetching doctors:", error);
+      console.error("Error fetching doctors:", error.message);
     }
   };
 };

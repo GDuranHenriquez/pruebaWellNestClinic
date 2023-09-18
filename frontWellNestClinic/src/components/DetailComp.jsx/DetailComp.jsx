@@ -8,6 +8,46 @@ import Loading from "../components/Loading/Loading";
 function DetailPage({ match }) {
   const [product, setProduct] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const IDProductsCart = useSelector((state) => state.idProductsCart);
+  const [amount, setAmount] = useState(0);
+  const [timerId, setTimerId] = useState(null);
+
+  const addSubtractTocardButon = (e) =>{
+    if(e.target.name === 'add'){
+      setAmount(Number(amount) + 1)
+      handleInpAmount(Number(amount) + 1)
+    }else if(e.target.name === 'subtract'){
+      setAmount(Number(amount) - 1)
+      handleInpAmount(Number(amount) - 1)
+    }
+  }
+  const cartContainer = () => {
+    for(var i = 0; i < IDProductsCart.length; i++){
+      if(product.id === IDProductsCart[i].id){
+        return true
+      }      
+    }
+    return false
+  }
+  const handleInpAmount = (newAmount) => {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    const newTimerId  = setTimeout(() => {
+      const user = isAuth.user;
+      const addProduct = {
+      user: user.id,
+      productId: product.id,
+      amount: newAmount
+    }
+    dispatch(addToCart(addProduct))
+    }, 500);
+    setTimerId(newTimerId); 
+  }
+
+  useEffect(() => {
+    amountInp();
+  }, [IDProductsCart])
 
   useEffect(() => {
     // Obtener el ID del producto de la URL usando React Router

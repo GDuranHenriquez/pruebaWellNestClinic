@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addToCart } from '../../redux/action/actions';
 import PropTypes from "prop-types";
 import { IconShoppingCart } from "@tabler/icons-react";
@@ -14,8 +14,9 @@ function Card({product}) {
   const dispatch = useDispatch();
   const [id, SetId] = useState(product.id)  
   const IDProductsCart = useSelector((state) => state.idProductsCart);
+  const [amount, setAmount] = useState(0);
+  const [timerId, setTimerId] = useState(null);
 
-  
   const addTocardButon = (e) =>{
     const user = isAuth.user;
     const addProduct = {
@@ -25,6 +26,58 @@ function Card({product}) {
     }
     dispatch(addToCart(addProduct))
   }
+
+  const addSubtractTocardButon = (e) =>{
+    if(e.target.name === 'add'){
+      setAmount(Number(amount) + 1)
+      handleInpAmount(Number(amount) + 1)
+    }else if(e.target.name === 'subtract'){
+      setAmount(Number(amount) - 1)
+      handleInpAmount(Number(amount) - 1)
+    }
+  }
+  const cartContainer = () => {
+    for(var i = 0; i < IDProductsCart.length; i++){
+      if(product.id === IDProductsCart[i].id){
+        return true
+      }      
+    }
+    return false
+  }
+  const handleInpAmount = (newAmount) => {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    const newTimerId  = setTimeout(() => {
+      const user = isAuth.user;
+      const addProduct = {
+      user: user.id,
+      productId: product.id,
+      amount: newAmount
+    }
+    dispatch(addToCart(addProduct))
+    }, 500);
+    setTimerId(newTimerId); 
+  }
+
+  useEffect(() => {
+    amountInp();
+  }, [IDProductsCart])
+
+  
+
+  const amountInp = () => {
+    for(var i = 0; i < IDProductsCart.length; i++){
+      if(product.id === IDProductsCart[i].id){
+        setAmount(IDProductsCart[i].amount);
+        return;
+      }      
+    }
+    setAmount(0)
+    return;
+  }
+
+
 
   return (
     <div className={styles.card}>   
@@ -45,10 +98,10 @@ function Card({product}) {
         
       </div>
       <div className={styles.BtnAdd}>
-        {IDProductsCart.includes(product.id)? <span className={styles.bntAddMinus}>
-          <button id={styles.btnAdd}>-</button>
-          <input type="number" name="amount" id={styles.inpAnount} />
-          <button id={styles.btnAdd}>+</button>
+        {cartContainer(product.id)? <span className={styles.bntAddMinus}>
+          <button id={styles.btnAdd} name="subtract" onClick={addSubtractTocardButon}>-</button>
+          <input type="number" name="amount" id={styles.inpAmount} value={amount} disabled/>
+          <button id={styles.btnAdd} name="add" onClick={addSubtractTocardButon}>+</button>
         </span>:<button onClick={addTocardButon}>
           <p className={styles.addTo}></p>
           <IconShoppingCart id={styles.iconCart}></IconShoppingCart>{" "}
@@ -59,8 +112,7 @@ function Card({product}) {
 }
 
 Card.propTypes = {
-  product: PropTypes.object.isRequired,
-  addToCart: PropTypes.func.isRequired,
+  product: PropTypes.object.isRequired
 };
 
 const startRating = (rating) => {

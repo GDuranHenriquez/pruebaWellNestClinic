@@ -1,11 +1,18 @@
 .paginado {
   display: flex;
   list-style: none;
-  margin-top: 15px;
   align-items: center;
   justify-content: center;
-  /* background-color: red; */
-  height: 6px;
+  background-color:#f1f0f0 ;
+  height: max-content;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.nav{
+  width: 100%;
+  margin: 0;
+  padding: 0 auto;
 }
 
 .number {
