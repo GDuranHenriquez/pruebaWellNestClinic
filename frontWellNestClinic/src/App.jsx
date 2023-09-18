@@ -1,3 +1,4 @@
+import {useState} from "react";
 import LandingPage from "./components/LandingPage/LandingPage";
 import HomePages from "./pages/Home/Home";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -24,7 +25,12 @@ import ShoppingCartPage from "./pages/shoppingCart/ShoppingCartPage";
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PASSWORD);
 
+function addToCart(product, setCartItems) {
+  setCartItems((prevCartItems) => [...prevCartItems, { ...product, quantity: 1 }]);
+}
+
 function App() {
+  const [cartItems, setCartItems] = useState([]);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -84,7 +90,7 @@ function App() {
           element: <DetailProductPages/>,
         },{
           path: "/my-cart",
-          element: <ShoppingCartPage></ShoppingCartPage>,
+          element: <ShoppingCartPage cartItems={cartItems} />,
         },
       ],
     },
@@ -93,9 +99,9 @@ function App() {
   return (
     <AuthProvider>
       <RouterProvider router={router}>
-      <Elements stripe={stripePromise}>
-          <CheckoutComp></CheckoutComp>
-      </Elements>
+        <Elements stripe={stripePromise}>
+          <CheckoutComp addToCart={(product) => addToCart(product, setCartItems)} />
+        </Elements>
       </RouterProvider>
     </AuthProvider>
   );

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import  { useNavigate } from 'react-router-dom'
-function ShoppingCartComp() {
+import { useNavigate } from 'react-router-dom';
+import { removeFromCart } from '../../redux/action/actions';
 
-  const [cartItems, setCartItems] = useState([]);
+function ShoppingCartComp(cartItems, removeFromCart ) {
+  /* const [cartItems, setCartItems] = useState([]); */
   const [selectedItems, setSelectedItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
@@ -59,9 +60,9 @@ function ShoppingCartComp() {
     setTotalPrice(totalPrice);
   };
 
-  const history = useNavigate();
+  const navigate = useNavigate();
   const goToCheckout = () => {
-    history('/checkout');
+    navigate('/checkout');
   };
 
   return (
@@ -76,6 +77,7 @@ function ShoppingCartComp() {
               onChange={() => toggleSelect(item.id)}
             />
             {item.name} - ${item.price} - Quantity: {item.quantity}
+            <button onClick={() => removeFromCart(item.id)}>Remove</button>
             <button onClick={() => increaseQuantity(item.id)}>+</button>
             <button onClick={() => decreaseQuantity(item.id)}>-</button>
           </li>
@@ -87,4 +89,12 @@ function ShoppingCartComp() {
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    cartItems: state.cartItems,
+  };
+};
+
+
 export default ShoppingCartComp;
+
