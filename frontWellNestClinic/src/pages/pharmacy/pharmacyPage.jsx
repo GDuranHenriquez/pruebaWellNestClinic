@@ -20,6 +20,7 @@ function MyPharmacyPage(){
   return (<div className={style.MyPharmacyPage}>
     <BackGrounPharmacy></BackGrounPharmacy>
     <PharmacyComp></PharmacyComp>
+    <Paginado></Paginado>
     <Cards></Cards>
   </div>)
 }

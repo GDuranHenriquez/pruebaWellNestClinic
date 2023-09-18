@@ -9,7 +9,7 @@ import {
   getProductByName,
   getProductsFilter,
 } from "../../redux/action/actions";
-import Paginado from "./Paginado";
+
 
 function PharmacyComp() {
   const [filterType, setFilterType] = useState("");
@@ -17,39 +17,27 @@ function PharmacyComp() {
   const [search, setSearch] = useState("");
   const [priceOrder, setPriceOrder] = useState("asc");
   const [ratingOrder, setRatingOrder] = useState("asc");
-  const [showArrow, setShowArrow] = useState(false);
-  const allProducts = useSelector((state) => state.totalProducts);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [productsPerPage, setProductsPerPage] = useState(10);
-  const indexOfLastproduct = currentPage * productsPerPage;
-  const indexOfFirstproduct = indexOfLastproduct - productsPerPage;
+  
+  
 
   const [type, setType] = useState([]);
 
   const dispatch = useDispatch();
 
-  const paginado = (pageNumber) => {
-    setCurrentPage(pageNumber);
-    dispatch(getAllProductsByPage(pageNumber, productsPerPage))
-  };
+  
 
   const searchProductByName = () => {
     dispatch(getProductByName(search));
     setShowArrow(true);
   };
 
-  const navigateBack = () => {
-    dispatch(getAllProductsByPage(1, productsPerPage));
-    setShowArrow(false);
-    // setSearch("");
-  };
+  
 
   useEffect(() => {
     /* fetchProducts(); */
   }, [filterType, alphabeticalOrder, search]);
 
   useEffect(() => {
-    dispatch(getAllProductsByPage(currentPage, productsPerPage));
     async function fetchType() {
       try {
         const response = await axios.get(
@@ -150,7 +138,7 @@ function PharmacyComp() {
         </div>
       </div>
     </div>
-    <div className={styled.paginado}>
+    {/* <div className={styled.paginado}>
         <Paginado
          productsPerPage={productsPerPage}
          allProducts={allProducts}
@@ -162,7 +150,7 @@ function PharmacyComp() {
            &larr; All products
          </button>
        )}
-       </div>
+       </div> */}
     </div>
   );
 }
