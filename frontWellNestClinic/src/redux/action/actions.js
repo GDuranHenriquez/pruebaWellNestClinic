@@ -183,14 +183,21 @@ export const cancelMembership = () => ({
 
 export const doctorFiltering = (dataSpeciality) => async (dispach) => {
   try {
+    const refreshToken = localStorage.getItem("token");
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${refreshToken}`,
+    },
+  };
     const { data } = await axios.get(
-      import.meta.env.VITE_BASENDPOINT_BACK + "/doctor/"
+      import.meta.env.VITE_BASENDPOINT_BACK + "/doctor/", config
     );
     const filteredDoctors = data.filter((doctor) => {
       return doctor.specialities.some(
         (speciality) => speciality.name === dataSpeciality
       );
-    });
+    }); 
     return dispach({
       type: DOCTOR_FILTERING,
       payload: filteredDoctors,
@@ -267,8 +274,15 @@ export const getAllProducts = () => async (dispatch) => {
 
 export const getAllProductsByPage = (page, size) => async (dispatch) => {
   try {
+    const refreshToken = localStorage.getItem("token");
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+      },
+    };
     const endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/product`;
-    const { data } = await axios.get(endpoint);
+    const { data } = await axios.get(endpoint, config);
     const start = (page - 1) * size;
     let products = [];
     for (let i = start; i < start + size; i++) {
@@ -310,32 +324,39 @@ export const getProductsFilter =
     } catch (error) {
       return error.response;
     }
-};
+  };
 
 export const createAppointment = (appointment) => async (dispatch) => {
-    try {
-      let endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/appointment`;
-      const accessToken = localStorage.getItem("accessToken");
-      const config = {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      };
-      const { data } = await axios.post(endpoint, appointment, config);
-      return dispatch({
-        type: NOTHING,
-        payload: data,
-      });
-    } catch (error) {
-      return error.response;
-    }
+  try {
+    let endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/appointment`;
+    const accessToken = localStorage.getItem("accessToken");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    const { data } = await axios.post(endpoint, appointment, config);
+    return dispatch({
+      type: NOTHING,
+      payload: data,
+    });
+  } catch (error) {
+    return error.response;
+  }
 };
 
 export const getProductByName = (productName) => {
   return async function (dispatch) {
     try {
+      const refreshToken = localStorage.getItem("token");
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      };
       const { data } = await axios.get(
-        import.meta.env.VITE_BASENDPOINT_BACK + `/product/name/${productName}`
+        import.meta.env.VITE_BASENDPOINT_BACK + `/product/name/${productName}`, config
       );
       dispatch({
         type: GET_PRODUCT_BY_NAME,
@@ -373,7 +394,7 @@ export const addToCart = (product) => {
           Authorization: `Bearer ${accessToken}`,
         },
       };
-      const response = await axios.post(endPoint,product,config);
+      const response = await axios.post(endPoint, product, config);
       dispatch({
         type: ADD_TO_CART,
         payload: response.data,
@@ -394,7 +415,7 @@ export const getCart = (userId) => {
           Authorization: `Bearer ${accessToken}`,
         },
       };
-      const response = await axios.get(endPoint,config);
+      const response = await axios.get(endPoint, config);
       dispatch({
         type: ADD_TO_CART,
         payload: response.data,
