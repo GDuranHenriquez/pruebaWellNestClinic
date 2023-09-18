@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { removeFromCart } from '../../redux/action/actions';
+import { useSelector } from 'react-redux'
 
-function ShoppingCartComp(cartItems, removeFromCart ) {
+function ShoppingCartComp() {
   /* const [cartItems, setCartItems] = useState([]); */
   const [selectedItems, setSelectedItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-
+  const cartItems = useSelector((state) => state.cartItems);
   // Función para agregar un producto al carrito
   const addToCart = (product) => {
     const existingItem = cartItems.find((item) => item.id === product.id);

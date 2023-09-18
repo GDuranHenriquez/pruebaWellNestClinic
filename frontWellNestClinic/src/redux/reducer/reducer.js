@@ -4,11 +4,7 @@ import {
   PAY_MEMBERSHIP, CANCEL_MEMBERSHIP, GENERIC_ERROR,
   LOGIN_USERMEMBER, VERIFY_USERNAME, VERIFY_ISMEMBER,
   RESET_GENERIC_ERROR, RESET_IS_MEMBER, GET_USER_ID, ALL_SCHEDULE,
-<<<<<<< Updated upstream
-  DOCTOR_FILTERING, GET_SPECIALTIES, GET_DOCTORS, GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_DETAIL, GET_ALL_PRODUCTS_PAGE,
-=======
-  DOCTOR_FILTERING, GET_SPECIALTIES, GET_DOCTORS, GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_DETAIL,   ADD_TO_CART, GET_CART_USER
->>>>>>> Stashed changes
+  GET_SPECIALTIES, GET_DOCTORS, GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_DETAIL, GET_ALL_PRODUCTS_PAGE, DOCTOR_FILTERING, ADD_TO_CART, GET_CART_USER
 } from '../action/type';
 
 const initialState = {
@@ -32,16 +28,13 @@ const initialState = {
   //Products
   allProducts:[],
   detail: {},
-<<<<<<< Updated upstream
 
-  totalProducts: 0
-=======
+  totalProducts: 0,
 //shoppingCart
   cartItems: [],
   selectedItems: [],
   totalPrice: 0,
   idProductsCart: []
->>>>>>> Stashed changes
 };
 
 const userReducer = (state = initialState, action) => {

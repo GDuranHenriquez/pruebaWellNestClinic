@@ -15,10 +15,7 @@ function Card({product}) {
   const [id, SetId] = useState(product.id)  
   const IDProductsCart = useSelector((state) => state.idProductsCart);
 
-  const stars = Array.from({ length: product.Product_Average.averageRating }, (_, index) => (
-    <span key={index} className={styles.star}>⭐</span>
-  ));
-
+  
   const addTocardButon = (e) =>{
     const user = isAuth.user;
     const addProduct = {
@@ -32,14 +29,14 @@ function Card({product}) {
   return (
     <div className={styles.card}>   
 
-      <Link to={ `/product/${id}`}>
+      <Link to={ `/product/${id}`} className={styles.imgProductLink}>
         <img
           className={styles.imgProduct}
           src={product.imageUrl}
           alt={`image of ${product.name}`}
         />
       </Link>
-      <div className={styles.name}>{product.name}</div>
+      <div className={styles.name}><p className={styles.nameP}>{product.name}</p></div>
       <div className={styles.data}>
         <div> ${product.price}</div>
         <div className={styles.rating} >
@@ -48,7 +45,11 @@ function Card({product}) {
         
       </div>
       <div className={styles.BtnAdd}>
-        {IDProductsCart.includes(product.id)? '':<button onClick={addTocardButon}>
+        {IDProductsCart.includes(product.id)? <span className={styles.bntAddMinus}>
+          <button id={styles.btnAdd}>-</button>
+          <input type="number" name="amount" id={styles.inpAnount} />
+          <button id={styles.btnAdd}>+</button>
+        </span>:<button onClick={addTocardButon}>
           <p className={styles.addTo}></p>
           <IconShoppingCart id={styles.iconCart}></IconShoppingCart>{" "}
       </button>}      

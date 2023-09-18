@@ -6,7 +6,7 @@ import  { useEffect } from 'react'
 import { useDispatch } from 'react-redux' 
 import { getCart } from '../../redux/action/actions'
 import { useAuth } from "../../Authenticator/AuthPro";
-
+import Paginado from '../../components/Pharmacy/Paginado';
 
 function MyPharmacyPage(){
   const dispatch = useDispatch();
