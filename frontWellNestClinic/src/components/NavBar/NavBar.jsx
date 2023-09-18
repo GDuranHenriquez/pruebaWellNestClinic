@@ -10,14 +10,14 @@ import PropTypes from "prop-types";
 import { faL } from "@fortawesome/free-solid-svg-icons";
 
 function NavBar() {
-  const location = useLocation(); 
+  const location = useLocation();
   const routespages = ["pharmacy", "product", "my-cart"];
   const [isFarmacy, setIsFarmacy] = useState(0);
 
-  
+
   const navBarCondition = (arr, location) => {
-    for(let i = 0; i < arr.length; i++){
-      if(location.includes(arr[i])){       
+    for (let i = 0; i < arr.length; i++) {
+      if (location.includes(arr[i])) {
         setIsFarmacy(1)
         return;
       }
@@ -64,8 +64,8 @@ function NavBarPrincipal({ logout }) {
   return (
     <nav className={styles.navSup}>
       <Link to="/home">
-  <img className={styles.logo} src="/imagenes/Logo.jpg" alt="logo" />
-</Link>
+        <img className={styles.logo} src="/imagenes/Logo.jpg" alt="logo" />
+      </Link>
       <div className={styles.menu}>
         <Link to="/home" className={styles.linkNoUnderline}>
           Home{" "}
@@ -107,9 +107,9 @@ NavBarPharmacy.propTypes = {
 function NavBarPharmacy({ logout }) {
   return (
     <nav className={styles.navSup}>
-     <Link to="/pharmacy">
-  <img className={styles.logo} src="/imagenes/Logo.jpg" alt="logo" />
-</Link>
+      <Link to="/pharmacy">
+        <img className={styles.logo} src="/imagenes/Logo.jpg" alt="logo" />
+      </Link>
       <div className={styles.menu}>
         <Link to="/pharmacy" className={styles.linkNoUnderline}>
           Pharmacy{" "}

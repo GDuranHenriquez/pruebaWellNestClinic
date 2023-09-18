@@ -19,15 +19,13 @@ import {
   GET_SPECIALTIES,
   GET_ALL_PRODUCTS,
   GET_PRODUCT_BY_NAME,
-<<<<<<< Updated upstream
   GET_ALL_PRODUCTS_PAGE,
-=======
   GET_PRODUCT_DETAIL,
   ADD_TO_CART,
   REMOVE_FROM_CART,
   CLEAR_CART,
   GET_CART_USER,
->>>>>>> Stashed changes
+  NOTHING
 } from "./type.js";
 
 export const verifyUsername = (userName) => {
@@ -312,7 +310,26 @@ export const getProductsFilter =
     } catch (error) {
       return error.response;
     }
-  };
+};
+
+export const createAppointment = (appointment) => async (dispatch) => {
+    try {
+      let endpoint = import.meta.env.VITE_BASENDPOINT_BACK + `/appointment`;
+      const accessToken = localStorage.getItem("accessToken");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const { data } = await axios.post(endpoint, appointment, config);
+      return dispatch({
+        type: NOTHING,
+        payload: data,
+      });
+    } catch (error) {
+      return error.response;
+    }
+};
 
 export const getProductByName = (productName) => {
   return async function (dispatch) {
@@ -344,9 +361,7 @@ export const getProductDetail = (productId) => {
       return error.message;
     }
   };
-};
-<<<<<<< Updated upstream
-=======
+}
 
 export const addToCart = (product) => {
   return async (dispatch) => {
@@ -397,5 +412,4 @@ export const removeFromCart = (productId) => ({
 
 export const clearCart = () => ({
   type: CLEAR_CART,
-});
->>>>>>> Stashed changes
+})

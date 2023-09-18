@@ -4,11 +4,13 @@ import axios from 'axios';
 import styles from './MySchedule.module.css';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import { useAuth } from '../../Authenticator/AuthPro'
+ 
 const MySchedule = () => {
     const [openAppointments, setOpenAppointments] = useState([]);
     const [canceledAppointments, setCanceledAppointments] = useState([]);
-    const user = useSelector((state) => state.user);
+    const isAuth = useAuth();
+    const user = isAuth.user;
     const userId = user.id;
     const navigate = useNavigate();
 

@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import Cards from "../Cards/Cards";
 import styled from "./pharmacyComp.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-  getAllProducts,
-  getAllProductsByPage,
   getProductByName,
   getProductsFilter,
 } from "../../redux/action/actions";
@@ -17,21 +14,15 @@ function PharmacyComp() {
   const [search, setSearch] = useState("");
   const [priceOrder, setPriceOrder] = useState("asc");
   const [ratingOrder, setRatingOrder] = useState("asc");
-  
-  
 
   const [type, setType] = useState([]);
-
   const dispatch = useDispatch();
-
-  
 
   const searchProductByName = () => {
     dispatch(getProductByName(search));
-    setShowArrow(true);
   };
 
-  
+
 
   useEffect(() => {
     /* fetchProducts(); */
@@ -82,63 +73,63 @@ function PharmacyComp() {
 
     dispatch(getProductsFilter(filterType, priceOrder, "price"));
   };
-  
-  
+
+
   const changeRatingOrder = async () => {
     if (ratingOrder === "asc") {
       setRatingOrder("desc");
     } else {
       setRatingOrder("asc");
     }
-    
+
     dispatch(getProductsFilter(filterType, ratingOrder, "rating"));
   };
   return (
     <div className={styled.contenedorMayor}>
-   <div className={styled.contenedor}>
+      <div className={styled.contenedor}>
         <div className={styled.containerCards}>
-      <div className={styled.filterType}>
-        <select
-          id={styled.selectType}
-          value={filterType}
-          onChange={(e) => handleFilterType(e.target.value)}
-        >
-          <option value="">Type (all)</option>
-          {type.map((t) => (
-            <option className={styled.letra} key={t.id} value={t.id}>
-              {t.type}
-            </option>
-          ))}
-        </select>
+          <div className={styled.filterType}>
+            <select
+              id={styled.selectType}
+              value={filterType}
+              onChange={(e) => handleFilterType(e.target.value)}
+            >
+              <option value="">Type (all)</option>
+              {type.map((t) => (
+                <option className={styled.letra} key={t.id} value={t.id}>
+                  {t.type}
+                </option>
+              ))}
+            </select>
 
-        <button id={styled.order} onClick={changeAlphabeticalOrder}>
-          Name ({alphabeticalOrder === "asc" ? "z-a" : "a-z"})
-        </button>
+            <button id={styled.order} onClick={changeAlphabeticalOrder}>
+              Name ({alphabeticalOrder === "asc" ? "z-a" : "a-z"})
+            </button>
 
-        <button id={styled.order} onClick={changePriceOrder}>
-          Price ({priceOrder === "asc" ? "max-min" : "min-max"})
-        </button>
+            <button id={styled.order} onClick={changePriceOrder}>
+              Price ({priceOrder === "asc" ? "max-min" : "min-max"})
+            </button>
 
-        <button id={styled.order} onClick={changeRatingOrder}>
-        Rating ({ratingOrder === "asc" ? "5-1" : "1-5"})
-        </button>
+            <button id={styled.order} onClick={changeRatingOrder}>
+              Rating ({ratingOrder === "asc" ? "5-1" : "1-5"})
+            </button>
 
-        <div className={styled.search}>
-          <input
-            type="text"
-            id={styled.inpSearch}
-            placeholder="Search for a product"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <button type="submit" onClick={searchProductByName}>
-            Search
-          </button>
-        </div>
+            <div className={styled.search}>
+              <input
+                type="text"
+                id={styled.inpSearch}
+                placeholder="Search for a product"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <button type="submit" onClick={searchProductByName}>
+                Search
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    {/* <div className={styled.paginado}>
+      {/* <div className={styled.paginado}>
         <Paginado
          productsPerPage={productsPerPage}
          allProducts={allProducts}

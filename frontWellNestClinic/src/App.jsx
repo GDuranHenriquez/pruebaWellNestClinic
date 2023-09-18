@@ -90,7 +90,7 @@ function App() {
           element: <DetailProductPages/>,
         },{
           path: "/my-cart",
-          element: <ShoppingCartPage cartItems={cartItems} />,
+          element: <ShoppingCartPage/>,
         },
       ],
     },
