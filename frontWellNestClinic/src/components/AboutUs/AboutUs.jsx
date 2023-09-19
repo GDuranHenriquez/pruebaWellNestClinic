@@ -4,7 +4,7 @@ import styles from "./About.module.css"
 const AboutUs = () => {
    return ( 
     <div className={styles.container}>
-   <div><h1 className={styles.h1}>About us</h1></div>
+   <h1 className={styles.about}>About us</h1>
 <div className={styles.texto}>
 <h3 className={styles.subt}>Our mission</h3>
    <div><p className={styles.p}>At WellNest Clinic, we are driven by a single mission: Above all else, we are committed to the care and improvement of human life.

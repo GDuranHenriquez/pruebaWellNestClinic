@@ -5,14 +5,17 @@
   position: fixed;
   text-align: center;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
 }
-.h1 {
+.about{
   color: black;
   font-size: 50px;
-  margin-top: 10px;
-  height: 48px;
-  padding: 9px;
+  height: 60px;
+
 }
+
 
 .texto {
   background-color: rgba(214, 216, 218, 0.858);
@@ -21,6 +24,7 @@
   border-radius: 10px;
   margin-left: 19%;
   height: 530px;
+  
 }
 
 .subt {
