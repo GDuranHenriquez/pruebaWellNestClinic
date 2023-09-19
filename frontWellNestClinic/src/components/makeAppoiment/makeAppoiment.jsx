@@ -267,13 +267,13 @@ const MakeAppoiment = () => {
       case 2:
         return (
           <div className={styles.containerData}>
-            <h1>Select Physician</h1>
+            <h1>Choose a doctor</h1>
             <select
               name="physician"
               value={selectedName.physician}
               onChange={handleSelectChange}
             >
-              <option value="dontSelect">Select Physician</option>
+              <option value="dontSelect">Doctors</option>
               {filteredDoctors.map((doctor) => {
                 return (
                   <option

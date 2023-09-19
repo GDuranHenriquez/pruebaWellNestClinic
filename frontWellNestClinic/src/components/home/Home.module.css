@@ -8,10 +8,9 @@
   margin: 0px;
   padding: 0px;
 }
-.pad{
+.pad {
   width: 100%;
   padding-left: 80px;
-  /* margin-top: 90px; */
 }
 
 .h1 {
@@ -19,11 +18,8 @@
   width: 500px;
   color: rgb(0, 0, 0);
   font-family: Georgia, "Times New Roman", Times, serif;
-margin-top: 30px;
-
+  margin-top: 90px;
 }
-
-
 
 .msg {
   right: 0px;
@@ -43,7 +39,6 @@ margin-top: 30px;
   font-size: 15px;
 }
 
-
 .h4 {
   width: 600px;
   color: rgb(23, 23, 23);
@@ -55,7 +50,7 @@ margin-top: 30px;
   /* margin: 20px 0 10px 0;
   gap: 20px; */
 }
-.newScheduleButton{
+.newScheduleButton {
   background-color: #02098c;
   color: white;
   font-size: 16px;
@@ -83,36 +78,14 @@ margin-top: 30px;
   text-align: center;
 }
 
-
 .newScheduleButton:hover {
   background-color: #f2f7f6;
   color: #02098c;
   transition: background-color 0.3s;
 }
 
-/* .aboutUsButton {
-  background-color: #02098c;
-  color: white;
-  font-size: 16px;
-  text-decoration: none;
-  border-radius: 5px;
-  height: 60px;
-  width: 120px;
-  margin-top: 20px;
-  margin-left: 50px;
-} */
-
 .aboutUsButton:hover {
   background-color: #f2f7f6;
   color: #02098c;
   transition: background-color 0.3s;
 }
-
-/* .logo {
-    height: 130px;
-    width: 130px;
-    border-radius: 10px;
-    margin-top: 1px;
-    margin-bottom: 20px;
-    margin-right: 1100px;
-  } */
