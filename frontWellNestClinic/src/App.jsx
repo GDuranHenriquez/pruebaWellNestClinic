@@ -1,4 +1,3 @@
-import {useState} from "react";
 import LandingPage from "./components/LandingPage/LandingPage";
 import HomePages from "./pages/Home/Home";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -11,26 +10,19 @@ import MyProfilePage from "./pages/MyProfile/MyProfilePage";
 import "./App.css";
 import MyPharmacyPage from "./pages/pharmacy/pharmacyPage";
 import ProtectedRoute from "./components/ProtectedRoute";
-import DetailPage from "./pages/DetailPage.jsx/DetailPage";
 import { AuthProvider } from "./Authenticator/AuthPro";
 import DoctorsPage from "./pages/Doctors/DoctorsPage";
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import PurchaseDetail from "./components/Pharmacy/PurchaseDetail/PurchaseDetail";
 import DetailProductPages from "./pages/detailProduct/DetailProductPages"
-import CheckoutComp from "./components/Checkout/CheckoutComp";
-import { Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import AboutUs from "./components/AboutUs/AboutUs";
 import ShoppingCartPage from "./pages/shoppingCart/ShoppingCartPage";
-
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PASSWORD);
-
-function addToCart(product, setCartItems) {
-  setCartItems((prevCartItems) => [...prevCartItems, { ...product, quantity: 1 }]);
-}
+import { Elements} from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 function App() {
-  const [cartItems, setCartItems] = useState([]);
+  const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PASSWORD);
+  
+  
   const router = createBrowserRouter([
     {
       path: "/",
@@ -97,12 +89,11 @@ function App() {
   ]);
 
   return (
-    <AuthProvider>
-      <RouterProvider router={router}>
+    <AuthProvider>      
         <Elements stripe={stripePromise}>
-          <CheckoutComp addToCart={(product) => addToCart(product, setCartItems)} />
-        </Elements>
-      </RouterProvider>
+          <RouterProvider router={router}>
+          </RouterProvider>
+        </Elements>      
     </AuthProvider>
   );
 }
