@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { removeFromCart } from "../../redux/action/actions";
 import { useSelector } from "react-redux";
 import style from "./shoppingCartComp.module.css";
 import { useModal } from "../../utils/useModal";
