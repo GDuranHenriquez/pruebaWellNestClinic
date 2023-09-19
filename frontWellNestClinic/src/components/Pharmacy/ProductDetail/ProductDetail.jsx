@@ -22,10 +22,14 @@ const ProductDetail = () => {
       setAmount(Number(amount) + 1)
       handleInpAmount(Number(amount) + 1)
     } else if (e.target.name === 'subtract') {
-      setAmount(Number(amount) - 1)
-      handleInpAmount(Number(amount) - 1)
+      if(Number(amount) - 1 < 0){
+        null
+      }else{
+        setAmount(Number(amount) - 1)
+        handleInpAmount(Number(amount) - 1)
+      }      
     }
-  }
+  };
   const cartContainer = () => {
     for (var i = 0; i < IDProductsCart.length; i++) {
       if (products.id === IDProductsCart[i].id) {
@@ -33,7 +37,7 @@ const ProductDetail = () => {
       }
     }
     return false
-  }
+  };
   const handleInpAmount = (newAmount) => {
     if (timerId) {
       clearTimeout(timerId);
@@ -48,7 +52,7 @@ const ProductDetail = () => {
       dispatch(addToCart(addProduct))
     }, 500);
     setTimerId(newTimerId);
-  }
+  };
 
   useEffect(() => {
     amountInp();
