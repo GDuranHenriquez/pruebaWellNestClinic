@@ -74,7 +74,7 @@ function NavBarPrincipal({ logout }) {
           Make an appointment
         </Link>
         <Link to="/appointments" className={styles.linkNoUnderline}>
-          My medical appointments
+          My appointments
         </Link>
         <Link to="/doctors" className={styles.linkNoUnderline}>
           Doctors
