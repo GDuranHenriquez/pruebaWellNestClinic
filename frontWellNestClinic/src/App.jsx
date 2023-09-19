@@ -19,6 +19,7 @@ import ShoppingCartPage from "./pages/shoppingCart/ShoppingCartPage";
 import { Elements} from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
+
 function App() {
   const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PASSWORD);
   
