@@ -3,7 +3,6 @@ import axios from "axios";
 import styled from "./pharmacyComp.module.css";
 import { useDispatch } from "react-redux";
 import {
-  getProductByName,
   getProductsFilter,
 } from "../../redux/action/actions";
 
@@ -19,7 +18,7 @@ function PharmacyComp() {
   const dispatch = useDispatch();
 
   const searchProductByName = () => {
-    dispatch(getProductByName(search));
+    dispatch(getProductsFilter(filterType, priceOrder, "price", search));
   };
 
 
@@ -31,6 +30,7 @@ function PharmacyComp() {
   useEffect(() => {
     async function fetchType() {
       try {
+        
         const response = await axios.get(
           "https://serverwellnestclinic.onrender.com/presentation-type"
         );
@@ -52,7 +52,7 @@ function PharmacyComp() {
 
   const handleFilterType = async (selectedType) => {
     setFilterType(selectedType);
-    dispatch(getProductsFilter(selectedType, null));
+    dispatch(getProductsFilter(selectedType, null, null, search));
   };
 
   const changeAlphabeticalOrder = async () => {
@@ -61,7 +61,7 @@ function PharmacyComp() {
     } else {
       setAlphabeticalOrder("asc");
     }
-    dispatch(getProductsFilter(filterType, alphabeticalOrder, "name"));
+    dispatch(getProductsFilter(filterType, alphabeticalOrder, "name", search));
   };
 
   const changePriceOrder = async () => {
@@ -71,7 +71,7 @@ function PharmacyComp() {
       setPriceOrder("asc");
     }
 
-    dispatch(getProductsFilter(filterType, priceOrder, "price"));
+    dispatch(getProductsFilter(filterType, priceOrder, "price", search));
   };
 
 
@@ -82,7 +82,7 @@ function PharmacyComp() {
       setRatingOrder("asc");
     }
 
-    dispatch(getProductsFilter(filterType, ratingOrder, "rating"));
+    dispatch(getProductsFilter(filterType, ratingOrder, "rating", search));
   };
   return (
     <div className={styled.contenedorMayor}>
