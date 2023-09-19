@@ -4,7 +4,7 @@ import {
   PAY_MEMBERSHIP, CANCEL_MEMBERSHIP, GENERIC_ERROR,
   LOGIN_USERMEMBER, VERIFY_USERNAME, VERIFY_ISMEMBER,
   RESET_GENERIC_ERROR, RESET_IS_MEMBER, GET_USER_ID, ALL_SCHEDULE,
-  GET_SPECIALTIES, GET_DOCTORS, GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_DETAIL, GET_ALL_PRODUCTS_PAGE, DOCTOR_FILTERING, ADD_TO_CART, GET_CART_USER
+  GET_SPECIALTIES, GET_DOCTORS, GET_ALL_PRODUCTS, GET_PRODUCT_BY_NAME, GET_PRODUCT_DETAIL, GET_ALL_PRODUCTS_PAGE, DOCTOR_FILTERING, ADD_TO_CART, GET_CART_USER, UPLOAD_IMAGE_SUCCES
 } from '../action/type';
 
 const initialState = {
@@ -26,29 +26,30 @@ const initialState = {
   doctors: [],
   specialities: [],
   //Products
-  allProducts:[],
+  allProducts: [],
   detail: {},
 
   totalProducts: 0,
-//shoppingCart
+  //shoppingCart
   cartItems: [],
   selectedItems: [],
   totalPrice: 0,
-  idProductsCart: []
+  idProductsCart: [],
+  imageUrl: null,
 };
 
 const userReducer = (state = initialState, action) => {
   let updatedCartItemsAdd, updatedCartItemsRemove;
   switch (action.type) {
-    case GET_ALL_PRODUCTS: 
-      return { ...state, allProducts: action.payload, totalProducts: action.payload.length}
-    case GET_ALL_PRODUCTS_PAGE: 
-      return { ...state, allProducts: action.payload, totalProducts: action.size}
+    case GET_ALL_PRODUCTS:
+      return { ...state, allProducts: action.payload, totalProducts: action.payload.length }
+    case GET_ALL_PRODUCTS_PAGE:
+      return { ...state, allProducts: action.payload, totalProducts: action.size }
     case GET_PRODUCT_BY_NAME:
-      return {...state, allProducts: action.payload}
-      case GET_PRODUCT_DETAIL:
-        console.log("handling GET_PRODUCT_DETAIL action with payload", action.payload);
-        return {...state, detail: action.payload}
+      return { ...state, allProducts: action.payload }
+    case GET_PRODUCT_DETAIL:
+      console.log("handling GET_PRODUCT_DETAIL action with payload", action.payload);
+      return { ...state, detail: action.payload }
 
     //userClient
     case VERIFY_ISMEMBER:
@@ -109,21 +110,26 @@ const userReducer = (state = initialState, action) => {
         ...state,
         specialities: action.payload,
       };
-      case ADD_TO_CART:
-        var productsInCart = [];
-        var data = action.payload
-        data.cart.products.forEach(prod => {
-          console.log(prod);
-          const cartProduct = {
-            id: prod.id,
-            amount: prod.cart_product.amount
-          }
-         productsInCart.push(cartProduct);
-        });
+    case UPLOAD_IMAGE_SUCCES:
+      return {
+        ...state,
+        imageUrl: action.payload,
+      };
+    case ADD_TO_CART:
+      var productsInCart = [];
+      var data = action.payload
+      data.cart.products.forEach(prod => {
+        console.log(prod);
+        const cartProduct = {
+          id: prod.id,
+          amount: prod.cart_product.amount
+        }
+        productsInCart.push(cartProduct);
+      });
 
       // Agregar un producto al carrito
 
-        return {...state, cartItems: data, idProductsCart: productsInCart}
+      return { ...state, cartItems: data, idProductsCart: productsInCart }
 
     /* case REMOVE_FROM_CART:
       // Eliminar un producto del carrito
@@ -158,8 +164,8 @@ const userReducer = (state = initialState, action) => {
         cartItems: decreasedCartItems,
       }; */
     default:
-      return {...state};
-  
+      return { ...state };
+
   }
 };
 

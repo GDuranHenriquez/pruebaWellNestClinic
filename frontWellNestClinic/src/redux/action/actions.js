@@ -25,7 +25,8 @@ import {
   REMOVE_FROM_CART,
   CLEAR_CART,
   GET_CART_USER,
-  NOTHING
+  NOTHING,
+  UPLOAD_IMAGE_SUCCES
 } from "./type.js";
 
 export const verifyUsername = (userName) => {
@@ -185,11 +186,11 @@ export const doctorFiltering = (dataSpeciality) => async (dispach) => {
   try {
     const refreshToken = localStorage.getItem("token");
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${refreshToken}`,
-    },
-  };
+    const config = {
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+      },
+    };
     const { data } = await axios.get(
       import.meta.env.VITE_BASENDPOINT_BACK + "/doctor/", config
     );
@@ -197,7 +198,7 @@ export const doctorFiltering = (dataSpeciality) => async (dispach) => {
       return doctor.specialities.some(
         (speciality) => speciality.name === dataSpeciality
       );
-    }); 
+    });
     return dispach({
       type: DOCTOR_FILTERING,
       payload: filteredDoctors,
@@ -324,7 +325,7 @@ export const getProductsFilter =
     } catch (error) {
       return error.response;
     }
-};
+  };
 
 
 export const createAppointment = (appointment) => async (dispatch) => {
@@ -436,3 +437,11 @@ export const removeFromCart = (productId) => ({
 export const clearCart = () => ({
   type: CLEAR_CART,
 })
+
+
+
+
+export const uploadImage = (imageUrl) => ({
+  type: UPLOAD_IMAGE_SUCCES,
+  payload: imageUrl,
+});

@@ -10,6 +10,8 @@ export const RESET_GENERIC_ERROR = 'RESET_GENERIC_ERROR';
 export const RESET_IS_MEMBER = 'RESET_IS_MEMBER';
 export const GET_USER_ID = 'GET_USER_ID';
 
+export const UPLOAD_IMAGE_SUCCES= 'UPLOAD_IMAGE_SUCCESS'
+
 
 //login
 export const LOGIN_USERMEMBER = 'LOGIN_USER';
