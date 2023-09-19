@@ -7,7 +7,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { IconShoppingCart } from "@tabler/icons-react";
 import PropTypes from "prop-types";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+
 
 function NavBar() {
   const location = useLocation();

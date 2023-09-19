@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { removeFromCart } from '../../redux/action/actions';
 import { useSelector } from 'react-redux'
+import style from './shoppingCartComp.module.css'
 
 function ShoppingCartComp() {
   /* const [cartItems, setCartItems] = useState([]); */
   const [selectedItems, setSelectedItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const cartItems = useSelector((state) => state.cartItems);
+  const cartItems = useSelector((state) => state.cartItems.cart.products);
   // Función para agregar un producto al carrito
   const addToCart = (product) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
@@ -67,25 +68,32 @@ function ShoppingCartComp() {
   };
 
   return (
-    <div>
-      <h2>Shopping Cart</h2>
-      <ul>
-        {cartItems.map((item) => (
-          <li key={item.id}>
-            <input
-              type="checkbox"
-              checked={selectedItems.includes(item.id)}
-              onChange={() => toggleSelect(item.id)}
-            />
-            {item.name} - ${item.price} - Quantity: {item.quantity}
-            <button onClick={() => removeFromCart(item.id)}>Remove</button>
-            <button onClick={() => increaseQuantity(item.id)}>+</button>
-            <button onClick={() => decreaseQuantity(item.id)}>-</button>
-          </li>
-        ))}
-      </ul>
-      <p>Total Price: ${totalPrice}</p>
-      <button onClick={goToCheckout}>Checkout</button>
+    <div className={style.containerCartDetail}>
+      <div className={style.CartDetail}>
+        <h2>Shopping Cart</h2>
+        <ul>
+          {cartItems.map((item) => (
+            <li key={item.id}>
+              <input
+                type="checkbox"
+                checked={selectedItems.includes(item.id)}
+                onChange={() => toggleSelect(item.id)}
+              />
+              {item.name} - ${item.price} - Quantity: {item.quantity}
+              <button onClick={() => removeFromCart(item.id)}>Remove</button>
+              <button onClick={() => increaseQuantity(item.id)}>+</button>
+              <button onClick={() => decreaseQuantity(item.id)}>-</button>
+            </li>
+          ))}
+        </ul>
+        <p>Total Price: ${totalPrice}</p>
+        <button onClick={goToCheckout}>Checkout</button>
+      </div>
+      
+      <div className={style.TotalDetail}>
+
+      </div>
+
     </div>
   );
 }

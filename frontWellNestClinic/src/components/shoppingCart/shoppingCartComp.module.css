@@ -1,4 +1,19 @@
-ul {
+.containerCartDetail{
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  padding: 10px;
+  background-color:#f1f0f0 ;
+}
+
+.CartDetail{
+  width: 70%;
+}
+.TotalDetail{
+  width: 30%;
+}
+
+/* ul {
     list-style: none;
     padding: 0;
   }
@@ -53,4 +68,4 @@ ul {
   button[type="button"]:hover {
     background-color: darkgreen;
   }
-  
+   */

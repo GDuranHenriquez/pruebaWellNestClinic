@@ -4,7 +4,7 @@ import ShoppingCartComp from '../../components/shoppingCart/ShoppingCartComp'
 
 
 function ShoppingCartPage(){
-  return (<div className={style.farmacia}>
+  return (<div className={style.MyPharmacyPage}>
     <BackGrounPharmacy></BackGrounPharmacy>
     <ShoppingCartComp/>
   </div>)

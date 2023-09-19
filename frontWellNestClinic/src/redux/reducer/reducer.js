@@ -111,8 +111,8 @@ const userReducer = (state = initialState, action) => {
       };
       case ADD_TO_CART:
         var productsInCart = [];
-        var data = action.payload.cart.products;
-        data.forEach(prod => {
+        var data = action.payload
+        data.cart.products.forEach(prod => {
           const cartProduct = {
             id: prod.id,
             amount: prod.cart_product.amount
