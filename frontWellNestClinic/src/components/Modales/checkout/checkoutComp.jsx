@@ -4,24 +4,47 @@ import { CardElement, useElements, useStripe, PaymentElement } from '@stripe/rea
 import { Modal } from '../Modal';
 
 
-function CheckoutComp({isOpen, closeModal}) {
+function CheckoutComp({ isOpen, closeModal, products, discount, shippingCost }) {
   
   const stripe = useStripe();
   const elements = useElements();
+
+  const [buyerName, setBuyerName] = useState('');
+  const [contactNumber, setContactNumber] = useState('');
+  const [address, setAddress] = useState('');
+
+  // Función para calcular el valor total de los productos
+  const calculateTotalPrice = () => {
+    const productPrices = products.map((product) => product.price);
+    const totalPrice = productPrices.reduce((acc, price) => acc + price, 0);
+    return totalPrice;
+  };
+
+  // Calcular el valor total de la compra
+  const totalPrice = calculateTotalPrice();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
-      card: elements.getElement(CardElement)
-    })
+      card: elements.getElement(CardElement),
+      billing_details: {
+        name: buyerName,
+        phone: contactNumber,
+        address: {
+          line1: address,
+        },
+      },
+    });
 
-    if(!error){
+    if (!error) {
       console.log(paymentMethod);
-    };
+      // Aquí puedes enviar los detalles de la compra y el pago al servidor.
+    }
+  };
 
-  }
-  const handleModalContainerClick = e => e.stopPropagation();
+  const handleModalContainerClick = (e) => e.stopPropagation();
+
   const cardElementOptions = {
     style: {
       base: {
@@ -47,6 +70,53 @@ function CheckoutComp({isOpen, closeModal}) {
       <div className="containerForm">
         <button type="button" id='btnCloseModal' onClick={closeModal}>X</button>
         <form onSubmit={handleSubmit}>
+          {/* Buyer Information */}
+          <div className='buyerInfo'>
+            <h2>Buyer Information:</h2>
+            <div>
+              <label htmlFor="buyerName">Buyer's Name:</label>
+              <input
+                type="text"
+                id="buyerName"
+                value={buyerName}
+                onChange={(e) => setBuyerName(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="contactNumber">Contact Number:</label>
+              <input
+                type="tel"
+                id="contactNumber"
+                value={contactNumber}
+                onChange={(e) => setContactNumber(e.target.value)}
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="address">Address:</label>
+              <input
+                type="text"
+                id="address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          {/* Order Summary */}
+          <div className='orderSummary'>
+            <h2>Order Summary:</h2>
+            <div>
+              <p>Total Value of Products: ${totalPrice.toFixed(2)}</p>
+              <p>Discount for Purchase: ${discount.toFixed(2)}</p>
+              <p>Shipping Cost: ${shippingCost.toFixed(2)}</p>
+              <p>Total: ${(totalPrice - discount + shippingCost).toFixed(2)}</p>
+            </div>
+          </div>
+
+          {/* Payment Form */}
           <div className='cardPay'>
             <CardElement options={cardElementOptions}/>
           </div>   
@@ -59,58 +129,6 @@ function CheckoutComp({isOpen, closeModal}) {
 }
 
 export default CheckoutComp;
-
-{/* <div>
-        <h2>Order Confirmation</h2>
-        <div>
-          <h3>Selected Products</h3>
-          <ul>
-            {selectedProducts.map((product) => (
-              <li key={product.id}>
-                {product.name} - Quantity: {product.quantity}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3>Shipping Information</h3>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="username"
-              placeholder="Username"
-              value={userData.username}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="phoneNumber"
-              placeholder="Phone Number"
-              value={userData.phoneNumber}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="address"
-              placeholder="Address"
-              value={userData.address}
-              onChange={handleInputChange}
-            />
-            <div>
-              <CardElement />
-            </div>
-            <button type="submit">Pay ${totalCost.toFixed(2)}</button>
-          </form>
-        </div>
-        <div>
-          <h3>Order Summary</h3>
-          <p>Total Cost of Items: ${totalCost.toFixed(2)}</p>
-          <p>Discount: ${discount.toFixed(2)}</p>
-          <p>Shipping Cost: ${shippingCost.toFixed(2)}</p>
-          <p>Total Cost: ${totalCost.toFixed(2)}</p>
-        </div>
-        <Link to="/shopping-cart">Back to Cart</Link>
-      </div> */}
 
 
 
