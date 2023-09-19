@@ -113,6 +113,7 @@ const userReducer = (state = initialState, action) => {
         var productsInCart = [];
         var data = action.payload
         data.cart.products.forEach(prod => {
+          console.log(prod);
           const cartProduct = {
             id: prod.id,
             amount: prod.cart_product.amount

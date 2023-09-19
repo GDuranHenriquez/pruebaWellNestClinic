@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { removeFromCart } from '../../redux/action/actions';
-import { useSelector } from 'react-redux'
-import style from './shoppingCartComp.module.css'
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { removeFromCart } from "../../redux/action/actions";
+import { useSelector } from "react-redux";
+import style from "./shoppingCartComp.module.css";
 
 function ShoppingCartComp() {
   /* const [cartItems, setCartItems] = useState([]); */
   const [selectedItems, setSelectedItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const cartItems = useSelector((state) => state.cartItems.cart.products);
+  const allProducts = useSelector((state) => state.allProducts);
   // Función para agregar un producto al carrito
   const addToCart = (product) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
@@ -22,6 +23,12 @@ function ShoppingCartComp() {
     }
   };
 
+  const getImgUrl = (productId) => {
+    const prod = allProducts.find((item) => item.id === productId);
+    if (prod) {
+      return prod.imageUrl;
+    }
+  };
   // Función para aumentar la cantidad de un producto en el carrito
   const increaseQuantity = (productId) => {
     const updatedCart = cartItems.map((item) =>
@@ -64,7 +71,7 @@ function ShoppingCartComp() {
 
   const navigate = useNavigate();
   const goToCheckout = () => {
-    navigate('/checkout');
+    navigate("/checkout");
   };
 
   return (
@@ -74,26 +81,58 @@ function ShoppingCartComp() {
         <ul>
           {cartItems.map((item) => (
             <li key={item.id}>
-              <input
+              <div className={style.todo}>
+                <div className={style.nameImagen}>
+                  <div className={style.name}>{item.name}</div>
+
+                  <img className={style.imagen} src={getImgUrl(item.id)} />
+                </div>
+                <div className={style.price}> ${item.price}</div>
+                <div className={style.contenedorInfo}>
+                  <div className={style.productInfo}></div>
+                  <div className={style.amount}>
+                  <button
+                      className={style.button}
+                      onClick={() => decreaseQuantity(item.id)}
+                    >
+                      -
+                    </button>
+                 
+                    <div className={style.quantity}>
+                      {" "}
+                      {item.cart_product.amount}
+                    </div>
+                   
+                    <button
+                      className={style.button}
+                      onClick={() => increaseQuantity(item.id)}
+                    >
+                      +
+                    </button>
+                  </div>
+                  <button
+                    className={style.button}
+                    onClick={() => removeFromCart(item.id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+                {/* <input  className={style.checkbox}
                 type="checkbox"
                 checked={selectedItems.includes(item.id)}
                 onChange={() => toggleSelect(item.id)}
-              />
-              {item.name} - ${item.price} - Quantity: {item.quantity}
-              <button onClick={() => removeFromCart(item.id)}>Remove</button>
-              <button onClick={() => increaseQuantity(item.id)}>+</button>
-              <button onClick={() => decreaseQuantity(item.id)}>-</button>
+              /> */}
+              </div>
             </li>
           ))}
         </ul>
-        <p>Total Price: ${totalPrice}</p>
-        <button onClick={goToCheckout}>Checkout</button>
-      </div>
-      
-      <div className={style.TotalDetail}>
-
+        <p className={style.totalPrice}>Total Price: ${totalPrice}</p>
+        <button className={style.button} onClick={goToCheckout}>
+          Checkout
+        </button>
       </div>
 
+      <div className={style.TotalDetail}></div>
     </div>
   );
 }
@@ -104,6 +143,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-
 export default ShoppingCartComp;
-

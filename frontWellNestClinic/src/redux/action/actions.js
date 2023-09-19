@@ -396,6 +396,7 @@ export const addToCart = (product) => {
         },
       };
       const response = await axios.post(endPoint, product, config);
+      console.log(response.data);
       dispatch({
         type: ADD_TO_CART,
         payload: response.data,

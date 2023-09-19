@@ -57,7 +57,8 @@ function Card({product}) {
       const addProduct = {
       user: user.id,
       productId: product.id,
-      amount: newAmount
+      amount: newAmount,
+      product: product
     }
     dispatch(addToCart(addProduct))
     }, 500);
