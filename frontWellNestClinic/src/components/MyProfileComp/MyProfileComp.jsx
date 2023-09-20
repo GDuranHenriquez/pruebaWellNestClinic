@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import defaultProfile from '../../assets/perfil.png';
 import style from './MyProfile.module.css';
 import ImageUpload from '../ImageUpload/ImageUpload';
 
@@ -24,18 +23,18 @@ function MyProfileComp() {
 
   const userClient = useSelector((state) => state.user);
 
-  // const takePhoto = async () => {
-  //   try {
-  //     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-  //     const videoElement = document.createElement('video');
-  //     document.body.appendChild(videoElement);
-  //     videoElement.srcObject = stream;
-  //     videoElement.play();
-  //   } catch (error) {
-  //     console.error('Error accessing camera:', error);
-  //     alert('Unable to access camera.');
-  //   }
-  // };
+  const takePhoto = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const videoElement = document.createElement('video');
+      document.body.appendChild(videoElement);
+      videoElement.srcObject = stream;
+      videoElement.play();
+    } catch (error) {
+      console.error('Error accessing camera:', error);
+      alert('Unable to access camera.');
+    }
+  };
 
   const changeProfilePicture = () => {
 
@@ -47,17 +46,17 @@ function MyProfileComp() {
     input.accept = 'image/*';
     input.addEventListener('change', async (e) => {
       const file = e.target.files[0];
-  
+
       if (!file) {
         return;
       }
-  
+
       setIsUploading(true);
-  
+
       try {
         const formData = new FormData();
         formData.append('profilePicture', file);
-  
+
         const response = await axios.post(
           'https://serverwellnestclinic.onrender.com/api/change-profile-picture',
           formData,
@@ -77,7 +76,7 @@ function MyProfileComp() {
         setProfilePictureFile(null);
       }
     });
-  
+
     input.click();
   };
 
@@ -256,35 +255,24 @@ function MyProfileComp() {
     <div className={style.profileContainer}>
       <div className={style.userProfile}>
         <h1 id={style.fullName}>{userClient.name} {userClient.lastName}</h1>
-        <ImageUpload></ImageUpload>
         <p>{userClient.email}</p>
         <p>DNI: {userClient.dni}</p>
-        <p>DNI Type: {userClient.dniType}</p>
         <p>Date of Birth: {userClient.birthDate}</p>
         <p>Address: {userClient.address}</p>
         <p>Contact: {userClient.backupContact}</p>
-        <p>Membership Status: {userClient.activePlan}</p>
-        <p>Next Payment Date: {userClient.nextPaymentDate}</p>
+        <p>Plan type and Status: {userClient.UserClient_Plan.name} and {`it's`} {userClient.activePlan? 'Active': 'Not Active'}</p>
+        <p>Next Payment Date: {userClient.upToDate}</p>
       </div>
 
-
-      
-
       <div className={style.configOptions}>
-      <h1>Configuration Options</h1>
-      {/* Cambiar foto de perfil */}
-      {isChangingProfilePicture ? (
+        <h1>Configuration Options</h1>
+        {/* Cambiar foto de perfil */}
+        {isChangingProfilePicture ? (
           <div>
-            <input type="file" accept="image/*" onChange={uploadFromFile} />
-            <button onClick={takePhoto}>Take photo</button>
-            <div>
-              <button onClick={saveProfilePicture}>
-                {isUploading ? 'Uploading...' : 'Save Change'}
-              </button>
+            <ImageUpload></ImageUpload>            
               <button className={style.cancelButton} onClick={toggleChangeProfilePicture}>
                 Cancel
               </button>
-            </div>
           </div>
         ) : (
           <button onClick={toggleChangeProfilePicture}>Change Profile Picture</button>
@@ -320,73 +308,7 @@ function MyProfileComp() {
         ) : (
           <button onClick={toggleChangePassword}>Change Password</button>
         )}
-
-        {/* Cambiar dirección */}
-        {isChangingAddress ? (
-          <div>
-            <input
-              type="text"
-              placeholder="Current Address"
-              value={currentAddress}
-              onChange={(e) => setCurrentAddress(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="New Address"
-              value={newAddress}
-              onChange={(e) => setNewAddress(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Confirm New Address"
-              value={confirmAddress}
-              onChange={(e) => setConfirmAddress(e.target.value)}
-            />
-            <div>
-              <button onClick={changeAddress}>Save Change</button>
-              <button className="cancel" onClick={toggleChangeAddress}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        ) : (
-          <button onClick={toggleChangeAddress}>Change Address</button>
-        )}
-
-        {/* Cambiar número de contacto */}
-        {isChangingContact ? (
-          <div>
-            <input
-              type="text"
-              placeholder="Current Contact"
-              value={currentContact}
-              onChange={(e) => setCurrentContact(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="New Contact"
-              value={newContact}
-              onChange={(e) => setNewContact(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Confirm New Contact"
-              value={confirmContact}
-              onChange={(e) => setConfirmContact(e.target.value)}
-            />
-            <div>
-              <button onClick={changeContact}>Save Change</button>
-              <button className="cancel" onClick={toggleChangeContact}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        ) : (
-          <button onClick={toggleChangeContact}>Change Contact</button>
-        )}
-
-        <button onClick={cancelMembership}>Cancel Membership</button>
-    </div>
+      </div>
     </div>
   );
 }

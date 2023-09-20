@@ -160,6 +160,33 @@ export const getUser = (id, token) => {
   };
 };
 
+export const getUserTwo =  (id, token) => {
+  const endPoint =
+    import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/?id=${id}`;
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return async (dispatch) => {
+    axios
+      .get(endPoint, config)
+      .then(({ data }) => {
+        return dispatch({
+          type: GET_USER_ID,
+          payload: data,
+        });
+      })
+      .catch((error) => {
+        var err = error.response;
+        return dispatch({
+          type: GENERIC_ERROR,
+          payload: err.data.error,
+        });
+      });
+  };
+};
+
 export const setUser = (user) => ({
   type: SET_USER,
   payload: user,
