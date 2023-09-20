@@ -4,15 +4,22 @@ import styled from "./pharmacyComp.module.css";
 import { useDispatch } from "react-redux";
 import {
   getProductsFilter,
+  getCart
 } from "../../redux/action/actions";
+import { useAuth } from "../../Authenticator/AuthPro";
+
+
 
 
 function PharmacyComp() {
+  
   const [filterType, setFilterType] = useState("");
   const [alphabeticalOrder, setAlphabeticalOrder] = useState("asc");
   const [search, setSearch] = useState("");
   const [priceOrder, setPriceOrder] = useState("asc");
   const [ratingOrder, setRatingOrder] = useState("asc");
+  const isAuth = useAuth();
+  const user = isAuth.user;
 
   const [type, setType] = useState([]);
   const dispatch = useDispatch();
@@ -39,8 +46,8 @@ function PharmacyComp() {
         console.error("Error fetching type:", error);
       }
     }
-
     fetchType();
+    dispatch(getCart(user.id));
   }, []);
 
   // useEffect(() => {

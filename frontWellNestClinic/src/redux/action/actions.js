@@ -26,6 +26,7 @@ import {
   CLEAR_CART,
   GET_CART_USER,
   NOTHING,
+  PAYMENT,
   UPLOAD_IMAGE_SUCCES
 } from "./type.js";
 
@@ -208,6 +209,25 @@ export const doctorFiltering = (dataSpeciality) => async (dispach) => {
   }
 };
 
+export const paymentProduct = (dataPayment) => async (dispach) => {
+  try {
+    const refreshToken = localStorage.getItem("token");
+    const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + "/sale";
+    const config = {
+      headers: {
+        Authorization: `Bearer ${refreshToken}`,
+      },
+    };
+    const { data } = await axios.post( endPoint, dataPayment, config);
+    return dispach({
+      type: PAYMENT,
+      payload: data,
+    });
+  } catch (error) {
+    return error.response;
+  }
+};
+
 export const allSchedule = (dataAppointment) => async (dispach) => {
   try {
     const { data } = await axios.post(
@@ -383,15 +403,14 @@ export const getProductDetail = (productId) => {
 export const addToCart = (product) => {
   return async (dispatch) => {
     try {
-      const accessToken = localStorage.getItem("accessToken");
+      const refreshToken = localStorage.getItem("token");
       const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + "/cart/"
       const config = {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${refreshToken}`,
         },
       };
       const response = await axios.post(endPoint, product, config);
-      console.log(response.data);
       dispatch({
         type: ADD_TO_CART,
         payload: response.data,
@@ -405,11 +424,11 @@ export const addToCart = (product) => {
 export const getCart = (userId) => {
   return async (dispatch) => {
     try {
-      const accessToken = localStorage.getItem("accessToken");
+      const refreshToken = localStorage.getItem("token");
       const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/cart/${userId}`
       const config = {
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${refreshToken}`,
         },
       };
       const response = await axios.get(endPoint, config);

@@ -2,11 +2,8 @@ import React, { useState, useEffect } from "react";
 import style from "./Paginado.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import Loading from "../Loading/Loading";
-import {
-  getAllProducts,
-  getAllProductsByPage,
-  getProductByName,
-  getProductsFilter,
+import {  
+  getAllProductsByPage,  
 } from "../../redux/action/actions";
 
 export default function Paginado() {
