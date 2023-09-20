@@ -1,0 +1,66 @@
+/* Estilo para el contenedor principal */
+.myOrdersContainer {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .myOrdersTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .myOrderList {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .myOrderItem {
+    margin-bottom: 30px;
+  }
+  
+  /* Estilo para cada orden */
+  .myOrderHeader {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  /* Estilo para cada producto en la orden */
+  .myOrderProductTitle {
+    font-size: 18px;
+  }
+  
+  .myOrderProductDescription {
+    font-size: 16px;
+  }
+  
+  .myOrderLabel {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+  
+  .myOrderSelect,
+  .myOrderTextArea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .myOrderButton {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .myOrderButton:hover {
+    background-color: #0056b3;
+  }
+
+  
