@@ -30,7 +30,7 @@ export const Modal = styled.div`
     box-shadow: 0px 0px 30px 10px rgba(0, 0, 0, 1);
     .containerForm{
       display: flex;
-      flex-wrap: nowrap;
+      flex-direction: column;
       justify-content: center;
       color: white;
       font-weight: bold;
@@ -52,6 +52,23 @@ export const Modal = styled.div`
           cursor: pointer;
         }
       }
+      .paymentData{
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        h2{
+          margin: 0;
+          padding: 0;
+          font-weight: bold;
+          font-size: 16px;
+        }
+        p{
+          color: rgba(0, 0, 0, 0.7);
+          font-size: 14px;
+        }
+      }
       form{
         padding: 10px;
         display: flex;
@@ -70,10 +87,9 @@ export const Modal = styled.div`
           padding: 5px;
           border-radius: 5px;
         }
+        
       }
     }
-  }
-  
-  
+  } 
   
 ` 

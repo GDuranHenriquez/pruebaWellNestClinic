@@ -10,6 +10,8 @@ export const RESET_GENERIC_ERROR = 'RESET_GENERIC_ERROR';
 export const RESET_IS_MEMBER = 'RESET_IS_MEMBER';
 export const GET_USER_ID = 'GET_USER_ID';
 
+export const UPLOAD_IMAGE_SUCCES= 'UPLOAD_IMAGE_SUCCESS'
+
 
 //login
 export const LOGIN_USERMEMBER = 'LOGIN_USER';
@@ -37,4 +39,4 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const CLEAR_CART = 'CLEAR_CART';
 export const GET_CART_USER = 'GET_CART_USER';
-
+export const PAYMENT = 'PAYMENT';

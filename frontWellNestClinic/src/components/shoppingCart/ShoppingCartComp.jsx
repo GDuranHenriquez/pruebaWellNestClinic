@@ -1,96 +1,207 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import style from "./shoppingCartComp.module.css";
 import { useModal } from "../../utils/useModal";
-import  CheckoutComp  from '../Modales/checkout/checkoutComp'
+import CheckoutComp from "../Modales/checkout/checkoutComp";
+import { Link, useNavigate } from "react-router-dom";
+import { addToCart } from '../../redux/action/actions';
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth } from "../../Authenticator/AuthPro";
+import PropTypes from "prop-types";
+
 
 function ShoppingCartComp() {
-  /* const [cartItems, setCartItems] = useState([]); */
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const cartItems = useSelector((state) => state.cartItems.cart.products);
-  const allProducts = useSelector((state) => state.allProducts);
   const [isOpenModal, openModal, closeModal] = useModal(false);
 
+  const idProductsCart = useSelector((state) => state.idProductsCart);
+  const cartItems = useSelector((state) => state.cartItems);
 
-     
-  const getImgUrl = (productId) => {
-    const prod = allProducts.find((item) => item.id === productId);
-    if (prod) {
-      return prod.imageUrl;
-    }
-  };
+  const [selectedItems, setSelectedItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [amount, setAmount] = useState(0);
+
   
-  /* // Función para seleccionar/deseleccionar un producto
-  const toggleSelect = (productId) => {
-    const updatedSelectedItems = selectedItems.includes(productId)
-      ? selectedItems.filter((id) => id !== productId)
-      : [...selectedItems, productId];
-    setSelectedItems(updatedSelectedItems);
-  }; */
+  // Función para calcular el precio total de los productos seleccionados
+  
+  const navigate = useNavigate();
+  const goToCheckout = () => {
+    navigate("/checkout");
+  };
 
-    
+  const calculateTotalPrice = (prd) => {
+    const productPrices = prd.map((product) => (product.cart_product.amount) * (product.price));
+    const total = productPrices.reduce((a, b) => a + b, 0);
+    return total > 0 ? total: 0;
+  };
+  const contarItems = (idProCart) => {
+    const productCount = idProCart.map((idProd) => idProd.amount);
+    const total = productCount.reduce((a, b) => a + b, 0);
+    return total > 0 ? total: 0;
+  };
+
+  useEffect(() => {
+    if (Object.keys(cartItems.cart).length > 0) {
+      setTotalPrice(calculateTotalPrice(cartItems.cart.products));
+      setTotalQuantity(contarItems(idProductsCart));
+    }
+  }, [cartItems, idProductsCart])
+
   return (
     <div className={style.containerCartDetail}>
+      <div className={style.divLink}>
+        <Link to="/pharmacy" className={style.link}>
+          <button className={style.backButton}>&larr; Go back</button>
+        </Link>
+      </div>
       <div className={style.CartDetail}>
-        <h2>Shopping Cart</h2>
-        <ul>
-          {cartItems.map((item) => (
-            <li key={item.id}>
-              <div className={style.todo}>
-                <div className={style.nameImagen}>
-                  <div className={style.name}>{item.name}</div>
+        <div>
+          <h2>Your Cart</h2>
+          <ul>
+            {Object.keys(cartItems.cart).length > 0 ? cartItems.cart.products.map((item) => (
+              <CartItems key={item.id} prod = {item} ></CartItems>
+            )) : ''}
+          </ul>
+        </div>
+        <CheckoutComp isOpen={isOpenModal} closeModal={closeModal} />
+      </div>
+      <div className={style.TotalDetail}>
+        <h2 className={style.resumen}>Order Summary</h2>
+        <div className={style.infoContainer}>
+          <p className={style.info}>Products: {totalQuantity}</p>
+          <p className={style.info}>Subtotal: ${totalPrice}</p>
+          <p className={style.info}>Discount: ${totalPrice - cartItems.discountedPrice} </p>
+        </div>
+        <hr />
+        <p className={style.totalPrice}>Total: ${cartItems.discountedPrice}</p>
 
-                  <img className={style.imagen} src={getImgUrl(item.id)} />
-                </div>
-                <div className={style.price}> ${item.price}</div>
-                <div className={style.contenedorInfo}>
-                  <div className={style.productInfo}></div>
-                  <div className={style.amount}>
-                  <button
-                      className={style.button}
-                    >
-                      -
-                    </button>
-                 
-                    <div className={style.quantity}>
-                      {" "}
-                      {item.cart_product.amount}
-                    </div>
-                   
-                    <button
-                      className={style.button}
-                      
-                    >
-                      +
-                    </button>
-                  </div>
-                  <button
-                    className={style.button}
-                    
-                  >
-                    Remove
-                  </button>
-                </div>
-                {/* <input  className={style.checkbox}
+        <button className={style.buttonCheckout} onClick={openModal} disabled = {totalPrice > 0? false:true}>
+          Checkout
+        </button>
+      </div>
+    </div>
+  );
+}
+
+
+
+
+
+function CartItems({ prod }) {
+  const isAuth = useAuth();
+  const dispatch = useDispatch();
+  const allProducts = useSelector((state) => state.allProducts);
+  const idProductsCart = useSelector((state) => state.idProductsCart);
+  const [amountProd, setAmountProd] = useState(0)
+  const [prodImg, setProdImg] = useState('')
+  const [timerId, setTimerId] = useState(null);
+
+  const getImgUrl = (productId) => {
+    const img = allProducts.find((item) => item.id === productId);
+    if (img) {
+      setProdImg(img.imageUrl);
+    }
+  };
+  const getAmount = (carId) => {
+    const prodId = idProductsCart.find((item) => item.id === carId);
+    if (prodId) {
+      setAmountProd(prodId.amount);
+    }
+  };
+
+  useEffect(() =>{
+    getImgUrl(prod.id);
+    getAmount(prod.id);
+  }, []);
+  
+  const handleInpAmount = (newAmount) => {
+    if (timerId) {
+      clearTimeout(timerId);
+    }
+    const newTimerId = setTimeout(() => {
+      const user = isAuth.user;
+      const addProduct = {
+        user: user.id,
+        productId: prod.id,
+        amount: newAmount,
+      }
+      dispatch(addToCart(addProduct))
+    }, 500);
+    setTimerId(newTimerId);
+  }
+
+  const addSubtractTocardButon = (e) =>{
+    if(e.target.name === 'add'){
+      setAmountProd(Number(amountProd) + 1)
+      handleInpAmount(Number(amountProd) + 1)
+    }else if(e.target.name === 'subtract'){
+      if(Number(amountProd) - 1 < 0){
+        null
+      }else{
+        setAmountProd(Number(amountProd) - 1)
+        handleInpAmount(Number(amountProd) - 1)
+      }      
+    }else if(e.target.name === 'remove'){
+      setAmountProd(0);
+      handleInpAmount(0);           
+    }
+  }
+
+  return (<>
+    <li key={prod.id}>
+      <div className={style.todo}>
+        {/* <div className={style.nameImagen}> */}
+
+        <img className={style.imagen} src={prodImg} />
+        {/* </div> */}
+        <a className={style.name}>{prod.name}</a>
+        <div className={style.contenedorInfo}>
+          <div className={style.productInfo}>
+            <div className={style.amount}>
+              <a name='subtract'
+                className={style.buttonMenos}
+              onClick={addSubtractTocardButon}
+              >
+                ➖
+              </a>
+
+              <div className={style.quantity}>
+                {" "}
+                {amountProd}
+              </div>
+
+              <a name='add'
+                className={style.buttonMas}
+                onClick={addSubtractTocardButon}
+              >
+                ➕
+              </a>
+            </div>
+            <button
+              name="remove"
+              className={style.buttonRemove}
+              onClick={addSubtractTocardButon}
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+        {/* <input  className={style.checkbox}
                 type="checkbox"
                 checked={selectedItems.includes(item.id)}
                 onChange={() => toggleSelect(item.id)}
               /> */}
-              </div>
-            </li>
-          ))}
-        </ul>
-        <p className={style.totalPrice}>Total Price: ${totalPrice}</p>
-        <button className={style.button} onClick={openModal}>
-          Checkout
-        </button>
+        <div className={style.price}>
+          Sub: ${prod.price} /u
+          <br />
+          Total: ${prod.price * amountProd}
+        </div>
       </div>
-
-      <div className={style.TotalDetail}></div>
-      <CheckoutComp isOpen = {isOpenModal} closeModal = {closeModal}/>
-    </div>
-  );
+    </li>
+  </>)
 }
+
+CartItems.propTypes = {
+  prod: PropTypes.object.isRequired
+};
 
 export default ShoppingCartComp;

@@ -3,23 +3,29 @@ import axios from "axios";
 import styled from "./pharmacyComp.module.css";
 import { useDispatch } from "react-redux";
 import {
-  getProductByName,
   getProductsFilter,
+  getCart
 } from "../../redux/action/actions";
+import { useAuth } from "../../Authenticator/AuthPro";
+
+
 
 
 function PharmacyComp() {
+  
   const [filterType, setFilterType] = useState("");
   const [alphabeticalOrder, setAlphabeticalOrder] = useState("asc");
   const [search, setSearch] = useState("");
   const [priceOrder, setPriceOrder] = useState("asc");
   const [ratingOrder, setRatingOrder] = useState("asc");
+  const isAuth = useAuth();
+  const user = isAuth.user;
 
   const [type, setType] = useState([]);
   const dispatch = useDispatch();
 
   const searchProductByName = () => {
-    dispatch(getProductByName(search));
+    dispatch(getProductsFilter(filterType, priceOrder, "price", search));
   };
 
 
@@ -31,6 +37,7 @@ function PharmacyComp() {
   useEffect(() => {
     async function fetchType() {
       try {
+        
         const response = await axios.get(
           "https://serverwellnestclinic.onrender.com/presentation-type"
         );
@@ -39,8 +46,8 @@ function PharmacyComp() {
         console.error("Error fetching type:", error);
       }
     }
-
     fetchType();
+    dispatch(getCart(user.id));
   }, []);
 
   // useEffect(() => {
@@ -52,7 +59,7 @@ function PharmacyComp() {
 
   const handleFilterType = async (selectedType) => {
     setFilterType(selectedType);
-    dispatch(getProductsFilter(selectedType, null));
+    dispatch(getProductsFilter(selectedType, null, null, search));
   };
 
   const changeAlphabeticalOrder = async () => {
@@ -61,7 +68,7 @@ function PharmacyComp() {
     } else {
       setAlphabeticalOrder("asc");
     }
-    dispatch(getProductsFilter(filterType, alphabeticalOrder, "name"));
+    dispatch(getProductsFilter(filterType, alphabeticalOrder, "name", search));
   };
 
   const changePriceOrder = async () => {
@@ -71,7 +78,7 @@ function PharmacyComp() {
       setPriceOrder("asc");
     }
 
-    dispatch(getProductsFilter(filterType, priceOrder, "price"));
+    dispatch(getProductsFilter(filterType, priceOrder, "price", search));
   };
 
 
@@ -82,7 +89,7 @@ function PharmacyComp() {
       setRatingOrder("asc");
     }
 
-    dispatch(getProductsFilter(filterType, ratingOrder, "rating"));
+    dispatch(getProductsFilter(filterType, ratingOrder, "rating", search));
   };
   return (
     <div className={styled.contenedorMayor}>

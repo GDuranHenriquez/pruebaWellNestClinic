@@ -40,6 +40,7 @@ function Card({product}) {
       }      
     }
   }
+
   const cartContainer = () => {
     for(var i = 0; i < IDProductsCart.length; i++){
       if(product.id === IDProductsCart[i].id){
@@ -58,7 +59,6 @@ function Card({product}) {
       user: user.id,
       productId: product.id,
       amount: newAmount,
-      product: product
     }
     dispatch(addToCart(addProduct))
     }, 500);

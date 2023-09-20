@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 
 function NavBar() {
   const location = useLocation();
-  const routespages = ["pharmacy", "product", "my-cart"];
+  const routespages = ["pharmacy", "product", "my-cart", "my-orders"];
   const [isFarmacy, setIsFarmacy] = useState(0);
 
 

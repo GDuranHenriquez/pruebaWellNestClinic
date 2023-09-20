@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import axios from 'axios';
 import defaultProfile from '../../assets/perfil.png';
 import style from './MyProfile.module.css';
+import ImageUpload from '../ImageUpload/ImageUpload';
 
 function MyProfileComp() {
   const [isChangingProfilePicture, setIsChangingProfilePicture] = useState(false);
@@ -23,34 +24,21 @@ function MyProfileComp() {
 
   const userClient = useSelector((state) => state.user);
 
-  const takePhoto = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      const videoElement = document.createElement('video');
-      document.body.appendChild(videoElement);
-      videoElement.srcObject = stream;
-      videoElement.play();
-    } catch (error) {
-      console.error('Error accessing camera:', error);
-      alert('Unable to access camera.');
-    }
-  };
+  // const takePhoto = async () => {
+  //   try {
+  //     const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+  //     const videoElement = document.createElement('video');
+  //     document.body.appendChild(videoElement);
+  //     videoElement.srcObject = stream;
+  //     videoElement.play();
+  //   } catch (error) {
+  //     console.error('Error accessing camera:', error);
+  //     alert('Unable to access camera.');
+  //   }
+  // };
 
   const changeProfilePicture = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.addEventListener('change', async (e) => {
-      const file = e.target.files[0];
 
-      if (!file) {
-        return;
-      }
-
-      setProfilePictureFile(file);
-    });
-
-    input.click();
   };
 
   const uploadFromFile = async () => {
@@ -268,7 +256,7 @@ function MyProfileComp() {
     <div className={style.profileContainer}>
       <div className={style.userProfile}>
         <h1 id={style.fullName}>{userClient.name} {userClient.lastName}</h1>
-        <img id={style.profileImage} src={!userClient.imageUrl ? defaultProfile : defaultProfile} alt="Profile" />
+        <ImageUpload></ImageUpload>
         <p>{userClient.email}</p>
         <p>DNI: {userClient.dni}</p>
         <p>DNI Type: {userClient.dniType}</p>
@@ -278,6 +266,9 @@ function MyProfileComp() {
         <p>Membership Status: {userClient.activePlan}</p>
         <p>Next Payment Date: {userClient.nextPaymentDate}</p>
       </div>
+
+
+      
 
       <div className={style.configOptions}>
       <h1>Configuration Options</h1>

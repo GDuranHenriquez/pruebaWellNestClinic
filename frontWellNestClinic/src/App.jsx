@@ -13,7 +13,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./Authenticator/AuthPro";
 import DoctorsPage from "./pages/Doctors/DoctorsPage";
 import PurchaseDetail from "./components/Pharmacy/PurchaseDetail/PurchaseDetail";
-import DetailProductPages from "./pages/detailProduct/DetailProductPages"
+import DetailProductPages from "./pages/detailProduct/DetailProductPages";
+import MyOrdersPage from "./pages/MyOrders/myOrdersPage";
 import AboutUs from "./components/AboutUs/AboutUs";
 import ShoppingCartPage from "./pages/shoppingCart/ShoppingCartPage";
 import { Elements} from '@stripe/react-stripe-js';
@@ -81,7 +82,12 @@ function App() {
         {
           path: "/product/:id",
           element: <DetailProductPages/>,
-        },{
+        },
+        {
+          path: "/my-orders",
+          element: <MyOrdersPage/>,
+        },
+        {
           path: "/my-cart",
           element: <ShoppingCartPage/>,
         },
