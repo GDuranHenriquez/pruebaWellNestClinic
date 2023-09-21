@@ -27,7 +27,7 @@ import {
   GET_CART_USER,
   NOTHING,
   PAYMENT,
-  UPLOAD_IMAGE_SUCCES
+  UPLOAD_IMAGE_SUCCES,
 } from "./type.js";
 
 export const verifyUsername = (userName) => {
@@ -160,7 +160,7 @@ export const getUser = (id, token) => {
   };
 };
 
-export const getUserTwo =  (id, token) => {
+export const getUserTwo = (id, token) => {
   const endPoint =
     import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/?id=${id}`;
   const config = {
@@ -220,7 +220,8 @@ export const doctorFiltering = (dataSpeciality) => async (dispach) => {
       },
     };
     const { data } = await axios.get(
-      import.meta.env.VITE_BASENDPOINT_BACK + "/doctor/", config
+      import.meta.env.VITE_BASENDPOINT_BACK + "/doctor/",
+      config
     );
     const filteredDoctors = data.filter((doctor) => {
       return doctor.specialities.some(
@@ -245,7 +246,7 @@ export const paymentProduct = (dataPayment) => async (dispach) => {
         Authorization: `Bearer ${refreshToken}`,
       },
     };
-    const { data } = await axios.post( endPoint, dataPayment, config);
+    const { data } = await axios.post(endPoint, dataPayment, config);
     return dispach({
       type: PAYMENT,
       payload: data,
@@ -341,7 +342,7 @@ export const getAllProductsByPage = (page, size) => async (dispatch) => {
     return dispatch({
       type: GET_ALL_PRODUCTS_PAGE,
       payload: products,
-      size: data.length
+      size: data.length,
     });
   } catch (error) {
     return error.response;
@@ -352,7 +353,7 @@ export const getProductsFilter =
   (presentationType, order, sort, name) => async (dispatch) => {
     try {
       const refreshToken = localStorage.getItem("token");
-      console.log("Im here " + refreshToken)
+      console.log("Im here " + refreshToken);
       const config = {
         headers: {
           Authorization: `Bearer ${refreshToken}`,
@@ -385,10 +386,9 @@ export const getProductsFilter =
       return dispatch({
         type: GET_ALL_PRODUCTS,
         payload: [],
-      })
+      });
     }
   };
-
 
 export const createAppointment = (appointment) => async (dispatch) => {
   try {
@@ -409,14 +409,17 @@ export const createAppointment = (appointment) => async (dispatch) => {
   }
 };
 
-
-
 export const getProductDetail = (productId) => {
   return async function (dispatch) {
     try {
-      const { data } = await axios.get(
-        import.meta.env.VITE_BASENDPOINT_BACK + `/product/${productId}`
-      );
+      const refreshToken = localStorage.getItem("token");
+      const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/product/${productId}`;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      };
+      const { data } = await axios.get(endPoint, config);
       return dispatch({
         type: "GET_PRODUCT_DETAIL",
         payload: data,
@@ -425,13 +428,13 @@ export const getProductDetail = (productId) => {
       return error.message;
     }
   };
-}
+};
 
 export const addToCart = (product) => {
   return async (dispatch) => {
     try {
       const refreshToken = localStorage.getItem("token");
-      const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + "/cart/"
+      const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + "/cart/";
       const config = {
         headers: {
           Authorization: `Bearer ${refreshToken}`,
@@ -448,11 +451,38 @@ export const addToCart = (product) => {
   };
 };
 
+export const uploadImage = (data) => {
+  return async (dispatch) => {
+    try {
+      const refreshToken = localStorage.getItem("token");
+      const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/userClient/`;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      };
+      const response = await axios.put(endPoint, data ,config);
+      console.log(response)
+      dispatch({
+        type: UPLOAD_IMAGE_SUCCES,
+        payload: response.data,
+      });
+      
+    } catch (error) {
+      dispatch({
+        type: GENERIC_ERROR,
+        payload: error.data.error
+      });
+    }
+  };
+};
+
 export const getCart = (userId) => {
   return async (dispatch) => {
     try {
       const refreshToken = localStorage.getItem("token");
-      const endPoint = import.meta.env.VITE_BASENDPOINT_BACK + `/cart/${userId}`
+      const endPoint =
+        import.meta.env.VITE_BASENDPOINT_BACK + `/cart/${userId}`;
       const config = {
         headers: {
           Authorization: `Bearer ${refreshToken}`,
@@ -476,12 +506,4 @@ export const removeFromCart = (productId) => ({
 
 export const clearCart = () => ({
   type: CLEAR_CART,
-})
-
-
-
-
-export const uploadImage = (imageUrl) => ({
-  type: UPLOAD_IMAGE_SUCCES,
-  payload: imageUrl,
 });

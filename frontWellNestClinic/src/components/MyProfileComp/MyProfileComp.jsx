@@ -1,115 +1,40 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import style from './MyProfile.module.css';
 import ImageUpload from '../ImageUpload/ImageUpload';
+import validation from "../SignUp/Validation";
+import { useAuth } from '../../Authenticator/AuthPro';
+import { uploadImage } from "../../redux/action/actions";
 
 function MyProfileComp() {
   const [isChangingProfilePicture, setIsChangingProfilePicture] = useState(false);
-  const [profilePictureFile, setProfilePictureFile] = useState(null);
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isChangingPassword, setIsChangingPassword] = useState(false);
-  const [currentAddress, setCurrentAddress] = useState('');
-  const [newAddress, setNewAddress] = useState('');
-  const [confirmAddress, setConfirmAddress] = useState('');
-  const [isChangingAddress, setIsChangingAddress] = useState(false);
-  const [currentContact, setCurrentContact] = useState('');
-  const [newContact, setNewContact] = useState('');
-  const [confirmContact, setConfirmContact] = useState('');
-  const [isChangingContact, setIsChangingContact] = useState(false);
-  const [isUploading, setIsUploading] = useState(false);
+  const [error, setError] = useState({});
+  const auth = useAuth();
+  const dispatch = useDispatch();
 
   const userClient = useSelector((state) => state.user);
 
-  const takePhoto = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      const videoElement = document.createElement('video');
-      document.body.appendChild(videoElement);
-      videoElement.srcObject = stream;
-      videoElement.play();
-    } catch (error) {
-      console.error('Error accessing camera:', error);
-      alert('Unable to access camera.');
+  const validationPassword = (userData) => {
+    const error = {};
+  
+    if (
+      !/(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\\-/])/.test(
+        userData.password
+      )
+    ) {
+      error.password =
+        "Password must contain at least one number, one letter, and one special character";
+    }  
+    if (!(userData.password.length >= 8 && userData.password.length <= 32)) {
+      error.password = "Password must have between 8 and 32 characters";
     }
-  };
-
-  const changeProfilePicture = () => {
-
-  };
-
-  const uploadFromFile = async () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.addEventListener('change', async (e) => {
-      const file = e.target.files[0];
-
-      if (!file) {
-        return;
-      }
-
-      setIsUploading(true);
-
-      try {
-        const formData = new FormData();
-        formData.append('profilePicture', file);
-
-        const response = await axios.post(
-          'https://serverwellnestclinic.onrender.com/api/change-profile-picture',
-          formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          }
-        );
-        alert('Profile picture changed successfully.');
-      } catch (error) {
-        console.error('Error changing profile picture:', error);
-        alert('Unable to change profile picture.');
-      } finally {
-        setIsUploading(false);
-        setIsChangingProfilePicture(false);
-        setProfilePictureFile(null);
-      }
-    });
-
-    input.click();
-  };
-
-  const saveProfilePicture = async () => {
-    if (!profilePictureFile) {
-      alert('Please select a profile picture to upload.');
-      return;
-    }
-
-    setIsUploading(true);
-
-    try {
-      const formData = new FormData();
-      formData.append('profilePicture', profilePictureFile);
-
-      const response = await axios.post(
-        'https://serverwellnestclinic.onrender.com/api/change-profile-picture',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-      alert('Profile picture changed successfully.');
-    } catch (error) {
-      console.error('Error changing profile picture:', error);
-      alert('Unable to change profile picture.');
-    } finally {
-      setIsUploading(false);
-      setIsChangingProfilePicture(false);
-      setProfilePictureFile(null);
-    }
+  
+    return error;
   };
 
   const changePassword = async () => {
@@ -124,14 +49,18 @@ function MyProfileComp() {
     }
 
     try {
-      const response = await axios.put(
-        'https://serverwellnestclinic.onrender.com/api/change-password',
-        {
-          currentPassword: currentPassword,
-          newPassword: newPassword,
+      const errors = validationPassword({ password: newPassword });
+      setError(errors);
+
+      if (Object.keys(errors).length === 0){ 
+        const data = {
+          id: auth.user.id,
+          password: currentPassword,
+          newPassword: newPassword
         }
-      );
-      alert('Password changed successfully.');
+        dispatch(uploadImage(data))      
+      }
+
     } catch (error) {
       console.error('Error changing password:', error);
       alert('Unable to change password.');
@@ -142,113 +71,17 @@ function MyProfileComp() {
       setConfirmPassword('');
     }
   };
-
-  const changeAddress = async () => {
-    if (!currentAddress || !newAddress || !confirmAddress) {
-      alert('Please fill in all fields.');
-      return;
-    }
-
-    if (newAddress !== confirmAddress) {
-      alert('Addresses do not match.');
-      return;
-    }
-
-    try {
-      const response = await axios.put(
-        'https://serverwellnestclinic.onrender.com/api/change-address',
-        {
-          currentAddress: currentAddress,
-          newAddress: newAddress,
-        }
-      );
-      alert('Address changed successfully.');
-    } catch (error) {
-      console.error('Error changing address:', error);
-      alert('Unable to change address.');
-    } finally {
-      setIsChangingAddress(false);
-      setCurrentAddress('');
-      setNewAddress('');
-      setConfirmAddress('');
-    }
-  };
-
-  const changeContact = async () => {
-    if (!currentContact || !newContact || !confirmContact) {
-      alert('Please fill in all fields.');
-      return;
-    }
-
-    if (newContact !== confirmContact) {
-      alert('Contacts do not match.');
-      return;
-    }
-
-    try {
-      const response = await axios.put(
-        'https://serverwellnestclinic.onrender.com/api/change-contact',
-        {
-          currentContact: currentContact,
-          newContact: newContact,
-        }
-      );
-      alert('Contact changed successfully.');
-    } catch (error) {
-      console.error('Error changing contact:', error);
-      alert('Unable to change contact.');
-    } finally {
-      setIsChangingContact(false);
-      setCurrentContact('');
-      setNewContact('');
-      setConfirmContact('');
-    }
-  };
-
-  const cancelMembership = async () => {
-    const confirmation = window.confirm(
-      'Are you sure you want to cancel your membership? This action is irreversible.'
-    );
-
-    if (!confirmation) {
-      return;
-    }
-
-    try {
-      await axios.post(
-        'https://serverwellnestclinic.onrender.com/api/cancel-membership'
-      );
-      alert('Membership canceled successfully.');
-    } catch (error) {
-      console.error('Error canceling membership:', error);
-      alert('Unable to cancel membership.');
-    }
-  };
-
+  
   const toggleChangeProfilePicture = () => {
     setIsChangingProfilePicture(!isChangingProfilePicture);
     setIsChangingPassword(false);
-    setIsChangingAddress(false);
-    setIsChangingContact(false);
   };
 
   const toggleChangePassword = () => {
     setIsChangingPassword(!isChangingPassword);
-    setIsChangingAddress(false);
-    setIsChangingContact(false);
   };
 
-  const toggleChangeAddress = () => {
-    setIsChangingAddress(!isChangingAddress);
-    setIsChangingPassword(false);
-    setIsChangingContact(false);
-  };
-
-  const toggleChangeContact = () => {
-    setIsChangingContact(!isChangingContact);
-    setIsChangingPassword(false);
-    setIsChangingAddress(false);
-  };
+  
 
 
   return (

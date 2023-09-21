@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { uploadImage } from "../../redux/action/actions";
 import axios from 'axios';
 import style from "./ImageUpload.module.css";
+import { useAuth } from '../../Authenticator/AuthPro';
+
 
 const ImageUpload = () => {
   const dispatch = useDispatch();
   const imageUrl = useSelector((state) => state.imageUrl);
   const [selectedFile, setSelectedFile] = useState(null);
+  const auth = useAuth();
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
@@ -24,7 +27,7 @@ const ImageUpload = () => {
       .then((response) => {
         const imageUrl = response.data.secure_url;
         console.log(imageUrl)
-        dispatch(uploadImage(imageUrl));
+        dispatch(uploadImage({id: auth.user.id ,imageUrl: imageUrl}));
       })
       .catch((error) => {
         console.error('Error al subir la imagen a Cloudinary:', error);

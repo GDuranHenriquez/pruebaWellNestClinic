@@ -23,7 +23,7 @@ function MyProfilePage() {
       setIsLoading(false);
     })
         
-  }, [userRedux]);
+  }, []);
 
   return <ContinerHomePage>
     
