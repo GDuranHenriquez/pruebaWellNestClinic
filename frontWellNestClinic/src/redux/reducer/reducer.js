@@ -7,7 +7,7 @@ import {
   CANCEL_MEMBERSHIP,
   GENERIC_ERROR,
   LOGIN_USERMEMBER,
-  VERIFY_USERNAME,
+  DEFAUL_STATE,
   VERIFY_ISMEMBER,
   RESET_GENERIC_ERROR,
   RESET_IS_MEMBER,
@@ -49,7 +49,7 @@ const initialState = {
 
   totalProducts: 0,
   //shoppingCart
-  cartItems: [],
+  cartItems: {},
   selectedItems: [],
   totalPrice: 0,
   idProductsCart: [],
@@ -163,38 +163,8 @@ const userReducer = (state = initialState, action) => {
 
       return { ...state, cartItems: data, idProductsCart: productsInCart };
 
-    /* case REMOVE_FROM_CART:
-      // Eliminar un producto del carrito
-      updatedCartItemsRemove = state.cartItem-s.filter((item) => item.id !== action.payload.id);
-
-      return {
-        ...state,
-        cartItems: updatedCartItemsRemove,
-      }; */
-
-    /* case INCREASE_QUANTITY:
-      // Aumentar la cantidad de un producto en el carrito
-      const increasedCartItems = state.cartItems.map((item) =>
-        item.id === action.payload.id ? { ...item, quantity: item.quantity + 1 } : item
-      );
-
-      return {
-        ...state,
-        cartItems: increasedCartItems,
-      };
- */
-    /* case DECREASE_QUANTITY:
-      // Disminuir la cantidad de un producto en el carrito
-      const decreasedCartItems = state.cartItems.map((item) =>
-        item.id === action.payload.id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      );
-
-      return {
-        ...state,
-        cartItems: decreasedCartItems,
-      }; */
+    case DEFAUL_STATE:
+      return { ...action.payload }
     default:
       return { ...state };
   }

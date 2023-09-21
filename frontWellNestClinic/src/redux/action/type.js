@@ -40,3 +40,4 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const CLEAR_CART = 'CLEAR_CART';
 export const GET_CART_USER = 'GET_CART_USER';
 export const PAYMENT = 'PAYMENT';
+export const DEFAUL_STATE = 'DEFAUL_STATE';

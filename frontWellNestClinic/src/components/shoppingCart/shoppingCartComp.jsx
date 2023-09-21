@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { removeFromCart } from "../../redux/action/actions";
 import style from "./shoppingCartComp.module.css";
 import { useModal } from "../../utils/useModal";
 import CheckoutComp from "../Modales/checkout/checkoutComp";
@@ -44,9 +43,17 @@ function ShoppingCartComp() {
     if (Object.keys(cartItems.cart).length > 0) {
       setTotalPrice(calculateTotalPrice(cartItems.cart.products));
       setTotalQuantity(contarItems(idProductsCart));
+    }else{
+      setTotalPrice(0);
+      setTotalQuantity(0);
     }
   }, [cartItems, idProductsCart]);
 
+  const reset = () =>{
+    setTotalPrice(0);
+    setTotalQuantity(0);
+  };
+ 
   return (
     <div className={style.containerCartDetail}>
       <div className={style.divLink}>
@@ -65,7 +72,7 @@ function ShoppingCartComp() {
               : ""}
           </ul>
         </div>
-        <CheckoutComp isOpen={isOpenModal} closeModal={closeModal} />
+        <CheckoutComp isOpen={isOpenModal} closeModal={closeModal} reset = {reset}/>
       </div>
       <div className={style.TotalDetail}>
         <h2 className={style.resumen}>Order Summary</h2>
@@ -128,7 +135,7 @@ function CartItems({ prod }) {
   useEffect(() => {
     getImgUrl(prod.id);
     getAmount(prod.id);
-  }, []);
+  }, [prod]);
 
   const handleInpAmount = (newAmount) => {
     if (timerId) {

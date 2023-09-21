@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import AnimatedCheckmark from '../AnimatedCheckmark';
 
 
-function CheckoutComp({ isOpen, closeModal }) {
+function CheckoutComp({ isOpen, closeModal, reset }) {
   const dispatch = useDispatch();
   const stripe = useStripe();
   const navigate = useNavigate();
@@ -77,6 +77,7 @@ function CheckoutComp({ isOpen, closeModal }) {
         const { data } = await axios.post(endPoint, dataPayment, config);
         setIsLoading(false);
         setSucessPayment(true)
+        reset();
         setTimeout(() => {
           navigate("/my-orders");
         }, 2000)
