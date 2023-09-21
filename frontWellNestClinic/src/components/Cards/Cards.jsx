@@ -18,7 +18,7 @@ function Cards() {
 
   return (
     <div className={styles.cards}>
-      {allProducts.map((product) => (
+      {allProducts.length === 0 ? <p className={styles.notFound} >Not Products Found</p> : allProducts.map((product) => (
         <Card key={product.id} product ={ product } />
       ))}
     </div>

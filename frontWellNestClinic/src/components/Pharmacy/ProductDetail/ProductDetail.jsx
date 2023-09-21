@@ -8,13 +8,19 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from "../../../Authenticator/AuthPro";
 import { addToCart } from '../../../redux/action/actions';
 
+//Toast
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const ProductDetail = () => {
   const isAuth = useAuth();
   const dispatch = useDispatch();
   const products = useSelector((state) => state.detail);
   const IDProductsCart = useSelector((state) => state.idProductsCart);
+  const error = useSelector((state) => state.genericError);
   const [amount, setAmount] = useState(0);
   const [timerId, setTimerId] = useState(null);
+
 
   const addSubtractTocardButon = (e) => {
     if (e.target.name === 'add') {
@@ -53,9 +59,26 @@ const ProductDetail = () => {
     setTimerId(newTimerId);
   };
 
+  const addTocardButon = (e) =>{
+    const user = isAuth.user;
+    const addProduct = {
+      user: user.id,
+      productId: products.id,
+      amount: 1
+    }
+    dispatch(addToCart(addProduct))
+  }
+
+
   useEffect(() => {
     amountInp();
   }, [IDProductsCart])
+
+  useEffect(() => {
+    if(error){
+      messageError(error);
+    }
+  }, [error])
 
   const amountInp = () => {
     for (var i = 0; i < IDProductsCart.length; i++) {
@@ -67,6 +90,20 @@ const ProductDetail = () => {
     setAmount(0)
     return;
   }
+
+  const messageError = (message) => {
+    toast.error(message, {
+      position: "bottom-right",
+      autoClose: 3500,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
 
   return (
     <div className={style.containerDetail}>
@@ -94,8 +131,8 @@ const ProductDetail = () => {
                 <button id={style.btnAdd} name="subtract" onClick={addSubtractTocardButon}>-</button>
                 <input type="number" name="amount" id={style.inpAmount} value={amount} disabled />
                 <button id={style.btnAdd} name="add" onClick={addSubtractTocardButon}>+</button>
-              </span> : <button>
-                <p className={style.addTo}>Add to</p>
+              </span> : <button onClick={addTocardButon}>
+                <p className={style.addTo} >Add to</p>
                 <IconShoppingCart id={style.iconCart}></IconShoppingCart>{" "}
               </button>}
 
@@ -132,6 +169,7 @@ const ProductDetail = () => {
           <Score key={index} score={score} ></Score>
         )}
       </div>
+      <ToastContainer></ToastContainer>
     </div>
 
   );
@@ -140,12 +178,16 @@ const ProductDetail = () => {
 function Score({score}){
   const [star, setStart] = useState([]);
   const arrStart = [];
+
   useEffect(() => {
-    for(var i=0; i <= Number(score.stars); i++){
+    setStart([]);
+    for(var i=1; i <= score.stars; i++){
       arrStart.push(i)
     }
-    setStart(arrStart);
-  },[]);
+    setStart(arrStart)
+    console.log(arrStart)
+    
+  },[score]);
   
   return (
     <div className={style.unitScore}>

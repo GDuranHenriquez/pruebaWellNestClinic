@@ -406,7 +406,7 @@ export const getProductsFilter =
     } catch (error) {
       return dispatch({
         type: GENERIC_ERROR,
-        payload: null,
+        payload: error.response.data.error,
       });
     }
   };
