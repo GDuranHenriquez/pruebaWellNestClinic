@@ -7,8 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from "../../../Authenticator/AuthPro";
 import { addToCart } from '../../../redux/action/actions';
-import { index } from "mathjs";
-
 
 const ProductDetail = () => {
   const isAuth = useAuth();
@@ -143,7 +141,7 @@ function Score({score}){
   const [star, setStart] = useState([]);
   const arrStart = [];
   useEffect(() => {
-    for(var i=0; i < Number(score.stars); i++){
+    for(var i=0; i <= Number(score.stars); i++){
       arrStart.push(i)
     }
     setStart(arrStart);
