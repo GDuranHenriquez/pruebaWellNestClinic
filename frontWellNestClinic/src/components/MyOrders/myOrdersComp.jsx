@@ -9,13 +9,13 @@ function MyOrdersComp() {
   
   useEffect(() => {
     // Solicitud a la API para obtener las órdenes del usuario
-    axios.get('/api/orders')
+    /* axios.get('/api/orders')
       .then((response) => {
         setOrders(response.data);
       })
       .catch((error) => {
         console.error('Error al cargar las órdenes:', error);
-      });
+      }); */
 
     // Solicitud adicional para obtener las calificaciones y comentarios existentes
     // axios.get('/api/ratings')
@@ -48,7 +48,7 @@ function MyOrdersComp() {
     <div className={styles.myOrdersContainer}>
       <h2 className={styles.myOrdersTitle}>Mis Órdenes</h2>
       <ul className={styles.myOrderList}>
-        {orders.map((order) => (
+        {/* {orders.map((order) => (
           <li key={order.id} className={styles.myOrderItem}>
             <h3 className={styles.myOrderHeader}>Orden #{order.id}</h3>
             <div className={styles.myOrderProduct}>
@@ -85,7 +85,7 @@ function MyOrdersComp() {
               </button>
             </div>
           </li>
-        ))}
+        ))} */}
       </ul>
     </div>
   );
