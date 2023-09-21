@@ -10,7 +10,7 @@ export const Modal = styled.div`
   justify-content: center;
   display: grid;
   place-items: center;
-  background-color: rgba(0,0,0, 0.6);
+  background-color: rgba(0,0,0, 0.1);
   padding-top: calc(100vh * 0.08);
   color: white;
   font-weight: bold;

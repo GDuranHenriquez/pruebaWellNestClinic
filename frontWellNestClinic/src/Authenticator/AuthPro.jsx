@@ -1,8 +1,7 @@
 import { useContext, createContext, useState, useEffect } from "react";
 import Loading from "../components/Loading/Loading";
 import axios from "axios";
-import { useSelector, useDispatch } from 'react-redux'
-import { defaulState } from "../redux/action/actions";
+
 
 const AuthContext = createContext({
   isAuthenticated: false,
@@ -18,8 +17,7 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const state = useSelector((state) => state);
-  const dispatch = useDispatch()
+  
 
   useEffect(() => {
     checkAuth();

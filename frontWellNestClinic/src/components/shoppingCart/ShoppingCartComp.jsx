@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 
 function ShoppingCartComp() {
   const [isOpenModal, openModal, closeModal] = useModal(false);
-
+  
   const idProductsCart = useSelector((state) => state.idProductsCart);
   const cartItems = useSelector((state) => state.cartItems);
 

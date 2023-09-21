@@ -1,0 +1,81 @@
+.containerCard{
+  width: 90%;
+  height: max-content;
+  padding: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+
+}
+
+.liOrdes{
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: max-content;
+}
+
+.containerInfoSale{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+.name{
+  padding: 3px;
+  margin: 0;
+}
+
+.containerProducts{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  max-height: 400px;
+  width: 100%;
+}
+
+
+.detailProductContainer{
+  width: 60%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-items: center;
+  align-content: center;
+  max-height: 300px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+}
+.imgProduct{
+  display: flex;
+  justify-content: start;
+  width: 100px;
+  height: 100px;  
+  border-radius: 5px;
+}
+#imgProduct{
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.detailProduct{
+  justify-content: end;
+  width: 100%;
+  padding: 10px;
+}
+
+.btnReview{
+  margin: auto 0;
+  border-radius: 5px;
+  background-color: #007bff;
+  height: 50px;
+}
+.btnReview:hover{
+  cursor: pointer;
+  background-color: hsl(211, 100%, 50%, 0.8);
+}
