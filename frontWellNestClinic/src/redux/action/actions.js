@@ -465,7 +465,7 @@ export const uploadImage = (data) => {
       console.log(response)
       dispatch({
         type: UPLOAD_IMAGE_SUCCES,
-        payload: response.data,
+        payload: response.data.imageUrl,
       });
       
     } catch (error) {

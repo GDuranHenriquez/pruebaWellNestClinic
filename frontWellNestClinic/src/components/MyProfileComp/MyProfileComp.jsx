@@ -1,18 +1,20 @@
-import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import style from './MyProfile.module.css';
-import ImageUpload from '../ImageUpload/ImageUpload';
+import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import style from "./MyProfile.module.css";
+import ImageUpload from "../ImageUpload/ImageUpload";
 import validation from "../SignUp/Validation";
-import { useAuth } from '../../Authenticator/AuthPro';
+import { useAuth } from "../../Authenticator/AuthPro";
 import { uploadImage } from "../../redux/action/actions";
 
 function MyProfileComp() {
-  const [isChangingProfilePicture, setIsChangingProfilePicture] = useState(false);
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isChangingProfilePicture, setIsChangingProfilePicture] =
+    useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const imageUrl = useSelector((state) => state.imageUrl);
   const [error, setError] = useState({});
   const auth = useAuth();
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ function MyProfileComp() {
 
   const validationPassword = (userData) => {
     const error = {};
-  
+
     if (
       !/(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\\-/])/.test(
         userData.password
@@ -29,22 +31,22 @@ function MyProfileComp() {
     ) {
       error.password =
         "Password must contain at least one number, one letter, and one special character";
-    }  
+    }
     if (!(userData.password.length >= 8 && userData.password.length <= 32)) {
       error.password = "Password must have between 8 and 32 characters";
     }
-  
+
     return error;
   };
 
   const changePassword = async () => {
     if (!currentPassword || !newPassword || !confirmPassword) {
-      alert('Please fill in all fields.');
+      alert("Please fill in all fields.");
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      alert('Passwords do not match.');
+      alert("Passwords do not match.");
       return;
     }
 
@@ -52,26 +54,25 @@ function MyProfileComp() {
       const errors = validationPassword({ password: newPassword });
       setError(errors);
 
-      if (Object.keys(errors).length === 0){ 
+      if (Object.keys(errors).length === 0) {
         const data = {
           id: auth.user.id,
           password: currentPassword,
-          newPassword: newPassword
-        }
-        dispatch(uploadImage(data))      
+          newPassword: newPassword,
+        };
+        dispatch(uploadImage(data));
       }
-
     } catch (error) {
-      console.error('Error changing password:', error);
-      alert('Unable to change password.');
+      console.error("Error changing password:", error);
+      alert("Unable to change password.");
     } finally {
       setIsChangingPassword(false);
-      setCurrentPassword('');
-      setNewPassword('');
-      setConfirmPassword('');
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
     }
   };
-  
+
   const toggleChangeProfilePicture = () => {
     setIsChangingProfilePicture(!isChangingProfilePicture);
     setIsChangingPassword(false);
@@ -81,38 +82,84 @@ function MyProfileComp() {
     setIsChangingPassword(!isChangingPassword);
   };
 
-  
-
-
   return (
     <div className={style.profileContainer}>
       <div className={style.userProfile}>
-        <h1 id={style.fullName}>{userClient.name} {userClient.lastName}</h1>
-        <p>{userClient.email}</p>
-        <p>DNI: {userClient.dni}</p>
-        <p>Date of Birth: {userClient.birthDate}</p>
-        <p>Address: {userClient.address}</p>
-        <p>Contact: {userClient.backupContact}</p>
-        <p>Plan type and Status: {userClient.UserClient_Plan.name} and {`it's`} {userClient.activePlan? 'Active': 'Not Active'}</p>
-        <p>Next Payment Date: {userClient.upToDate}</p>
+        <h1 id={style.fullName}>
+          {userClient.name} {userClient.lastName}
+        </h1>
+        <div className={style.imageCont}>
+        {imageUrl && (
+          <img
+            className={style.previewImage}
+            src={imageUrl}
+            alt="Uploaded image"
+          />
+          )}
+          </div>
+
+        <div className={style.contenedorProperties}>
+          <p className={style.propert}>Email address </p>
+          <p className={style.valor}>: {userClient.email}</p>{" "}
+        </div>
+        <div className={style.contenedorProperties}>
+          <p className={style.propert}> DNI </p>
+          <p className={style.valor}>: {userClient.dni}</p>
+        </div>
+        <div className={style.contenedorProperties}>
+          <p className={style.propert}>Date of Birth</p>
+          <p className={style.valor}>: {userClient.birthDate}</p>
+        </div>
+        <div className={style.contenedorProperties}>
+          <p className={style.propert}> Address</p>
+          <p className={style.valor}>: {userClient.address}</p>
+        </div>
+        <div className={style.contenedorProperties}>
+          <p className={style.propert}> Contact </p>
+          <p className={style.valor}>: {userClient.backupContact}</p>
+        </div>
+        <div className={style.contenedorProperties}>
+          <p className={style.propert}>Plan & Status </p>
+          <p className={style.valor}>
+            : {userClient.UserClient_Plan.name} &{" "}
+            {userClient.activePlan ? "active" : "not active"}
+          </p>
+        </div>
+        <div className={style.contenedorProperties}>
+          <p className={style.propert}>Next Payment Date </p>
+          <p className={style.valor}>: {userClient.upToDate}</p>
+        </div>
       </div>
 
       <div className={style.configOptions}>
-        <h1>Configuration Options</h1>
+        <h1>Configuration options</h1>
         {/* Cambiar foto de perfil */}
         {isChangingProfilePicture ? (
-          <div>
-            <ImageUpload></ImageUpload>            
-              <button className={style.cancelButton} onClick={toggleChangeProfilePicture}>
-                Cancel
-              </button>
+          <div className={style.containerFoto}>
+            <ImageUpload
+              toggleChangeProfilePicture={toggleChangeProfilePicture}
+            ></ImageUpload>
+            {/* <div className={style.botonn}>
+            <button
+              className={style.cancelButton}
+              onClick={toggleChangeProfilePicture}
+            >
+              Cancel
+            </button>
+            </div> */}
           </div>
         ) : (
-          <button onClick={toggleChangeProfilePicture}>Change Profile Picture</button>
+          <button
+            id={style.chpic}
+            className={style.changePP}
+            onClick={toggleChangeProfilePicture}
+          >
+            Change profile picture
+          </button>
         )}
         {/* Cambiar contraseña */}
         {isChangingPassword ? (
-          <div>
+          <div className={style.containerPass}>
             <input
               type="password"
               placeholder="Current Password"
@@ -132,14 +179,18 @@ function MyProfileComp() {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <div>
-              <button onClick={changePassword}>Save Change</button>
-              <button className="cancel" onClick={toggleChangePassword}>
+              <button className={style.saveChange} onClick={changePassword}>
+                Save
+              </button>
+              <button className={style.cancel} onClick={toggleChangePassword}>
                 Cancel
               </button>
             </div>
           </div>
         ) : (
-          <button onClick={toggleChangePassword}>Change Password</button>
+          <button id={style.chpass} onClick={toggleChangePassword}>
+            Change Password
+          </button>
         )}
       </div>
     </div>

@@ -90,6 +90,9 @@ export const Modal = styled.div`
         
       }
     }
+    .orderSummary{
+     
+    }
   } 
   
 ` 

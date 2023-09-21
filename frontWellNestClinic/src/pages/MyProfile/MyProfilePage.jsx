@@ -39,7 +39,7 @@ function MyProfilePage() {
 const ContinerHomePage = styled.div`
   width: 100%;
   height: 100vh;
- padding-top: calc(100vh * (0.1));
+//  padding-top: calc(100vh * (0.1));
 
 `
 
