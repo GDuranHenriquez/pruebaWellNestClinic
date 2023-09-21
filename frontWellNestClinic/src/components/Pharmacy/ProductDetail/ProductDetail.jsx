@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { useAuth } from "../../../Authenticator/AuthPro";
 import { addToCart } from '../../../redux/action/actions';
+import { index } from "mathjs";
 
 
 const ProductDetail = () => {
@@ -151,7 +152,9 @@ function Score({score}){
   return (
     <div className={style.unitScore}>
       <p>Review: {score.text}</p>
-      <p>Rating: {score.stars}</p>
+      <p>{star.map((st, index) => (
+        <span key={index}>⭐</span>
+        ))}</p>
     </div>
   )
 }
