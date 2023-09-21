@@ -23,6 +23,7 @@ import {
   ADD_TO_CART,
   GET_CART_USER,
   UPLOAD_IMAGE_SUCCES,
+  GET_SALE
 } from "../action/type";
 
 const initialState = {
@@ -54,6 +55,8 @@ const initialState = {
   totalPrice: 0,
   idProductsCart: [],
   imageUrl: null,
+  //Sale
+  allSale: []
 };
 
 const userReducer = (state = initialState, action) => {
@@ -144,6 +147,8 @@ const userReducer = (state = initialState, action) => {
         ...state,
         imageUrl: action.payload,
       };
+    case GET_SALE:
+      return { ...state, allSale: action.payload }
     case ADD_TO_CART:
       var data = action.payload;
       var productsInCart = [];

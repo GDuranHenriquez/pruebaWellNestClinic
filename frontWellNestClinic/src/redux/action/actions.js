@@ -24,7 +24,8 @@ import {
   NOTHING,
   PAYMENT,
   UPLOAD_IMAGE_SUCCES,
-  DEFAUL_STATE
+  DEFAUL_STATE,
+  GET_SALE
 } from "./type.js";
 
 export const verifyUsername = (userName) => {
@@ -514,6 +515,29 @@ export const getCart = (userId) => {
       });
     } catch (error) {
       console.error("Error get cart:", error);
+    }
+  };
+};
+
+export const getSale = (userId) => {
+  return async (dispatch) => {
+    try {
+      const refreshToken = localStorage.getItem("token");
+      const endPoint =
+        import.meta.env.VITE_BASENDPOINT_BACK + `/sale/${userId}`;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
+      };
+      const response = await axios.get(endPoint, config);
+      dispatch({
+        type: GET_SALE,
+        payload: response.data,
+      });
+      return response.data
+    } catch (error) {
+      return error.response
     }
   };
 };

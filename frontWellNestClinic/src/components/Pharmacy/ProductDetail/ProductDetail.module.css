@@ -1,4 +1,15 @@
 /* Container Styles */
+.containerDetail{
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 30px;
+  justify-content: center;
+  height: 100%;
+}
+
+
+
 .container {
   display: flex;
   flex-direction: column;
@@ -6,7 +17,7 @@
   background-color: #d4e4f6;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 620px;
+  width: 50%;
   height: max-content;
   margin-top: 20px;
 }
@@ -280,4 +291,26 @@
   border: 1px solid rgb(0, 0, 0, 0.2);
   border-radius: 50%;
   padding: 0;
+}
+
+.infoscore{
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: black;
+  gap: 10px;
+  background-color: #d4e4f6;
+  margin-top: 20px;
+  border-radius: 10px;
+  overflow-y: scroll;
+  max-height: 500px;
+}
+
+.unitScore{
+  width: 90%;
+  height: max-content;
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  border-radius: 5px;
+  background-color: rgba(246, 243, 243, 0.745);
 }

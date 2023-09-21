@@ -22,12 +22,12 @@ const ProductDetail = () => {
       setAmount(Number(amount) + 1)
       handleInpAmount(Number(amount) + 1)
     } else if (e.target.name === 'subtract') {
-      if(Number(amount) - 1 < 0){
+      if (Number(amount) - 1 < 0) {
         null
-      }else{
+      } else {
         setAmount(Number(amount) - 1)
         handleInpAmount(Number(amount) - 1)
-      }      
+      }
     }
   };
   const cartContainer = () => {
@@ -59,75 +59,102 @@ const ProductDetail = () => {
   }, [IDProductsCart])
 
   const amountInp = () => {
-    for(var i = 0; i < IDProductsCart.length; i++){
-      if(products.id === IDProductsCart[i].id){
+    for (var i = 0; i < IDProductsCart.length; i++) {
+      if (products.id === IDProductsCart[i].id) {
         setAmount(IDProductsCart[i].amount);
         return;
-      }      
+      }
     }
     setAmount(0)
     return;
   }
 
   return (
-    <div className={style.container}>
-      <Link to="/pharmacy" className={style.link}>
-        <button className={style.backButton}>&larr; back</button>
-      </Link>
-      <div className={style.containerImgPrice}>
-        <div className={style.imgProducto} >
-          <img
-            className={style.image}
-            src={products.imageUrl}
-            alt="pharmacy product"
-          />
+    <div className={style.containerDetail}>
+      <div className={style.container}>
+        <Link to="/pharmacy" className={style.link}>
+          <button className={style.backButton}>&larr; back</button>
+        </Link>
+        <div className={style.containerImgPrice}>
+          <div className={style.imgProducto} >
+            <img
+              className={style.image}
+              src={products.imageUrl}
+              alt="pharmacy product"
+            />
+          </div>
+
+          <div className={style.info2}>
+            <h1 className={style.name}>{products.name}</h1>
+            <div className={style.price}> Price: ${products.price} </div>
+            <div className={style.rating} >
+              {startRating(products.Product_Average.averageRating)}
+            </div>
+            <div className={style.BtnAdd}>
+              {cartContainer(products.id) ? <span className={style.bntAddMinus}>
+                <button id={style.btnAdd} name="subtract" onClick={addSubtractTocardButon}>-</button>
+                <input type="number" name="amount" id={style.inpAmount} value={amount} disabled />
+                <button id={style.btnAdd} name="add" onClick={addSubtractTocardButon}>+</button>
+              </span> : <button>
+                <p className={style.addTo}>Add to</p>
+                <IconShoppingCart id={style.iconCart}></IconShoppingCart>{" "}
+              </button>}
+
+            </div>
+          </div>
+        </div>
+        <div className={style.contenedor}>
+          <div className={style.description}>Description</div>
+          <p className={style.descripcion}>{products.description}</p>
         </div>
 
-        <div className={style.info2}>
-          <h1 className={style.name}>{products.name}</h1>
-          <div className={style.price}> Price: ${products.price} </div>
-          <div className={style.rating} >
-            {startRating(products.Product_Average.averageRating)}
-          </div>
-          <div className={style.BtnAdd}>
-            {cartContainer(products.id) ? <span className={style.bntAddMinus}>
-              <button id={style.btnAdd} name="subtract" onClick={addSubtractTocardButon}>-</button>
-              <input type="number" name="amount" id={style.inpAmount} value={amount} disabled />
-              <button id={style.btnAdd} name="add" onClick={addSubtractTocardButon}>+</button>
-            </span> : <button>
-              <p className={style.addTo}>Add to</p>
-              <IconShoppingCart id={style.iconCart}></IconShoppingCart>{" "}
-            </button>}
-            
-          </div>
-        </div>
+        <li className={style.content}>
+          <ol >Dose: {products.dose} |</ol>
+          <ol >Amount: {products.amount} |</ol>
+          <ol >
+            Type: {products.Product_PresentationType.type}
+          </ol>
+        </li>
+
+        <li className={style.contentDos}>
+          <ol >
+            Laboratory: {products.Product_Laboratory.name} |
+          </ol>
+          <ol >
+            Drug: {products.drugs.map((drug) => drug.name)} |
+          </ol>
+          <ol >Left in stock: {products.stock}</ol>
+        </li>
+
       </div>
-      <div className={style.contenedor}>
-        <div className={style.description}>Description</div>
-        <p className={style.descripcion}>{products.description}</p>
+      <div className={style.infoscore}>
+        <h1>Comment Section</h1>
+        {products.Product_Score.map((score, index) => 
+          <Score key={index} score={score} ></Score>
+        )}
       </div>
-
-      <li className={style.content}>
-        <ol >Dose: {products.dose} |</ol>
-        <ol >Amount: {products.amount} |</ol>
-        <ol >
-          Type: {products.Product_PresentationType.type}
-        </ol>
-      </li>
-
-      <li className={style.contentDos}>
-        <ol >
-          Laboratory: {products.Product_Laboratory.name} |
-        </ol>
-        <ol >
-          Drug: {products.drugs.map((drug) => drug.name)} |
-        </ol>
-        <ol >Left in stock: {products.stock}</ol>
-      </li>
-
     </div>
+
   );
 };
+
+function Score({score}){
+  const [star, setStart] = useState([]);
+  const arrStart = [];
+  useEffect(() => {
+    for(var i=0; i < Number(score.stars); i++){
+      arrStart.push(i)
+    }
+    setStart(arrStart);
+  },[]);
+  
+  return (
+    <div className={style.unitScore}>
+      <p>Review: {score.text}</p>
+      <p>Rating: {score.stars}</p>
+    </div>
+  )
+}
 
 const startRating = (rating) => {
   //Numero de estrellas

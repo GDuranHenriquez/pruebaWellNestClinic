@@ -14,7 +14,7 @@ import { AuthProvider } from "./Authenticator/AuthPro";
 import DoctorsPage from "./pages/Doctors/DoctorsPage";
 import PurchaseDetail from "./components/Pharmacy/PurchaseDetail/PurchaseDetail";
 import DetailProductPages from "./pages/detailProduct/DetailProductPages";
-import MyOrdersPage from "./pages/MyOrders/myOrdersPage";
+import MyOrdersPage from "./pages/MyOrders/MyOrdersPage";
 import ShoppingCartPage from "./pages/shoppingCart/ShoppingCartPage";
 import { Elements} from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';

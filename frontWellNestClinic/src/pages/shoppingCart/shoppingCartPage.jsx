@@ -25,7 +25,7 @@ function ShoppingCartPage(){
 
   return (<div className={style.MyPharmacyPage}>
     <BackGrounPharmacy></BackGrounPharmacy>
-    {isLoading && Loading}
+    {isLoading && <Loading></Loading>}
     {Object.keys(cartItems).length > 0? <ShoppingCartComp/>:''}
   </div>)
 }
