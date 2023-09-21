@@ -15,10 +15,10 @@ import DoctorsPage from "./pages/Doctors/DoctorsPage";
 import PurchaseDetail from "./components/Pharmacy/PurchaseDetail/PurchaseDetail";
 import DetailProductPages from "./pages/detailProduct/DetailProductPages";
 import MyOrdersPage from "./pages/MyOrders/myOrdersPage";
-import AboutUs from "./components/AboutUs/AboutUs";
 import ShoppingCartPage from "./pages/shoppingCart/ShoppingCartPage";
 import { Elements} from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import AboutPage from './pages/About us/AboutPage'
 
 
 function App() {
@@ -64,7 +64,7 @@ function App() {
         },
         {
           path: "/about-us",
-          element: <AboutUs></AboutUs>,
+          element: <AboutPage></AboutPage>,
         },
 
         {

@@ -1,30 +1,31 @@
 .container {
-  background: url("https://res-3.cloudinary.com/the-university-of-melbourne/image/upload/s--XBshXWu0--/c_fill,f_auto,h_630,q_75,w_1200/v1/pursuit-uploads/4a3/d1a/39b/4a3d1a39b03e923e6b0920d6902d90c8a865b2f6655f76ef844282979ac2.jpg");
-  height: 100%;
-  background-size: cover;
-  position: fixed;
   text-align: center;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 15px;
 }
-.about{
+.about {
   color: black;
   font-size: 50px;
   height: 60px;
-
+  padding: 0px;
+  margin: 10px;
+  margin-bottom: 30px;
 }
-
-
 .texto {
+  padding: 20px;
   background-color: rgba(214, 216, 218, 0.858);
   width: 60%;
   justify-content: center;
   border-radius: 10px;
   margin-left: 19%;
-  height: 530px;
-  
+  height: max-content;
+}
+.containerSub1 {
+  height: max-content;
+}
+.containerSub2 {
+  margin-top: 20px;
+  height: max-content;
 }
 
 .subt {
@@ -34,7 +35,7 @@
   text-align: left;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin-left: 7px;
-  height: 19px;
+  margin: 0px;
 }
 
 .subt2 {
@@ -44,29 +45,23 @@
   text-align: left;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin-left: 7px;
-  height: 19px;
+  margin: 0px;
 }
 
 .p {
-  /* margin-top: 14px; */
   font-weight: 700;
   color: rgb(23, 23, 23);
   font-size: 17px;
   text-align: left;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin-left: 7px;
-  height: 30px;
-  height: 30px;
-  line-break:strict;
+
 }
 
 .p1 {
-  /* margin-top: 14px; */
   font-weight: 700;
   color: rgb(23, 23, 23);
   font-size: 17px;
   text-align: left;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  margin-left: 7px;
 }
-
